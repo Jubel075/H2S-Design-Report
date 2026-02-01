@@ -4,7 +4,8 @@
       "Bash(latexmk:*)",
       "Bash(makeindex:*)",
       "Bash(bibtex:*)",
-      "Bash(lualatex:*)"
+      "Bash(lualatex:*)",
+      "Bash(findstr:*)"
     ]
   }
 }
