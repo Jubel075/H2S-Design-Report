@@ -1,0 +1,119 @@
+% beamerthemestaatsolie.sty
+% Custom Beamer theme for Staatsolie presentations
+% Based on metropolis theme with Staatsolie color scheme
+
+\mode<presentation>
+
+% ============================================
+% Color Definitions (matching main report)
+% ============================================
+\definecolor{MainBlue}{RGB}{0,92,184}
+\definecolor{AccentA}{RGB}{33,97,140}
+\definecolor{AccentB}{RGB}{20,111,124}
+\definecolor{AccentC}{RGB}{123,36,28}
+\definecolor{Charcoal}{RGB}{60,60,60}
+\definecolor{HintGray}{RGB}{95,95,95}
+\definecolor{LightGray}{RGB}{245,245,245}
+
+% ============================================
+% Metropolis Base Theme
+% ============================================
+\usetheme{metropolis}
+
+% ============================================
+% Color Theme Customization
+% ============================================
+\setbeamercolor{normal text}{fg=Charcoal, bg=white}
+\setbeamercolor{alerted text}{fg=AccentC}
+\setbeamercolor{example text}{fg=AccentB}
+
+% Title page
+\setbeamercolor{title}{fg=white, bg=MainBlue}
+\setbeamercolor{author}{fg=Charcoal}
+\setbeamercolor{date}{fg=HintGray}
+\setbeamercolor{institute}{fg=HintGray}
+
+% Frame titles
+\setbeamercolor{frametitle}{fg=white, bg=MainBlue}
+\setbeamercolor{framesubtitle}{fg=HintGray}
+
+% Block environments
+\setbeamercolor{block title}{fg=white, bg=MainBlue}
+\setbeamercolor{block body}{fg=Charcoal, bg=LightGray}
+
+\setbeamercolor{block title alerted}{fg=white, bg=AccentC}
+\setbeamercolor{block body alerted}{fg=Charcoal, bg=AccentC!10}
+
+\setbeamercolor{block title example}{fg=white, bg=AccentB}
+\setbeamercolor{block body example}{fg=Charcoal, bg=AccentB!10}
+
+% Progress bar
+\setbeamercolor{progress bar}{fg=MainBlue, bg=MainBlue!20}
+
+% Footer
+\setbeamercolor{footline}{fg=HintGray}
+
+% ============================================
+% Font Customization
+% ============================================
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{footline}{size=\tiny}
+
+% ============================================
+% Layout Customization
+% ============================================
+% Progress bar at bottom
+\metroset{progressbar=frametitle}
+
+% Minimal footline (page number only)
+\setbeamertemplate{frame footer}{}
+\setbeamertemplate{footline}{
+    \hfill
+    \usebeamercolor[fg]{footline}
+    \usebeamerfont{footline}
+    \insertframenumber/\inserttotalframenumber
+    \hspace{3mm}
+    \vspace{2mm}
+}
+
+% ============================================
+% Custom Commands
+% ============================================
+% Highlight box
+\newcommand{\highlight}[1]{%
+    \colorbox{MainBlue!15}{\textcolor{MainBlue}{\textbf{#1}}}%
+}
+
+% Warning box
+\newcommand{\warning}[1]{%
+    \colorbox{AccentC!15}{\textcolor{AccentC}{\textbf{#1}}}%
+}
+
+% Success box
+\newcommand{\success}[1]{%
+    \colorbox{AccentB!15}{\textcolor{AccentB}{\textbf{#1}}}%
+}
+
+% ============================================
+% Item customization
+% ============================================
+\setbeamertemplate{itemize item}{\color{MainBlue}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{AccentA}$\circ$}
+\setbeamertemplate{itemize subsubitem}{\color{HintGray}--}
+
+\setbeamertemplate{enumerate item}{\color{MainBlue}\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\color{AccentA}\insertsubenumlabel.}
+
+% ============================================
+% Table of Contents
+% ============================================
+\setbeamertemplate{section in toc}[circle]
+\setbeamercolor{section in toc}{fg=MainBlue}
+\setbeamercolor{subsection in toc}{fg=Charcoal}
+
+\mode<all>

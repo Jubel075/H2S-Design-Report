@@ -1,0 +1,49 @@
+% Recommendation Summary - Technology Decision Visual
+% For use in Beamer presentation
+\begin{tikzpicture}[
+    font=\small,
+    box/.style={rectangle, draw, thick, rounded corners=3pt, minimum width=5cm, minimum height=0.6cm, align=center},
+    header/.style={font=\bfseries, minimum height=0.8cm},
+]
+    % Column headers
+    \node[header, AccentC] at (2.5,4.5) {Packed Column};
+    \node[header, MainBlue] at (8.5,4.5) {SCT Static Mixer};
+
+    % Packed Column cons (left)
+    \node[box, fill=AccentC!10, text=AccentC] at (2.5,3.6) {IRR: 5.3\% $<$ 15\% hurdle};
+    \node[box, fill=AccentC!10, text=AccentC] at (2.5,2.8) {NPV: --\$87,000};
+    \node[box, fill=AccentC!10, text=AccentC] at (2.5,2.0) {NaOH: 418 ton/yr};
+    \node[box, fill=AccentC!10, text=AccentC] at (2.5,1.2) {CO$_2$ absorption: 50--80\%};
+
+    % SCT pros (right)
+    \node[box, fill=MainBlue!10, text=MainBlue] at (8.5,3.6) {IRR: 22.8\% $>$ 15\% hurdle};
+    \node[box, fill=MainBlue!10, text=MainBlue] at (8.5,2.8) {NPV: +\$1,060,000};
+    \node[box, fill=MainBlue!10, text=MainBlue] at (8.5,2.0) {NaOH: 46 ton/yr};
+    \node[box, fill=MainBlue!10, text=MainBlue] at (8.5,1.2) {CO$_2$ absorption: 2--10\%};
+
+    % X marks for Packed
+    \foreach \y in {3.6, 2.8, 2.0, 1.2} {
+        \node[AccentC, font=\Large\bfseries] at (0.2,\y) {$\times$};
+    }
+
+    % Checkmarks for SCT
+    \foreach \y in {3.6, 2.8, 2.0, 1.2} {
+        \node[MainBlue, font=\Large\bfseries] at (6.2,\y) {$\checkmark$};
+    }
+
+    % Divider line
+    \draw[thick, gray!50] (5.5,0.5) -- (5.5,4.2);
+
+    % Recommendation banner
+    \fill[MainBlue] (-0.3,0) rectangle (11.3,-0.8);
+    \node[white, font=\Large\bfseries] at (5.5,-0.4) {RECOMMENDED: SCT Static Mixer Technology};
+
+    % Next steps section
+    \node[font=\bfseries, anchor=west] at (-0.3,-1.4) {Next Steps:};
+
+    \node[anchor=west, font=\small] at (0,-1.9) {1. Issue RFQ to SCT vendors (Merichem, Trimeric, Koch-Glitsch)};
+    \node[anchor=west, font=\small] at (0,-2.4) {2. Validate diesel displacement via operational data};
+    \node[anchor=west, font=\small] at (0,-2.9) {3. Conduct HAZID workshop};
+    \node[anchor=west, font=\small] at (0,-3.4) {4. Proceed to FEED study};
+
+\end{tikzpicture}
