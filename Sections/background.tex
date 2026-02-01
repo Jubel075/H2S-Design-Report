@@ -1,0 +1,88 @@
+% =========================================================
+% Section 2: Background and Scope
+% =========================================================
+
+\section{Background and Scope}
+\label{sec:background_scope}
+
+\nomenclature[A]{\ce{SO2}}{Sulfur dioxide}
+\nomenclature[A]{HPG}{High-Performance Gas (engine designation)}
+
+\subsection{Site Context and Problem Definition}
+TA-58 produces a methane-rich associated gas stream containing elevated \ce{H2S} concentrations that exceed the fuel quality specification for the installed Caterpillar G3408 (HPG) dual-gas engines. Under current operating practice, most associated gas is routed to flare while the pump station relies predominantly on diesel to supply mechanical loads. A minor fraction of associated gas is used for low-grade heating service where \ce{H2S} content is not limiting. Unless otherwise noted, feed-gas characterisation is taken from the TA-58 dataset \cite{TA58Dataset}.
+
+The current operating baseline estimates diesel expenditure at approximately \SI{500000}{\USD\per\yr} for pump station power. Two gas engines are planned to displace this diesel consumption, contingent upon implementation of a treating system that can deliver on-spec fuel gas under continuous operation. This diesel baseline is treated as an input assumption and shall be validated against historical fuel consumption records, runtime logs, and delivered diesel pricing in subsequent project phases.
+
+Table~\ref{tab:current_baseline} summarises the current operating condition and the primary problem drivers.
+
+\begin{table}[H]
+\centering
+\caption{Current TA-58 baseline operating condition}
+\label{tab:current_baseline}
+\begin{tabular}{@{}lp{0.55\textwidth}@{}}
+\toprule
+\textbf{Parameter} & \textbf{Current Status} \\
+\midrule
+Associated gas disposition & Predominantly flared; minor fraction to low-grade heating \\
+\ce{H2S} concentration & \SI{1800}{ppmv} (exceeds \SI{45}{ppmv} engine limit) \\
+Pump station power & Diesel-fueled (estimated \SI{500000}{\USD\per\yr}) \\
+Engine capacity & Two Caterpillar G3408 (HPG) units awaiting fuel supply \\
+Environmental impact & \ce{SO2} from flaring; \ce{CO2} from flaring and diesel combustion \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Implementation of an \ce{H2S} removal system enables three linked outcomes: (i) provision of on-spec fuel gas for reliable engine operation; (ii) reduction of routine flaring and associated \ce{SO2} emissions; and (iii) displacement of diesel consumption with corresponding reductions in \ce{CO2} emissions and operating expenditure.
+
+\subsection{Study Scope and Deliverables}
+This study evaluates the technical and economic feasibility of a treating scheme to produce engine-quality fuel gas from the TA-58 sour associated gas stream. The scope comprises:
+\begin{romanlist}
+  \item feed characterisation and establishment of the design basis, including normal operation and expected compositional variability;
+  \item screening and comparative evaluation of applicable \ce{H2S} removal technologies against technical, economic, and operational criteria;
+  \item development of a conceptual treating configuration with preliminary equipment sizing, process flow diagrams, and material balances;
+  \item techno-economic assessment anchored to the \SI{500000}{\USD\per\yr} diesel displacement baseline, including capital cost estimation, operating expenditure projection, and economic performance indicators;
+  \item definition of integration requirements with existing fuel-gas systems, engine fuel supply, and site utilities.
+\end{romanlist}
+
+Items excluded from the present phase include detailed engineering deliverables, vendor performance guarantees, formal process safety studies (HAZID/HAZOP/LOPA), procurement and construction support, regulatory permitting beyond screening-level assessment, and execution planning including commissioning and start-up procedures.
+
+\subsection{Technology Screening Summary}
+The design basis establishes an inlet \ce{H2S} concentration of approximately \SI{1800}{ppmv}, requiring reduction to $<\SI{45}{ppmv}$ for engine fuel service (approximately 97.5\% removal). The screening evaluation considered technologies capable of achieving this performance while supporting diesel displacement on the order of \SI{500000}{\USD\per\yr}.
+
+The preferred configuration comprises caustic scrubbing for \ce{H2S} removal coupled with biological treatment of a controlled spent-caustic blowdown stream. This selection reflects operability at low pressure with tolerance to limited liquid carryover, and the potential to stabilise sulfide into less hazardous sulfur species (elemental sulfur and/or sulfate), thereby reducing life-cycle liquid waste burden \cite{Borges2025,Vikromvarasiri2017}. A key design consideration is the presence of \ce{CO2}: \ce{CO2} absorption in caustic is kinetically slower than \ce{H2S}, which can be exploited by contactor design and operating strategy to improve selectivity and limit unnecessary caustic consumption \cite{AFPM2014}.
+
+Alternative technologies were not advanced based on the assessment in Table~\ref{tab:alternatives_screening}.
+
+\begin{table}[H]
+\centering
+\caption{Technology screening: alternatives not advanced}
+\label{tab:alternatives_screening}
+\small
+\begin{tabularx}{\textwidth}{@{}lYl@{}}
+\toprule
+\textbf{Technology} & \textbf{Technical Limitation} & \textbf{Reference} \\
+\midrule
+Membrane + ZnO polishing &
+\ce{H2S}-rich permeate requires handling; periodic ZnO media replacement creates recurring solids logistics &
+\cite{Rao2023,Sadegh-Vaziri2019} \\
+\addlinespace
+Liquid redox (LO-CAT\textsuperscript{\textregistered}) &
+Higher capital cost, larger footprint, and sensitivity to sulfur deposition without stringent operational control &
+\cite{Pudi2022,AFPM2014} \\
+\addlinespace
+Chemical scavengers &
+Unsustainable operating cost for continuous service at the site sulfur throughput; better suited to small or intermittent streams &
+\cite{Pudi2022,Sadegh-Vaziri2019} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Strategic Alignment}
+The selected configuration aligns with strategic principles emphasising sulfur mass-balance closure, continuous operability, and life-cycle waste minimisation:
+\begin{romanlist}
+  \item absorbed sulfide can be biologically oxidised to stable products (elemental sulfur and/or sulfate), reducing hazardous liquid waste accumulation and supporting controllable disposal routes \cite{Borges2025,Trisakti2025};
+  \item regenerative treatment supports long-term operation with reduced downtime relative to batch scavenger replacement;
+  \item conversion to stable sulfur products reduces hazardous liquid waste generation and can simplify disposal over the asset life, subject to site-specific waste handling constraints.
+\end{romanlist}
+
+These considerations support progression of the caustic-biological hybrid configuration to conceptual design and feasibility assessment as documented in subsequent sections.

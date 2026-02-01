@@ -1,0 +1,97 @@
+% =========================================================
+% Section 2: Introduction and Design Basis
+% =========================================================
+
+\section{Introduction and Design Basis}
+\label{sec:introduction}
+
+% Essential nomenclature entries
+\nomenclature[A]{SCFD}{Standard Cubic Feet per Day}
+\nomenclature[A]{VRU}{Vapor Recovery Unit}
+\nomenclature[A]{MBBR}{Moving Bed Biofilm Reactor}
+\nomenclature[A]{SCT}{Short Contact Time}
+\nomenclature[A]{IRR}{Internal Rate of Return}
+\nomenclature[A]{NPV}{Net Present Value}
+\nomenclature[A]{TIC}{Total Installed Cost}
+\nomenclature[A]{HETP}{Height Equivalent to a Theoretical Plate}
+\nomenclature[P]{$N_{TU}$}{Number of Transfer Units (dimensionless)}
+\nomenclature[P]{$HTU$}{Height of a Transfer Unit (\si{m})}
+\nomenclature[P]{Ha}{Hatta number (dimensionless)}
+\nomenclature[P]{Da}{Damk\"ohler number (dimensionless)}
+\nomenclature[P]{$S$}{Selectivity (dimensionless)}
+\nomenclature[P]{$E$}{Enhancement factor (dimensionless)}
+
+\subsection{Problem Definition}
+
+TA-58 produces a methane-rich associated gas stream containing \SI{1800}{ppmv} \ce{H2S}, exceeding the \SI{45}{ppmv} fuel specification for the installed Caterpillar G3408 (HPG) dual-gas engines \cite{TA58Dataset}. Under current practice, most associated gas is routed to flare while the pump station relies on diesel at an estimated \SI{500000}{\USD\per\yr}. Implementation of an \ce{H2S} removal system enables: (i) on-spec fuel gas for engine operation; (ii) reduced routine flaring and \ce{SO2} emissions; and (iii) diesel displacement with corresponding \ce{CO2} and cost reductions.
+
+The gas stream also contains \SI{2.86}{\percent} \ce{CO2} (\SI{28550}{ppmv}), which creates a selectivity challenge: non-selective absorption would consume caustic at rates that render the project economically unviable. As Pudi et al.\ \cite{Pudi2022} note in their comprehensive review of \ce{H2S} capture technologies, the presence of \ce{CO2} fundamentally influences technology selection and operating strategy for sour gas treatment.
+
+\subsection{Study Scope}
+
+This study evaluates the technical and economic feasibility of treating the TA-58 sour associated gas to engine fuel-gas specification. The scope comprises:
+\begin{romanlist}
+  \item feed characterisation and design basis establishment;
+  \item comparative evaluation of applicable \ce{H2S} removal technologies;
+  \item conceptual equipment sizing with material balances;
+  \item techno-economic assessment against the diesel displacement baseline;
+  \item integration requirements with existing systems.
+\end{romanlist}
+
+Exclusions: detailed engineering, vendor guarantees, formal process safety studies (HAZID/HAZOP/LOPA), procurement, permitting, and commissioning support.
+
+\subsection{Design Basis}
+
+The key design inputs are summarised in Table~\ref{tab:design_basis_intro}, based on operational data from the TA-58 facility \cite{TA58Dataset}.
+
+\begin{table}[H]
+\centering
+\caption{Design basis parameters}
+\label{tab:design_basis_intro}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+\midrule
+Gas source & VRU discharge & --- \\
+Flow rate (standard) & 660,000 & SCFD \\
+Flow rate (SI equivalent) & 779 & Nm$^3$/h \\
+Total molar flow & 31.3 & kmol/h \\
+Inlet \ce{H2S} & 1,800 & ppmv \\
+Inlet \ce{CO2} & 28,550 & ppmv (2.86\%) \\
+Required outlet \ce{H2S} & $<45$ & ppmv \\
+Removal efficiency & $>97.5$ & \% \\
+Operating temperature & 25--40 & \si{\celsius} \\
+Operating pressure & Atmospheric & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At the design flow rate, the component molar flows are:
+\begin{itemize}
+\item \textbf{\ce{H2S} load:} $31.3 \times 0.0018 = \SI{0.056}{kmol/h}$ (\SI{1.9}{kg/h} or \SI{46}{kg/day})
+\item \textbf{\ce{CO2} load:} $31.3 \times 0.0286 = \SI{0.90}{kmol/h}$ (\SI{39}{kg/h})
+\item \textbf{Molar ratio \ce{CO2}/\ce{H2S}:} $\approx 16:1$
+\end{itemize}
+
+The 16-fold excess of \ce{CO2} relative to \ce{H2S} creates the central design challenge: if \ce{CO2} is absorbed non-selectively alongside \ce{H2S}, caustic consumption becomes economically prohibitive (see Section~\ref{sec:technology_options}).
+
+\subsection{Technology Screening Summary}
+
+The screening evaluation considered technologies capable of reducing \ce{H2S} from \SI{1800}{ppmv} to $<\SI{45}{ppmv}$ (approximately 97.5\% removal). Caustic scrubbing was selected for detailed evaluation based on operability at low pressure, tolerance to liquid carryover, and potential for sulfide stabilisation via biological treatment \cite{Pudi2022}. Alternative technologies (membrane + ZnO, liquid redox, chemical scavengers) were not advanced due to technical or economic limitations at the site scale.
+
+A key design consideration is the presence of \ce{CO2}: the rate constant for \ce{CO2} absorption in caustic is approximately $10^6$ times slower than for \ce{H2S}, which can be exploited through contactor design to achieve selective removal and limit caustic consumption \cite{AFPM2014,Danckwerts1965,astarita1983}.
+
+Figure~\ref{fig:h2s-logic-clean} illustrates the design logic flow from feed characterisation through to operability limits, highlighting the critical linkages between feed conditions, solvent selection, and equipment sizing.
+
+\input{Graphics/design_mindmap.tex}
+
+\subsection{Decision Criteria}
+
+Project progression is recommended when:
+\begin{romanlist}
+  \item treated gas meets \SI{45}{ppmv} \ce{H2S} specification;
+  \item a practical sulfur-handling route is defined;
+  \item screening-level risk assessment indicates manageable hazards;
+  \item positive economics relative to diesel displacement at AACE Class~3 maturity;
+  \item tie-ins are feasible within site constraints.
+\end{romanlist}

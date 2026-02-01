@@ -1,0 +1,98 @@
+\begin{figure}[H]
+\centering
+\fbox{\begin{tikzpicture}[
+    scale=0.9,
+    font=\small,
+    >=Stealth,
+    line width=0.8pt,
+]
+
+% Column vessel outline
+\def\colW{2.5}   % column width
+\def\colH{8.0}   % total column height
+\def\sumpH{1.2}  % sump height
+\def\packH{4.0}  % packing height
+\def\distH{0.4}  % distributor height
+\def\mistH{0.6}  % mist eliminator height
+
+% Main vessel
+\draw[thick] (0,0) -- (0,\colH) -- (\colW,\colH) -- (\colW,0) -- cycle;
+
+% Sump section
+\draw[thick] (0,\sumpH) -- (\colW,\sumpH);
+\node[font=\scriptsize, align=center] at (\colW/2, \sumpH/2) {Sump\\(liquid holdup)};
+
+% Packing support
+\draw[thick] (0.1,\sumpH+0.1) -- (\colW-0.1,\sumpH+0.1);
+\node[font=\tiny, anchor=west] at (\colW+0.1, \sumpH+0.1) {Support grid};
+
+% Packing section (hatched)
+\foreach \y in {0,0.3,...,3.9} {
+    \draw[gray, thin] (0.15,\sumpH+0.2+\y) -- (\colW-0.15,\sumpH+0.5+\y);
+    \draw[gray, thin] (0.15,\sumpH+0.5+\y) -- (\colW-0.15,\sumpH+0.2+\y);
+}
+\draw[thick] (0,\sumpH+\packH) -- (\colW,\sumpH+\packH);
+
+% Packing label
+\draw[<->, thick] (\colW+0.3, \sumpH+0.2) -- (\colW+0.3, \sumpH+\packH-0.1);
+\node[font=\scriptsize, anchor=west, align=left] at (\colW+0.4, \sumpH+\packH/2) {Structured\\packing\\2.8~m};
+
+% Liquid distributor
+\draw[thick, fill=white] (0.3,\sumpH+\packH+0.3) rectangle (\colW-0.3,\sumpH+\packH+0.3+\distH);
+\foreach \x in {0.5,0.9,1.3,1.7,2.1} {
+    \draw[MainBlue, thick] (\x,\sumpH+\packH+0.3) -- (\x,\sumpH+\packH+0.1);
+}
+\node[font=\scriptsize, anchor=west] at (\colW+0.1, \sumpH+\packH+0.5) {Distributor};
+
+% Mist eliminator
+\draw[thick] (0.1,\colH-\mistH-0.5) -- (\colW-0.1,\colH-\mistH-0.5);
+\draw[thick] (0.1,\colH-0.5) -- (\colW-0.1,\colH-0.5);
+\foreach \y in {0,0.15,...,0.55} {
+    \draw[gray] (0.2,\colH-\mistH-0.4+\y) sin (0.6,\colH-\mistH-0.3+\y) cos (1.0,\colH-\mistH-0.4+\y) sin (1.4,\colH-\mistH-0.3+\y) cos (1.8,\colH-\mistH-0.4+\y) sin (2.2,\colH-\mistH-0.3+\y);
+}
+\node[font=\scriptsize, anchor=west] at (\colW+0.1, \colH-\mistH/2-0.5) {Mist eliminator};
+
+% Gas inlet (bottom)
+\draw[AccentC, very thick, ->] (-1.5,\sumpH+0.5) -- (0,\sumpH+0.5);
+\node[AccentC, font=\scriptsize, anchor=east, align=right] at (-1.6,\sumpH+0.5) {Sour gas\\660k SCFD\\1800 ppmv \ce{H2S}};
+
+% Gas outlet (top)
+\draw[AccentA, very thick, ->] (\colW/2,\colH) -- (\colW/2,\colH+0.8);
+\node[AccentA, font=\scriptsize, anchor=south, align=center] at (\colW/2,\colH+0.9) {Sweet gas\\$<$45 ppmv \ce{H2S}};
+
+% Liquid inlet (top)
+\draw[MainBlue, very thick, ->] (-1.0,\sumpH+\packH+0.5) -- (0.3,\sumpH+\packH+0.5);
+\node[MainBlue, font=\scriptsize, anchor=east, align=right] at (-1.1,\sumpH+\packH+0.5) {Fresh \ce{NaOH}\\(5 wt\%)};
+
+% Liquid outlet / recirculation
+\draw[MainBlue, thick, ->] (\colW,\sumpH/2) -- (\colW+1.0,\sumpH/2) -- (\colW+1.0,-0.5) node[midway, anchor=west, font=\scriptsize] {Recirculation};
+\draw[MainBlue, thick, ->] (\colW+1.0,-0.5) -- (\colW+1.0,-1.2);
+
+% Pump symbol
+\draw[thick] (\colW+0.7,-1.5) circle (0.3);
+\draw[thick] (\colW+0.7,-1.2) -- (\colW+0.7,-1.5);
+\draw[thick, ->] (\colW+1.0,-1.5) -- (\colW+1.3,-1.5) -- (\colW+1.3,\sumpH+\packH+0.5) -- (\colW,\sumpH+\packH+0.5);
+\node[font=\tiny, anchor=north] at (\colW+0.7,-1.8) {Recirc. pump};
+
+% Blowdown
+\draw[AccentC, thick, ->] (\colW+1.0,-0.8) -- (\colW+2.0,-0.8);
+\node[AccentC, font=\scriptsize, anchor=west] at (\colW+2.1,-0.8) {Blowdown to\\spent caustic\\treatment};
+
+% Dimension: column diameter
+\draw[<->, thick] (0,-0.4) -- (\colW,-0.4);
+\node[font=\scriptsize, anchor=north] at (\colW/2,-0.5) {0.75~m (30~in)};
+
+% Dimension: total height
+\draw[<->, thick] (-0.5,0) -- (-0.5,\colH);
+\node[font=\scriptsize, anchor=east, align=right] at (-0.6,\colH/2) {Total\\5.5~m};
+
+% Flow direction arrows inside column
+\draw[AccentC, ->, thick] (\colW/2-0.3,\sumpH+1.0) -- (\colW/2-0.3,\sumpH+3.5);
+\draw[MainBlue, ->, thick] (\colW/2+0.3,\sumpH+3.5) -- (\colW/2+0.3,\sumpH+1.0);
+\node[font=\tiny, AccentC] at (\colW/2-0.5,\sumpH+2.2) {Gas};
+\node[font=\tiny, MainBlue] at (\colW/2+0.6,\sumpH+2.2) {Liquid};
+
+\end{tikzpicture}}
+\caption{Packed column scrubber schematic for 660,000~SCFD sour gas treatment. Counter-current flow with gas entering bottom and caustic distributed from top. Key dimensions: 0.75~m diameter, 2.8~m packed height, 5.5~m total height.}
+\label{fig:packed_column}
+\end{figure}

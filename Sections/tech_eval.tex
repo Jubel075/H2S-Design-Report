@@ -1,0 +1,322 @@
+% =========================================================
+% 5.Technical Evaluation
+% =========================================================
+
+\section{Technical Evaluation}
+\label{sec:tech_eval}
+
+\nomenclature[P]{$a$}{Packing specific surface area (\si{m^2/m^3})}
+\nomenclature[P]{$C_{sb}$}{Capacity coefficient for flooding correlation (dimensionless)}
+\nomenclature[P]{$D$}{Column internal diameter (\si{m})}
+\nomenclature[P]{$F_p$}{Packing factor (\si{m^{-1}})}
+\nomenclature[P]{$L/G$}{Liquid-to-gas mass flux ratio (\si{kg/kg})}
+\nomenclature[P]{$Q$}{Volumetric flow rate (\si{m^3/s})}
+\nomenclature[P]{$u$}{Superficial velocity (\si{m/s})}
+\nomenclature[P]{$X$}{Flow parameter, $(L/G)\sqrt{\rho_G/\rho_L}$ (dimensionless)}
+\nomenclature[P]{$y$}{Gas-phase mole fraction (dimensionless)}
+\nomenclature[P]{$Z$}{Packed bed height (\si{m})}
+\nomenclature[G]{$\varepsilon$}{Void fraction (dimensionless)}
+\nomenclature[G]{$\eta$}{Removal efficiency (dimensionless)}
+\nomenclature[G]{$\rho$}{Density (\si{kg/m^3})}
+\nomenclature[A]{HETP}{Height Equivalent to Theoretical Plate (\si{m})}
+\nomenclature[A]{NTU}{Number of Transfer Units (dimensionless)}
+
+\subsection{Theoretical Framework and Design Methodology}
+
+The design of gas-liquid packed absorbers is grounded in the differential material balance across the contactor, integrated with rate expressions describing interfacial mass transfer. For a counter-current absorber operating under isothermal conditions, the fundamental design equation emerges from the gas-phase material balance over an infinitesimal packed height $dZ$:
+
+\begin{equation}
+-G_M \, dy = K_G a \, (y - y^*) \, A \, dZ
+\label{eq:fundamental_balance}
+\end{equation}
+
+where $G_M$ represents the molar gas flux, $K_G$ is the overall gas-phase mass transfer coefficient, $a$ is the interfacial area per unit volume, $y$ is the bulk gas-phase mole fraction, and $y^*$ is the equilibrium mole fraction. Separating variables and integrating yields the Number of Transfer Units:
+
+\begin{equation}
+\NTUog = \int_{y_{\text{out}}}^{y_{\text{in}}} \frac{dy}{y - y^*}
+\label{eq:ntu_integral}
+\end{equation}
+
+The Height of a Transfer Unit is defined as $\HTUog = G_M / (K_G a \rho_G)$. The required packed height then follows:
+
+\begin{equation}
+Z = \HTUog \times \NTUog
+\label{eq:htu_ntu_height}
+\end{equation}
+
+For systems exhibiting fast irreversible chemical reaction in the liquid phase—such as \HtwoS~absorption in strongly alkaline solutions—the equilibrium concentration at the gas-liquid interface approaches zero ($y^* \approx 0$). This deep absorption regime simplifies Equation~\ref{eq:ntu_integral} to:
+
+\begin{equation}
+\NTUog = \ln\left(\frac{y_{\text{in}}}{y_{\text{out}}}\right)
+\label{eq:ntu_dilute_simplified}
+\end{equation}
+
+In engineering practice, the Height Equivalent to Theoretical Plate (HETP) concept is employed due to extensive empirical databases. The Wankat correlation for random packings in caustic absorption service expresses HETP as:
+
+\begin{equation}
+\text{HETP} = \frac{100}{a} + 0.1 \quad [\si{m}]
+\label{eq:hetp_wankat_simplified}
+\end{equation}
+
+where $a$ is specific surface area in \si{m^2/m^3}. This correlation applies for $50 \leq a \leq 400$~\si{m^2/m^3} and captures the inverse dependence of mass transfer efficiency on available interfacial area~\cite{wankat2017}.
+
+\subsection{Mass Transfer Design and Performance Analysis}
+
+For the TA-58 application, the packing specifications and calculated mass transfer parameters are presented in Table~\ref{tab:mt_parameters}.
+
+\begin{table}[H]
+\centering
+\caption{Mass transfer design parameters}
+\label{tab:mt_parameters}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Packing specification}} \\
+Type & \multicolumn{2}{c}{Pall Ring, 25~mm, Plastic} \\
+Specific surface area ($a$) & 225 & \si{m^2/m^3} \\
+Void fraction ($\varepsilon$) & 0.92 & --- \\
+Packing factor ($F_p$) & 110 & \si{m^{-1}} \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Mass transfer performance}} \\
+HETP (Wankat) & 0.544 & m \\
+\NTUog~(\HtwoS) & 3.91 & --- \\
+\NTUog~(\COtwo) & 3.00 & --- \\
+Required height (before SF) & 2.13 & m \\
+Design height (with 15\% SF) & 2.45 & m \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The number of transfer units required for \HtwoS~removal from $y_{\text{in}} = 0.001800$ to $y_{\text{out}} = 0.000036$ (98.0\% removal) follows from Equation~\ref{eq:ntu_dilute_simplified}:
+
+\begin{equation}
+\NTUog = \ln\left(\frac{0.001800}{0.000036}\right) = \ln(50) = 3.91
+\end{equation}
+
+The required packed height combines the HETP and NTU values:
+
+\begin{equation}
+Z_{\text{required}} = \text{HETP} \times \NTUog = (0.544)(3.91) = \SI{2.13}{m}
+\end{equation}
+
+Applying the 15\% height safety factor yields design height $Z_{\text{design}} = \SI{2.45}{m}$ (8.0~ft), which is modest for commercial absorbers and reflects favorable mass transfer characteristics of the fast \HtwoS-\NaOH~reaction.
+
+\subsection{Hydraulic Design and Flooding Analysis}
+
+The hydraulic capacity of packed columns is limited by flooding. The Billet-Schultes correlation~\cite{Kolmetz2011} introduces a dimensionless flow parameter:
+
+\begin{equation}
+X = \frac{L}{G} \sqrt{\frac{\rho_G}{\rho_L}}
+\label{eq:flow_parameter_simplified}
+\end{equation}
+
+For the design basis ($L/G = 2.0$~kg/kg, $\rho_G = 0.700$~kg/m³, $\rho_L = 1247$~kg/m³):
+
+\begin{equation}
+X = (2.0) \sqrt{\frac{0.700}{1247}} = 0.0473
+\end{equation}
+
+The capacity coefficient accounts for packing geometry and liquid loading:
+
+\begin{equation}
+C_{sb} = \frac{C_0 \, \varepsilon^{0.8}}{\sqrt{F_p}} \times \frac{1}{1 + 2.0 \, X^{0.7}} = 0.00843
+\label{eq:capacity_coeff_simplified}
+\end{equation}
+
+The flooding velocity follows from momentum balance:
+
+\begin{equation}
+u_{\text{flood}} = C_{sb} \sqrt{\frac{\rho_L - \rho_G}{\rho_G}} = \SI{0.304}{m/s}
+\label{eq:flooding_velocity_simplified}
+\end{equation}
+
+Operating at 75\% of flooding yields $u_{\text{op}} = \SI{0.228}{m/s}$. The column diameter emerges from continuity for volumetric flow rate $Q = \SI{42.6}{m^3/h}$:
+
+\begin{equation}
+D = \sqrt{\frac{4Q}{\pi u_{\text{op}}}} \times \text{SF}_D = \SI{0.283}{m}
+\label{eq:diameter}
+\end{equation}
+
+where $\text{SF}_D = 1.10$ is the 10\% diameter safety factor. Table~\ref{tab:hydraulic_summary} summarizes the hydraulic design.
+
+\begin{table}[H]
+\centering
+\caption{Hydraulic design summary}
+\label{tab:hydraulic_summary}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Units/Status} \\
+\midrule
+Gas volumetric flow & 42.6 & \si{m^3/h} \\
+Gas density & 0.700 & \si{kg/m^3} \\
+Liquid density & 1,247 & \si{kg/m^3} \\
+Flow parameter ($X$) & 0.0473 & dimensionless \\
+\midrule
+Flooding velocity & 0.304 & m/s \\
+Operating velocity & 0.228 & m/s \\
+Percent of flooding & 75.0 & \% (within 60--85\% range) \\
+\midrule
+Required diameter & 0.257 & m \\
+Design diameter & 0.283 & m (11.1~in) \\
+Pressure drop (total) & 20 & Pa (negligible) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Material Balance and Chemical Consumption}
+
+The material balance quantifies acid gas removal rates and \NaOH~consumption. The total molar flow rate at operating conditions:
+
+\begin{equation}
+\dot{n}_{\text{total}} = \frac{PQ}{RT} = \SI{1.743}{kmol/h}
+\end{equation}
+
+For \HtwoS~at 98\% removal and \COtwo~at 95\% removal:
+
+\begin{align}
+\dot{n}_{\text{H}_2\text{S}} &= (0.001800)(0.98)(1.743) = \SI{0.00307}{kmol/h} \\
+\dot{n}_{\text{CO}_2} &= (0.028550)(0.95)(1.743) = \SI{0.0472}{kmol/h}
+\end{align}
+
+The neutralization reactions are:
+
+\begin{align}
+\ce{H2S + NaOH &-> NaHS + H2O} \quad &\text{(1:1 stoichiometry)} \\
+\ce{CO2 + 2 NaOH &-> Na2CO3 + H2O} \quad &\text{(2:1 stoichiometry)}
+\end{align}
+
+The \NaOH~consumption rates:
+
+\begin{align}
+\dot{m}_{\text{NaOH,H}_2\text{S}} &= (0.00307)(40) = \SI{0.123}{kg/h} \\
+\dot{m}_{\text{NaOH,CO}_2} &= 2(0.0472)(40) = \SI{3.78}{kg/h} \\
+\dot{m}_{\text{NaOH,total}} &= 0.123 + 3.78 = \SI{3.90}{kg/h} = \SI{34.2}{ton/yr}
+\end{align}
+
+Table~\ref{tab:material_balance} presents the complete material balance.
+
+\begin{table}[H]
+\centering
+\caption{Material balance and chemical consumption}
+\label{tab:material_balance}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Component} & \textbf{Inlet} & \textbf{Outlet} & \textbf{Removed} \\
+& \textbf{(ppmv)} & \textbf{(ppmv)} & \textbf{(kmol/h)} \\
+\midrule
+\HtwoS & 1,800 & 36 & 0.00307 \\
+\COtwo & 28,550 & 1,428 & 0.0472 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{\NaOH~consumption breakdown}} \\
+\multicolumn{4}{@{}l}{\quad For \HtwoS~(1:1): \SI{0.123}{kg/h} (3\% of total)} \\
+\multicolumn{4}{@{}l}{\quad For \COtwo~(2:1): \SI{3.78}{kg/h} (97\% of total)} \\
+\multicolumn{4}{@{}l}{\quad \textbf{Total makeup: \SI{3.90}{kg/h} = \SI{34.2}{ton/yr}}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The dominance of \COtwo-related consumption (97\% of total) emerges from two factors: \COtwo~molar flow is 15.4× higher than \HtwoS, and \COtwo~requires 2~mol~\NaOH~per mol absorbed. This represents the primary target for operating cost reduction through selective operation strategies.
+
+\subsection{Design Validation and Correlation Applicability}
+
+All design correlations have been verified within their stated validity ranges, as summarized in Table~\ref{tab:correlation_validity}.
+
+\begin{table}[H]
+\centering
+\caption{Correlation validity assessment}
+\label{tab:correlation_validity}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Correlation} & \textbf{Valid Range} & \textbf{Design Value} & \textbf{Status} \\
+\midrule
+Wankat HETP & 50--400~\si{m^2/m^3} & 225 & $\checkmark$ \\
+Billet-Schultes flood & $X = 0.01$--2.0 & 0.047 & $\checkmark$ \\
+Ideal gas law & $P < 10$~atm & 1~atm & $\checkmark$ \\
+Dilute absorption & $y_{\text{in}} < 0.1$ & 0.029 & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These confirmations provide confidence in sizing estimates within expected correlation uncertainty of approximately ±20\%.
+
+\subsection{Selectivity and Kinetic Limitations}
+A critical design parameter is the selective removal of H$_2$S over CO$_2$. While equilibrium thermodynamics would predict near-total absorption of both acid gases given sufficient height, the reaction kinetics differ significantly.
+\begin{romanlist}
+    \item \textbf{H$_2$S Absorption:} The proton transfer reaction ($\ce{H_2S + OH^- -> HS^- + H_2O}$) is instantaneous. The Hatta number ($Ha_{H2S}$) is typically $\gg 1$, indicating the reaction occurs entirely within the liquid film interface \cite{Danckwerts1965}.
+    \item \textbf{CO$_2$ Absorption:} The hydration of CO$_2$ is kinetically slow, with $Ha_{CO2} < 1$, meaning the reaction occurs in the bulk liquid \cite{Danckwerts1965}.
+\end{romanlist}
+By minimizing the gas residence time and using a packing height of 2.45 m (optimized for H$_2$S), the system creates a "kinetic slip" condition. This allows the H$_2$S to reach the target 4 ppm specification while allowing 70--80\% of the CO$_2$ to pass through unreacted. This operational strategy reduces caustic consumption by approximately 75\% compared to a full-equilibrium scenario \cite{AFPM2014, Danckwerts1965}.
+
+\subsection{Major Equipment List and Grounded Specifications}
+Table \ref{tab:eq_list} summarizes the revised equipment specifications. The column diameter has been standardized to 12-inch Schedule 40 pipe to utilize off-the-shelf piping components, significantly reducing fabrication costs compared to custom-rolled vessels.
+
+\begin{table}[h]
+    \centering
+    \caption{Revised Major Equipment Specifications (Skid-Mounted Basis)}
+    \label{tab:eq_list}
+    \begin{tabular}{l p{5cm} p{6cm}}
+        \toprule
+        \textbf{Tag} & \textbf{Equipment} & \textbf{Specification \& Justification} \\
+        \midrule
+        C-101 & Sour Gas Absorber & $\phi$ 12" (Sch 40) $\times$ 4.5m T/T, 316SS. Sized for 60\% flood at 35 kSCFD. \\
+        - & Column Internals & 25mm Polypropylene Pall Rings (loose fill). Chosen to resist fouling from biological solids. \\
+        P-101 A/B & Recirculation Pumps & Mag-drive Centrifugal, 2.5 m$^3$/h @ 18m head. Sized to meet Minimum Wetting Rate (MWR). \\
+        R-201 & MBBR Oxidizer & 5.0 m$^3$ HDPE Tank, flat bottom. Includes coarse bubble diffusers. \\
+        B-201 & Aeration Blower & Regenerative Blower, 15 SCFM @ 3 psig. Sized for 3$\times$ stoichiometric O$_2$ demand. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Design Limitations and Uncertainty Quantification}
+
+The preliminary design carries inherent uncertainties characteristic of feasibility-level analysis:
+
+\begin{enumerate}[label=\alph*)]
+\item \textbf{HETP correlation:} Derived from empirical data with typical scatter of ±20\%. Vendor-specific packing performance data under representative conditions should be obtained during detailed engineering.
+
+\item \textbf{Column diameter:} At \SI{11.1}{inches}, below conventional \SI{12}{inch} minimum, increasing sensitivity to inlet vapor quality and liquid distribution. Requires high-performance inlet conditioning or upsizing to standard diameter.
+
+\item \textbf{\COtwo~absorption endpoint:} The 95\% removal represents conservative assumption. Typical caustic scrubbers achieve 10--30\% \COtwo~uptake at industrial pH levels~\cite{AFPM2014}. Process simulation with electrolyte thermodynamics required.
+
+\item \textbf{Deep absorption approximation:} The assumption $y^* \approx 0$ is well-established for fast \HtwoS-\NaOH~kinetics but should be confirmed via rigorous simulation.
+\end{enumerate}
+
+\subsection{Ancillary Equipment Requirements}
+
+The absorber system requires supporting equipment, summarized in Table~\ref{tab:ancillary_equipment}.
+
+\begin{table}[H]
+\centering
+\caption{Ancillary equipment specifications}
+\label{tab:ancillary_equipment}
+\small
+\begin{tabular}{@{}lp{0.25\textwidth}p{0.35\textwidth}@{}}
+\toprule
+\textbf{Equipment} & \textbf{Function} & \textbf{Specification} \\
+\midrule
+Knockout drum & Bulk liquid separation & \SI{5}{min} holdup, $u_{\text{sep}} < \SI{0.15}{m/s}$, Est. \SI{0.6}{m} diameter \\
+\midrule
+Coalescing filter & Aerosol removal & 99.9\% efficiency for droplets >\SI{3}{\micro m}, $\Delta P < \SI{500}{Pa}$ \\
+\midrule
+Circulation pump & Liquid recirculation & \SI{1.5}{m^3/h}, \SI{15}{m} head, 316SS or FRP, centrifugal \\
+\midrule
+\NaOH~makeup system & pH control & \SI{10}{kg/h} capacity, pH analyzer with dosing pump, Setpoint pH 12--14 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Conclusions and Next-Phase Requirements}
+
+The preliminary design demonstrates technical feasibility using established correlations within validated ranges. The calculated equipment size (\SI{0.28}{m} × \SI{2.45}{m}) remains practical, though the small diameter warrants attention to operational considerations. The dominant technical consideration is \COtwo~co-absorption driving 97\% of \NaOH~consumption.
+
+Priority next-phase activities include:
+
+\begin{enumerate}
+\item Vendor engagement for budgetary quotations and performance guarantees
+\item Rigorous simulation with electrolyte thermodynamics (Aspen HYSYS Electrolyte NRTL)
+\item Evaluation of selective operation strategies (pH 7--9 vs 12--14)
+\item Column diameter optimization analysis (11~inches vs 12~inches standard)
+\end{enumerate}
+
+These activities will mature the design from feasibility to FEED-quality deliverables suitable for AFE and procurement.

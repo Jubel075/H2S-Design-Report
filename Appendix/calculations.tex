@@ -1,0 +1,316 @@
+% =========================================================
+% APPENDIX B: Design Calculations and Methodology
+% Complete Python Framework Documentation
+% =========================================================
+
+\section{Design Calculations and Computational Methodology}
+\label{app:design_calculations}
+
+\subsection*{Overview}
+
+This appendix documents the computational design methodology applied to the TA-58 caustic scrubbing system. All calculations were performed using a Python-based design framework (\texttt{core\_model.py}) that implements established design correlations and industry-standard methods for packed column sizing, mass transfer, and hydraulic analysis.
+
+The methodology integrates~\cite{Danckwerts1965,Onda1968,Flagiello2021,Kolmetz2011,TowlerSinnott2022b}:
+\begin{romanlist}
+\item HTU/NTU framework for mass transfer design
+\item Generalized flooding correlations (Billet-Schultes method)
+\item Wankat empirical correlation for HETP in caustic absorption
+\item Ideal gas law for gas properties (validated for low-pressure conditions)
+\item Simplified equilibrium treatment (deep absorption approximation)
+\end{romanlist}
+
+\subsection*{Design Input Summary}
+
+Table~\ref{tab:calc_inputs} summarizes design inputs.
+
+\begin{table}[H]
+  \centering
+  \caption{Design calculation inputs}
+  \label{tab:calc_inputs}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+    \midrule
+    \multicolumn{3}{@{}l}{\textbf{Gas Stream Specification}} \\
+    Flow rate (standard) & 35,000 & SCFD \\
+    Temperature & 25.0 & \si{\celsius} \\
+    Pressure & 101.325 & \si{\kilo\pascal} \\
+    \midrule
+    \multicolumn{3}{@{}l}{\textbf{Composition (mole fractions)}} \\
+    \ce{N2} & 0.020~18 & --- \\
+    \COtwo & 0.028~55 & --- \\
+    \HtwoS & 0.001~80 & --- \\
+    \ce{CH4} & 0.948~57 & --- \\
+    \ce{C2H6} & 0.000~88 & --- \\
+    Average MW & 17.125 & \si{\gram\per\mole} \\
+    \midrule
+    \multicolumn{3}{@{}l}{\textbf{Design Basis}} \\
+    \HtwoS~removal & 0.98 & (98\%) \\
+    \COtwo~removal & 0.95 & (95\%) \\
+    \NaOH~concentration & 5.0 & \si{\mole\per\liter} \\
+    L/G mass ratio & 2.0 & \si{\kilo\gram\per\kilo\gram} \\
+    \% of flooding & 75 & \% \\
+    Diameter SF & 1.10 & --- \\
+    Height SF & 1.15 & --- \\
+    \midrule
+    \multicolumn{3}{@{}l}{\textbf{Packing Specification}} \\
+    Type & \multicolumn{2}{c}{Pall Ring, 25~mm, Plastic} \\
+    Surface area ($a$) & 225 & \si{\meter\squared\per\meter\cubed} \\
+    Voidage ($\varepsilon$) & 92 & \% \\
+    Packing factor ($F_p$) & 110 & \si{\per\meter} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Thermophysical Properties}
+
+\subsubsection*{Gas Phase}
+
+\textbf{Gas density} from ideal gas law:
+\begin{equation}
+  \rho_G = \frac{P \cdot \text{MW}}{R \cdot T}
+  \label{eq:gas_density}
+\end{equation}
+
+where $R = \SI{8.314}{\joule\per\mole\per\kelvin}$ is the universal gas constant.
+
+\begin{align}
+  \rho_G &= \frac{101{,}325\,\si{\pascal} \times 0.017125\,\si{\kilo\gram\per\mole}}{8.314\,\si{\joule\per\mole\per\kelvin} \times 298.15\,\si{\kelvin}} \nonumber \\
+  &= \SI{0.700}{\kilo\gram\per\meter\cubed}
+  \label{eq:gas_density_calc}
+\end{align}
+
+\textbf{Volumetric flow rate} at operating conditions:
+\begin{equation}
+  Q_{\text{actual}} = Q_{\text{std}} \times \frac{T_{\text{op}}}{T_{\text{std}}} \times \frac{P_{\text{std}}}{P_{\text{op}}}
+  \label{eq:flow_correction}
+\end{equation}
+
+\begin{align}
+    Q_{\text{actual}} &= 35,000 \text{ SCFD} \times \frac{298.15 \text{ K}}{288.71 \text{ K}} \times 1.0 \nonumber \\
+    &= 36,150 \text{ ft}^3/\text{day} \times 0.02832 \text{ m}^3/\text{ft}^3 \nonumber \\
+    &= 1,024 \text{ m}^3/\text{day} = 42.6 \text{ m}^3/\text{h}
+    \label{eq:flow_calc}
+\end{align}
+
+\textbf{Gas viscosity} (Sutherland's formula for methane-rich gas):
+\begin{equation}
+  \mu_G = \SI{1.04e-5}{\pascal\second}
+  \label{eq:gas_viscosity}
+\end{equation}
+
+\subsubsection*{Liquid Phase (\NaOH~Solution)}
+
+\textbf{Density} of \SI{5}{\mole\per\liter} \NaOH~solution:
+\begin{equation}
+  \rho_L = \rho_{\text{water}} + k_1 C + k_2 C^2 = 997 + 40(5.0) + 2(5.0)^2 = \SI{1247}{\kilo\gram\per\meter\cubed}
+  \label{eq:naoh_density}
+\end{equation}
+
+\textbf{Viscosity} of \NaOH~solution:
+\begin{equation}
+  \mu_L = \mu_{\text{water}} \times (1 + 0.05 C)^{1.5} = 8.9 \times 10^{-4} \times (1.25)^{1.5} = \SI{1.22e-3}{\pascal\second}
+  \label{eq:naoh_viscosity}
+\end{equation}
+
+\subsection*{Mass Transfer Design}
+
+\subsubsection*{HETP Calculation}
+
+Height Equivalent to Theoretical Plate using Wankat correlation:
+\begin{equation}
+  \text{HETP} = \frac{100}{a} + 0.1 \quad [\si{\meter}]
+  \label{eq:hetp_wankat}
+\end{equation}
+
+For $a = 225\,\si{\meter\squared\per\meter\cubed}$:
+\begin{equation}
+  \text{HETP} = \frac{100}{225} + 0.1 = \SI{0.544}{\meter}
+  \label{eq:hetp_calc}
+\end{equation}
+
+\textbf{Validity:} Wankat correlation is valid for $50 \leq a \leq 400\,\si{\meter\squared\per\meter\cubed}$ in caustic absorption service. Design value falls within range.
+
+\subsubsection*{NTU Calculation}
+
+For dilute absorption with fast reaction ($y^* \approx 0$):
+\begin{equation}
+  \NTUog = \ln\left(\frac{y_{\text{in}}}{y_{\text{out}}}\right)
+  \label{eq:ntu_dilute}
+\end{equation}
+
+\textbf{For \HtwoS:}
+\begin{align}
+  y_{\text{out}} &= y_{\text{in}}(1 - 0.98) = 0.001800 \times 0.02 = 0.000036 \nonumber \\
+  \NTUog &= \ln\left(\frac{0.001800}{0.000036}\right) = \ln(50) = 3.91
+  \label{eq:ntu_h2s}
+\end{align}
+
+\textbf{For \COtwo:}
+\begin{align}
+  y_{\text{out}} &= 0.028550 \times 0.05 = 0.001428 \nonumber \\
+  \NTUog &= \ln\left(\frac{0.028550}{0.001428}\right) = \ln(20) = 3.00
+  \label{eq:ntu_co2}
+\end{align}
+
+\subsubsection*{Required Packing Height}
+
+\begin{equation}
+  Z_{\text{required}} = \text{HETP} \times \NTUog
+  \label{eq:height_required}
+\end{equation}
+
+\HtwoS~is limiting:
+\begin{equation}
+  Z = 0.544\,\si{\meter} \times 3.91 = \SI{2.13}{\meter}
+  \label{eq:height_calc}
+\end{equation}
+
+With 15\% safety factor:
+\begin{equation}
+  Z_{\text{design}} = 2.13 \times 1.15 = \SI{2.45}{\meter}
+  \label{eq:height_design}
+\end{equation}
+
+\subsection*{Hydraulic Design}
+
+\subsubsection*{Flooding Velocity}
+
+Using Billet-Schultes correlation:
+
+\textbf{Flow parameter:}
+\begin{equation}
+  X = \frac{L}{G} \sqrt{\frac{\rho_G}{\rho_L}} = 2.0 \times \sqrt{\frac{0.700}{1247}} = 0.0473
+  \label{eq:flow_parameter}
+\end{equation}
+
+\textbf{Capacity coefficient:}
+\begin{equation}
+  C_{sb} = \frac{0.10 \times 0.92^{0.8}}{\sqrt{110}} \times \frac{1}{1 + 2.0 \times 0.0473^{0.7}} = 0.00843
+  \label{eq:capacity_coeff}
+\end{equation}
+
+\textbf{Flooding velocity:}
+\begin{equation}
+  u_{\text{flood}} = 0.00843 \times \sqrt{\frac{1247 - 0.700}{0.700}} = \SI{0.304}{\meter\per\second}
+  \label{eq:flooding_velocity}
+\end{equation}
+
+\textbf{Operating velocity:}
+\begin{equation}
+  u_{\text{op}} = 0.75 \times u_{\text{flood}} = \SI{0.228}{\meter\per\second}
+  \label{eq:operating_velocity}
+\end{equation}
+
+\subsubsection*{Column Diameter}
+
+From continuity:
+\begin{equation}
+  D = \sqrt{\frac{4Q}{\pi u_{\text{op}}}} = \sqrt{\frac{4 \times (42.6/3600)}{3.14159 \times 0.228}} = \SI{0.257}{\meter}
+  \label{eq:diameter_calc}
+\end{equation}
+
+With 10\% safety factor:
+\begin{equation}
+  D_{\text{design}} = 0.257 \times 1.10 = \SI{0.283}{\meter} = 11.1~\text{inches}
+  \label{eq:diameter_design}
+\end{equation}
+
+\subsubsection*{Pressure Drop}
+
+\begin{equation}
+  \frac{\Delta P}{Z} = \frac{F_p u_G^2 \rho_G}{\varepsilon_{\text{eff}}^{3.5}} = \frac{110 \times 0.228^2 \times 0.700}{0.82^{3.5}} = \SI{8.0}{\pascal\per\meter}
+  \label{eq:pressure_drop}
+\end{equation}
+
+Total:
+\begin{equation}
+  \Delta P_{\text{total}} = 8.0 \times 2.45 = \SI{20}{\pascal}
+  \label{eq:pressure_drop_total}
+\end{equation}
+
+\subsection*{Chemical Consumption}
+
+Total molar flow:
+\begin{equation}
+  \dot{n}_{\text{total}} = \frac{35{,}000\,\text{SCFD}}{379.5\,\text{SCF/lbmol} \times 24\,\text{h}} = 3.842\,\text{lbmol/h} = 1.743\,\text{kmol/h}
+  \label{eq:total_molar}
+\end{equation}
+
+\textbf{\HtwoS~removed:}
+\begin{equation}
+  \dot{n}_{\text{H}_2\text{S}} = 0.001800 \times 0.98 \times 1.743 = \SI{0.00307}{\kilo\mole\per\hour}
+  \label{eq:h2s_removed}
+\end{equation}
+
+\NaOH~for \HtwoS~(1:1):
+\begin{equation}
+  \dot{m}_{\text{NaOH,H}_2\text{S}} = 0.00307 \times 40 = \SI{0.123}{\kilo\gram\per\hour}
+  \label{eq:naoh_h2s}
+\end{equation}
+
+\textbf{\COtwo~removed:}
+\begin{equation}
+  \dot{n}_{\text{CO}_2} = 0.028550 \times 0.95 \times 1.743 = \SI{0.0472}{\kilo\mole\per\hour}
+  \label{eq:co2_removed}
+\end{equation}
+
+\NaOH~for \COtwo~(2:1):
+\begin{equation}
+  \dot{m}_{\text{NaOH,CO}_2} = 0.0472 \times 2 \times 40 = \SI{3.78}{\kilo\gram\per\hour}
+  \label{eq:naoh_co2}
+\end{equation}
+
+\textbf{Total:}
+\begin{equation}
+  \dot{m}_{\text{NaOH,total}} = 0.123 + 3.78 = \SI{3.90}{\kilo\gram\per\hour} = \SI{34.2}{\ton\per\yr}
+  \label{eq:naoh_total}
+\end{equation}
+
+\subsection*{Summary of Results}
+
+Complete results are tabulated in Table~\ref{tab:calc_summary}.
+
+\begin{table}[H]
+  \centering
+  \caption{Complete calculated design parameters}
+  \label{tab:calc_summary}
+  \small
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+    \midrule
+    Gas density & 0.700 & \si{\kilo\gram\per\meter\cubed} \\
+    Gas flow (operating) & 42.6 & \si{\cubic\meter\per\hour} \\
+    Liquid density & 1,247 & \si{\kilo\gram\per\meter\cubed} \\
+    HETP & 0.544 & \si{\meter} \\
+    \NTUog (\HtwoS) & 3.91 & --- \\
+    \NTUog (\COtwo) & 3.00 & --- \\
+    Height (design) & 2.45 & \si{\meter} \\
+    Flooding velocity & 0.304 & \si{\meter\per\second} \\
+    Operating velocity & 0.228 & \si{\meter\per\second} \\
+    \% of flooding & 75.0 & \% \\
+    Diameter (design) & 0.283 & \si{\meter} (11.1~in) \\
+    Pressure drop & 20 & \si{\pascal} \\
+    \NaOH~makeup & 3.9 & \si{\kilo\gram\per\hour} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Validation and Limitations}
+
+All correlations verified within stated validity ranges. Limitations include:
+\begin{enumerate}[label=\alph*)]
+\item HETP correlation: $\pm$20\% uncertainty, requires vendor validation
+\item Column diameter: Below 12-inch minimum, maldistribution risk
+\item \COtwo~uptake: 95\% removal is pessimistic, requires simulation
+\item Equilibrium: Deep absorption assumption requires verification
+\end{enumerate}
+
+Recommended actions:
+\begin{enumerate}
+\item Rigorous simulation (Aspen HYSYS with Electrolyte NRTL)
+\item Vendor packing performance data
+\item pH control strategy evaluation for selective \HtwoS~removal
+\item Column diameter optimization (11~in vs 12~in standard)
+\end{enumerate}

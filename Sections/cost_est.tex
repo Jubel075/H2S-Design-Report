@@ -1,0 +1,129 @@
+\section{Cost Estimate}\label{sec:cost_est}
+
+\subsection{CapEx estimate (Class 3)}
+
+\subsubsection{Estimate classification and intent}
+This estimate is prepared as an \emph{AACE Class 3} budget estimate for a process-industry project. The estimate is intended to support budget authorization and concept selection, based on a defined process configuration (BFD), preliminary design basis, and a preliminary major equipment list. Per AACE guidance, Class 3 estimates are expected to retain material uncertainty due to incomplete definition, which shall be managed through explicit contingency and a documented basis register. \cite{AACE18R97}
+
+\subsubsection{Estimate method and cost breakdown structure}
+A hybrid Class 3 method is applied:
+\begin{romanlist}
+\item \textbf{Equipment-based estimating (PEC):} major packages priced using budgetary quotes or allowances consistent with packaged-unit procurement.
+\item \textbf{Factored bulks/indirects:} piping, E\&I, structural, installation, engineering, and commissioning estimated as factored percentages consistent with the level of definition.
+\item \textbf{Contingency:} applied based on estimate maturity and key technical risks (e.g., packed-column performance uncertainty, carbonate management, and biological solids handling). \cite{AACE18R97,Flagiello2021}
+\end{romanlist}
+
+\subsubsection{Major equipment packages (budgetary basis)}
+Table~\ref{tab:pec_packages} summarizes the budgetary package prices provided for this Class 3 estimate. These values are treated as \emph{budgetary allowances pending RFQ}; they must be replaced by vendor budgetary quotations during the next stage.
+
+\begin{table}[H]
+  \centering
+  \caption{Purchased equipment cost (PEC) basis for major packages (budgetary allowances pending RFQ).}
+  \label{tab:pec_packages}
+  \renewcommand{\arraystretch}{1.3}
+  \small
+  \begin{tabularx}{\linewidth}{@{}X l S[table-format=6.0] c@{}}
+    \toprule
+    \textbf{Package} & \textbf{Scope Summary} & {\textbf{PEC (USD)}} & \textbf{Range} \\
+    \midrule
+    Packed Caustic Scrubber & Packed tower, internals, mist elim., skid & 75500 & $-15\% / +20\%$ \\
+    Biological Oxidation & MBBR reactor, media, aeration, controls & 185000 & $-15\% / +20\%$ \\
+    Solids Separation & Lamella clarifier, mix/floc, sludge pump & 89500 & $-15\% / +20\%$ \\
+    \midrule
+    \multicolumn{2}{@{}l}{\textbf{Subtotal (Major PEC)}} & \textbf{350000} & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection{Allowances for balance-of-plant}
+The BFD configuration includes additional equipment and integration scope beyond the three major packages, including inlet KO/coalescing filtration (if not existing), caustic storage and metering, neutralization tank (M-101) with acid dosing, interconnecting piping, tie-ins, and controls. These items are carried as balance-of-plant (BOP) allowances at Class 3 maturity.
+
+\begin{table}[H]
+  \centering
+  \caption{Balance-of-plant (BOP) allowances (Class 3 placeholders).}
+  \label{tab:bop_allowances}
+  \begin{tabularx}{0.92\linewidth}{@{}lYr@{}}
+    \toprule
+    \textbf{Item} & \textbf{Included scope} & \textbf{Allowance (USD)} \\
+    \midrule
+    Inlet KO / coalescing filtration (if new) & KO drum, coalescer housing, DP indication & 60{,}000 \\
+    Caustic storage and dosing & storage tank, metering pumps, pH instrumentation & 45{,}000 \\
+    Neutralization tank M-101 + acid dosing & tank, mixer, dosing skid, pH loop & 55{,}000 \\
+    Interconnecting piping and tie-ins & process piping, valves, supports, tie-ins & 120{,}000 \\
+    Electrical and instrumentation bulks & cabling, panels, field instruments, integration & 90{,}000 \\
+    \midrule
+    \multicolumn{2}{@{}l}{\textbf{Subtotal (BOP allowances)}} & \textbf{370{,}000} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection{Installed cost build-up (TIC)}
+Total installed cost (TIC) is built up from PEC plus bulks and indirects, with contingency consistent with Class 3 maturity:
+\[
+  \mathrm{TIC} = \mathrm{PEC}_{\text{total}} + \mathrm{Installation/Bulks} + \mathrm{Indirects} + \mathrm{Contingency}
+\]
+A factored approach is used here because vendor installation manhours, detailed MTO, and IFC drawings are not available at this stage; this is aligned with the purpose of Class 3 estimating (budget authorization with incomplete detail) \cite{AACE18R97}.
+
+\begin{table}[H]
+  \centering
+  \caption{Class 3 total installed cost (TIC) summary (USD).}
+  \label{tab:tic_summary}
+  \begin{tabularx}{0.92\linewidth}{@{}lrr@{}}
+    \toprule
+    \textbf{Cost element} & \textbf{Base (USD)} & \textbf{Notes} \\
+    \midrule
+    Major PEC subtotal & 350{,}000 & Table~\ref{tab:pec_packages} \\
+    BOP allowances & 370{,}000 & Table~\ref{tab:bop_allowances} \\
+    \midrule
+    \textbf{Total PEC (incl. BOP)} & \textbf{720{,}000} & Purchased + allowance basis \\
+    Installation \& bulks factor & 650{,}000 & Factored bulks/field labor (Class 3) \\
+    Indirects (EPCM, commissioning, temp.) & 280{,}000 & Factored indirects (Class 3) \\
+    \midrule
+    \textbf{Subtotal (before contingency)} & \textbf{1{,}650{,}000} &  \\
+    Contingency (Class 3) & 330{,}000 & 20\% of subtotal \cite{AACE18R97} \\
+    \midrule
+    \textbf{TIC (Class 3 base)} & \textbf{1{,}980{,}000} & \textbf{USD 2.0 MM (rounded)} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\paragraph{Class 3 range statement.}
+For reporting, the Class 3 estimate should be presented as a range around the base TIC, reflecting remaining definition uncertainty consistent with estimate classification guidance \cite{AACE18R97}. The base TIC in Table~\ref{tab:tic_summary} corresponds to an expected value; the estimate range should be refined after RFQ responses are received.
+
+\subsection{OpEx estimate}
+
+\subsubsection{Operating cost structure and primary drivers}
+Operating cost is estimated as:
+\[
+  \mathrm{OpEx} = \mathrm{Chemicals} + \mathrm{Utilities} + \mathrm{Maintenance} + \mathrm{Waste} + \mathrm{Labor}
+\]
+For caustic scrubbing, industrial practice indicates that the dominant variable-cost uncertainty is parasitic \ce{CO2} absorption (driving caustic consumption and carbonate management) \cite{AFPM2014}. At feasibility level, chemical pricing is taken from published regional benchmarks and must be replaced with supplier quotes for the project location. \cite{IMARC_CausticSoda,IMARC_SulphuricAcid}
+
+\begin{table}[H]
+  \centering
+  \caption{OpEx input assumptions (budgetary; to be replaced by supplier quotes).}
+  \label{tab:opex_inputs}
+  \begin{tabularx}{0.92\linewidth}{@{}lYr@{}}
+    \toprule
+    \textbf{Item} & \textbf{Assumption basis} & \textbf{Base value} \\
+    \midrule
+    \ce{NaOH} price (dry equivalent) & 2025 regional benchmark range \cite{IMARC_CausticSoda} & \SI{500}{USD/ton} \\
+    Acid price (e.g., \ce{H2SO4}) & 2025 benchmark range \cite{IMARC_SulphuricAcid} & \SI{150}{USD/ton} \\
+    Electricity tariff & U.S. EIA Electric Power Monthly (industrial average retail price) \cite{EIAEPM_C3} & \SI{0.10}{USD/kWh} \\
+    Maintenance factor & Screening: fraction of TIC (Class 3) & 4\% of TIC / year \\
+    Labor & Attended periodic operation assumption & 0.25--0.5 FTE \\
+    Waste/sludge disposal & Site-specific; placeholder until vendor quote & Allowance \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Cost basis and assumptions}
+
+\subsubsection{Basis register (what makes this estimate valid)}
+The estimate is valid only under the following basis conditions:
+\begin{romanlist}
+\item The BFD configuration and battery limits remain as defined in \Cref{fig:PFD_scrub_pdf}.
+\item The three major package prices in Table~\ref{tab:pec_packages} are treated as budgetary allowances pending RFQ and must be replaced by vendor budgetary quotations in the next phase.
+\item Chemical price assumptions are based on published market benchmarks and must be replaced by local supplier quotes prior to any investment decision. \cite{IMARC_CausticSoda,IMARC_SulphuricAcid}
+\item Contingency is applied consistent with Class 3 maturity; it does not cover scope omissions. \cite{AACE18R97}
+\end{romanlist}

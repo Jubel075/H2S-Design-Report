@@ -1,0 +1,58 @@
+\section{Evaluation of Alternatives}
+\label{sec:alternatives_eval}
+
+For the selective removal of \HtwoS{} from a gas stream containing \COtwo{}, several technologies are available. Based on the project objectives and scale, two primary caustic-based scrubbing technologies were identified for evaluation:
+\begin{enumerate}
+    \item \textbf{Conventional Packed Column Scrubber:} A well-established technology where gas and liquid contact counter-currently over a packed bed to facilitate mass transfer.
+    \item \textbf{Short Contact Time (SCT) Static Mixer Scrubber:} An intensified process technology that uses a static mixer to create a fine dispersion of liquid in the gas for a very short duration, exploiting reaction kinetics to achieve high selectivity.
+\end{enumerate}
+
+A trade-off study was performed to select the most suitable technology for this application. The key findings are summarized in \Cref{tab:tech_tradeoff}.
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{Technology Trade-Off Study: Packed Column vs. SCT Scrubber}
+\label{tab:tech_tradeoff}
+\begin{tabularx}{\linewidth}{@{}p{2.5cm}p{6.5cm}Y@{}}
+\toprule
+\textbf{Criterion} & \textbf{Conventional Packed Column} & \textbf{Short Contact Time (SCT) Scrubber} \\
+\midrule
+\textbf{Operating Principle} &
+Gas and liquid flow counter-currently over a structured or random packing. Contact time is long (seconds to minutes), allowing all absorption reactions to proceed towards equilibrium. Mass transfer area is fixed by the packing material. &
+Gas and liquid are intensely mixed in a co-current flow regime for a very short duration (10-100 ms). This exploits the vast difference in reaction kinetics between \HtwoS{} and \COtwo{}. \\
+
+\midrule
+\textbf{Selectivity \newline (\HtwoS{} vs. \COtwo{})} &
+\textbf{Low.} The long residence time allows the slow \COtwo{} reaction to proceed significantly, leading to high caustic consumption for both acid gases. Selectivity is typically poor, often below 5. &
+\textbf{High.} The short contact time is sufficient for the instantaneous \HtwoS{} reaction but too short for the finite-rate \COtwo{} reaction. This results in excellent selectivity, often ranging from 20 to 200. \\
+
+\midrule
+\textbf{Equipment Size / Footprint} &
+\textbf{Large.} Requires a tall vertical column to achieve the necessary Number of Transfer Units (NTU). The diameter is sized based on flooding velocity constraints. Significant plot space and vertical height are needed. &
+\textbf{Very Compact.} Utilizes a short length of pipe containing static mixing elements. The entire contactor is often just a few meters long, leading to a minimal footprint and significant space savings. \\
+
+\midrule
+\textbf{Capital Cost (CAPEX)} &
+\textbf{Moderate to High.} Primarily driven by the cost of the large pressure vessel (column), internals (packing, distributors), and large liquid inventory. &
+\textbf{Low.} Equipment is significantly smaller and simpler, consisting mainly of a static mixer, a small separator vessel, and standard pumps. Vessel costs are substantially lower. \\
+
+\midrule
+\textbf{Operating Cost (OPEX)} &
+\textbf{High.} Dominated by the high consumption of caustic soda (\NaOH) due to the low selectivity and significant co-absorption of \COtwo{}. &
+\textbf{Low.} The high selectivity directly translates to lower caustic consumption, as the chemical is primarily used for the targeted \HtwoS{} reaction. This is the primary driver for lower OPEX. \\
+
+\midrule
+\textbf{Control \& Turndown} &
+Good turndown capabilities, but control can be complex, involving liquid level, flow distribution, and pressure drop monitoring. Susceptible to channeling at low flow rates. &
+Excellent turndown. Control is simpler, primarily focused on maintaining the liquid-to-gas (L/G) ratio. The high mixing energy is maintained over a wide range of flow rates. \\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+\end{landscape}
+
+\subsection{Selection of Technology}
+Based on the comparison in \Cref{tab:tech_tradeoff}, the \textbf{Short Contact Time (SCT) Scrubber} is unequivocally the superior technology for this specific application. The primary drivers for this decision are its significantly higher selectivity, leading to substantially lower operating costs, and its compact footprint, which reduces capital expenditure and installation complexity.
+
+Therefore, the remainder of this report will focus on the conceptual design and evaluation of an SCT-based scrubbing system.

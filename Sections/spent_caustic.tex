@@ -1,0 +1,112 @@
+% =========================================================
+% Section 4: Spent Caustic Treatment
+% =========================================================
+
+\section{Spent Caustic Treatment}
+\label{sec:spent_caustic}
+
+\subsection{Process Requirement}
+
+The caustic scrubbing process generates a spent caustic stream containing dissolved sodium hydrosulfide (\ce{NaHS}) and sodium sulfide (\ce{Na2S}), which require treatment before disposal. Direct discharge is not acceptable due to toxicity, oxygen demand, and odour \cite{OSHAH2S}. Biological oxidation using sulfur-oxidising bacteria (SOB) was selected as the preferred treatment approach, offering conversion of sulfide to stable elemental sulfur and/or sulfate with potential for partial caustic alkalinity recovery \cite{buisman1989,Borges2025}.
+
+\subsection{Design Basis at 660,000 SCFD Scale}
+
+The spent caustic treatment capacity depends on the upstream scrubber configuration. At the 660,000~SCFD scale, the sulfide load is substantially higher than for small-scale installations. Key design parameters are summarised in Table~\ref{tab:spent_caustic_basis}.
+
+\begin{table}[H]
+\centering
+\caption{Spent caustic treatment design basis}
+\label{tab:spent_caustic_basis}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Packed Column} & \textbf{SCT Option} & \textbf{Units} \\
+\midrule
+\ce{H2S} absorbed & 0.056 & 0.056 & kmol/h \\
+Sulfide load & 1.8 & 1.8 & kg~S/h \\
+Sulfide load (daily) & 43 & 43 & kg~S/day \\
+\ce{CO2} co-absorbed & 0.63 (70\%) & 0.045 (5\%) & kmol/h \\
+Carbonate formed & High & Low & --- \\
+Blowdown pH & 10--12 & 11--13 & --- \\
+Blowdown rate (est.) & 200--400 & 50--100 & L/h \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sulfide load of approximately \textbf{43~kg~S/day} is independent of scrubber technology (both remove the same \ce{H2S}). However, the blowdown composition differs significantly:
+\begin{itemize}
+\item \textbf{Packed column:} High carbonate content from \ce{CO2} co-absorption; larger blowdown volume to manage carbonate buildup.
+\item \textbf{SCT option:} Lower carbonate content; smaller blowdown volume; higher sulfide concentration per unit volume.
+\end{itemize}
+
+\subsection{MBBR Configuration}
+
+A Moving Bed Biofilm Reactor (MBBR) is proposed for biological oxidation. This technology was selected over conventional activated sludge due to compactness, biofilm stability against hydraulic surges, and proven performance for sulfide oxidation \cite{odegaard2006,Vikromvarasiri2017}.
+
+\subsubsection{Process Microbiology}
+
+Autotrophic sulfur-oxidising bacteria (SOB), primarily \textit{Thiobacillus} and \textit{Paracoccus} species, oxidise sulfide using dissolved oxygen \cite{Vikromvarasiri2017,Borges2025}. The oxidation endpoint is controlled by oxygen availability:
+\begin{align}
+  \text{Partial oxidation:} \quad & \ce{HS^- + 0.5 O2 -> S^0 (s) + OH^-} \\
+  \text{Full oxidation:} \quad & \ce{HS^- + 2.0 O2 -> SO4^{2-} + H^+}
+\end{align}
+
+Operation under oxygen-limiting conditions (DO $< \SI{1.0}{mg/L}$) favours partial oxidation to elemental sulfur, which can be separated by settling, rather than generating high-salinity sulfate waste. Borges et al.\ \cite{Borges2025} demonstrated 90--95\% sulfide removal in biotrickling filters treating high-strength sulfide streams at loading rates up to \SI{100}{g~S/(m^3 \cdot h)}.
+
+\subsubsection{Preliminary Sizing}
+
+Based on the material balance from Section~\ref{sec:technology_options} and conservative design loading rates from literature \cite{odegaard2006,Vikromvarasiri2017}:
+
+\begin{table}[H]
+\centering
+\caption{MBBR preliminary sizing for 43~kg~S/day}
+\label{tab:mbbr_sizing}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Basis} \\
+\midrule
+Design sulfide load & 43 & kg~S/day \\
+Volumetric loading rate & 0.5--1.0 & kg~S/(m$^3 \cdot$day) \\
+Required reactor volume & 43--86 & m$^3$ \\
+Design reactor volume & 50 & m$^3$ (conservative) \\
+Media fill fraction & 40 & \% \\
+Media type & K3 (500~m$^2$/m$^3$) & Polyethylene carriers \\
+Hydraulic retention time & 8--16 & hours \\
+Aeration & Fine bubble diffuser & Blower-supplied \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The MBBR effluent flows to a lamella clarifier for biomass and elemental sulfur separation. Settled sulfur can be periodically removed for disposal or, if quantities justify, potential sale.
+
+\subsubsection{Alkalinity Recovery}
+
+A significant benefit of the partial oxidation route is hydroxide regeneration:
+\begin{equation}
+  \ce{NaHS + 0.5 O2 -> S^0 + NaOH}
+\end{equation}
+
+This reaction theoretically regenerates 1 mol \ce{OH^-} per mol sulfide oxidised. In practice, Borges et al.\ \cite{Borges2025} report 40--60\% alkalinity recovery, which can reduce fresh caustic makeup requirements.
+
+\subsection{Alternative: Chemical Oxidation}
+
+If biological treatment proves impractical at this scale (due to space constraints or operator preference), chemical oxidation with hydrogen peroxide or sodium hypochlorite provides a fallback:
+\begin{align}
+  \ce{NaHS + 4 H2O2 &-> NaHSO4 + 4 H2O} \quad \text{(peroxide)} \\
+  \ce{NaHS + 4 NaOCl + H2O &-> NaHSO4 + 4 NaCl + H2O} \quad \text{(hypochlorite)}
+\end{align}
+
+Chemical oxidation is operationally simpler but has higher operating cost (\$50--100/kg~S vs \$5--15/kg~S for biological treatment) and produces high-salinity sulfate waste requiring disposal.
+
+\subsection{Further Study Required}
+
+Resolution of the following items is required during detailed engineering:
+\begin{romanlist}
+\item Final scrubber technology selection to determine blowdown composition and rate
+\item Vendor engagement for packaged MBBR systems at 50~m$^3$ scale
+\item Laboratory treatability study to confirm loading rates and alkalinity recovery
+\item Evaluation of elemental sulfur handling and disposal options
+\item Fallback assessment: chemical oxidation cost comparison if MBBR is not viable
+\end{romanlist}
+
+The spent caustic treatment system represents a critical path item for project economics. Selection of SCT technology would reduce blowdown volume and simplify treatment by minimising carbonate content, though the sulfide load remains unchanged.
+

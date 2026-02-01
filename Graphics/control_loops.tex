@@ -1,0 +1,80 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    scale=0.85,
+    font=\small,
+    >=Stealth,
+    line width=0.7pt,
+    block/.style={rectangle, draw, thick, minimum width=2cm, minimum height=0.8cm, align=center, font=\scriptsize},
+    smallblock/.style={rectangle, draw, thick, minimum width=1.5cm, minimum height=0.6cm, align=center, font=\scriptsize},
+    sensor/.style={circle, draw, thick, minimum size=0.6cm, font=\scriptsize},
+]
+
+% ===== CONTROL LOOP 1: pH Control =====
+\node[font=\footnotesize\bfseries] at (0,6.5) {Loop 1: pH Control};
+
+\node[block, fill=MainBlue!10] (sp1) at (-3,5.5) {pH Setpoint\\10--11 (SCT)};
+\node[block, fill=white] (pic) at (0,5.5) {pH Controller\\(PI)};
+\node[block, fill=AccentA!20] (valve1) at (3,5.5) {NaOH\\Valve};
+\node[block, fill=gray!10] (proc1) at (6,5.5) {Scrubber\\Process};
+\node[sensor, fill=AccentB!20] (ph) at (6,4.2) {pH};
+
+\draw[->, thick] (sp1) -- (pic);
+\draw[->, thick] (pic) -- (valve1);
+\draw[->, thick] (valve1) -- (proc1);
+\draw[->, thick] (proc1) -- (ph);
+\draw[->, thick] (ph) -| (0,4.2) -- (pic);
+
+% ===== CONTROL LOOP 2: Level Control =====
+\node[font=\footnotesize\bfseries] at (0,3.2) {Loop 2: Level Control};
+
+\node[block, fill=MainBlue!10] (sp2) at (-3,2.2) {Level Setpoint\\50\%};
+\node[block, fill=white] (lic) at (0,2.2) {Level Controller\\(PI)};
+\node[block, fill=AccentA!20] (valve2) at (3,2.2) {Blowdown\\Valve};
+\node[block, fill=gray!10] (proc2) at (6,2.2) {Caustic\\Tank};
+\node[sensor, fill=AccentB!20] (lt) at (6,0.9) {LT};
+
+\draw[->, thick] (sp2) -- (lic);
+\draw[->, thick] (lic) -- (valve2);
+\draw[->, thick] (valve2) -- (proc2);
+\draw[->, thick] (proc2) -- (lt);
+\draw[->, thick] (lt) -| (0,0.9) -- (lic);
+
+% ===== INTERLOCK 1: H2S Breakthrough =====
+\node[font=\footnotesize\bfseries] at (10.5,6.5) {Interlock 1: H2S Breakthrough};
+
+\node[sensor, fill=AccentC!30] (at) at (8.5,5.5) {AT};
+\node[smallblock, fill=AccentC!10] (logic1) at (11,5.5) {>45 ppmv?};
+\node[smallblock, fill=AccentC!30] (action1) at (14,5.5) {Divert to\\flare};
+
+\draw[->, thick] (at) -- (logic1);
+\draw[->, thick, AccentC] (logic1) -- node[above, font=\tiny] {YES} (action1);
+\draw[->, dashed, gray] (logic1) -- ++(0,-0.8) node[below, font=\tiny] {NO};
+
+% ===== INTERLOCK 2: Low Caustic =====
+\node[font=\footnotesize\bfseries] at (10.5,3.2) {Interlock 2: Low Caustic Inventory};
+
+\node[sensor, fill=AccentC!30] (lt2) at (8.5,2.2) {LT};
+\node[smallblock, fill=AccentC!10] (logic2) at (11,2.2) {<20\%?};
+\node[smallblock, fill=AccentC!30] (action2) at (14,2.2) {Alarm +\\stop pump};
+
+\draw[->, thick] (lt2) -- (logic2);
+\draw[->, thick, AccentC] (logic2) -- node[above, font=\tiny] {YES} (action2);
+\draw[->, dashed, gray] (logic2) -- ++(0,-0.8) node[below, font=\tiny] {NO};
+
+% Legend
+\node[font=\scriptsize, anchor=west] at (-3.5,-0.2) {\textbf{Legend:}};
+\fill[MainBlue!10] (-3.5,-0.6) rectangle (-3.0,-0.3);
+\draw (-3.5,-0.6) rectangle (-3.0,-0.3);
+\node[font=\tiny, anchor=west] at (-2.9,-0.45) {Setpoint};
+\fill[AccentB!20] (-1.5,-0.6) rectangle (-1.0,-0.3);
+\draw (-1.5,-0.6) rectangle (-1.0,-0.3);
+\node[font=\tiny, anchor=west] at (-0.9,-0.45) {Sensor};
+\fill[AccentC!30] (0.5,-0.6) rectangle (1.0,-0.3);
+\draw (0.5,-0.6) rectangle (1.0,-0.3);
+\node[font=\tiny, anchor=west] at (1.1,-0.45) {Safety interlock};
+
+\end{tikzpicture}
+\caption{Control philosophy block diagram showing primary control loops (pH and level) and safety interlocks (\ce{H2S} breakthrough and low caustic inventory). The pH control loop is critical for SCT operation, requiring $\pm$0.3~pH unit tolerance.}
+\label{fig:control_loops}
+\end{figure}

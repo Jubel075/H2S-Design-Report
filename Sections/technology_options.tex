@@ -1,0 +1,337 @@
+% =========================================================
+% Section 3: Technology Options Analysis
+% =========================================================
+
+\section{Technology Options Analysis}
+\label{sec:technology_options}
+
+Two caustic scrubbing configurations are evaluated for the TA-58 application: a conventional packed column absorber and a Short Contact Time (SCT) static mixer system. Both technologies exploit the fast irreversible reaction between \ce{H2S} and \ce{NaOH} but differ fundamentally in their approach to \ce{CO2} selectivity---a factor that, at the 660,000~SCFD scale, determines project economic viability.
+
+\subsection{Mass Transfer Fundamentals}
+\label{subsec:mass_transfer}
+
+Before comparing technologies, it is essential to establish the theoretical basis for selective \ce{H2S} absorption. The classical two-film model, as developed by Danckwerts \cite{Danckwerts1965}, describes gas absorption with chemical reaction through the flux equation:
+\begin{equation}
+  N_A = k_L \cdot a \cdot E \cdot (C_i - C_b)
+  \label{eq:flux}
+\end{equation}
+where $k_L a$ is the liquid-side mass transfer coefficient, $E$ is the enhancement factor due to chemical reaction, $C_i$ is the interfacial concentration, and $C_b$ is the bulk liquid concentration.
+
+For gas-phase controlled absorption (as with \ce{H2S} in strong caustic), the overall transfer rate simplifies to:
+\begin{equation}
+  N_A = K_G \cdot a \cdot \Delta p_A
+  \label{eq:gas_controlled}
+\end{equation}
+
+The enhancement factor depends on the Hatta number (Ha), which quantifies the ratio of reaction rate to diffusion rate \cite{Danckwerts1965,astarita1983}:
+\begin{equation}
+  \mathrm{Ha} = \frac{\sqrt{k_2 \cdot D_A \cdot C_{\ce{OH}}}}{k_L}
+  \label{eq:hatta}
+\end{equation}
+where $k_2$ is the second-order rate constant, $D_A$ is the diffusivity of species A, and $C_{\ce{OH}}$ is the hydroxide concentration.
+
+For fast reactions ($\mathrm{Ha} > 3$), the enhancement factor approaches Ha:
+\begin{equation}
+  E \approx \mathrm{Ha} \quad \text{when Ha} > 3
+  \label{eq:enhancement}
+\end{equation}
+
+\subsubsection{Kinetic Rate Constants}
+
+The critical selectivity opportunity arises from the dramatically different reaction kinetics of \ce{H2S} and \ce{CO2} with hydroxide \cite{Danckwerts1965,astarita1983}:
+
+\begin{table}[H]
+\centering
+\caption{Reaction kinetics for \ce{H2S} and \ce{CO2} with \ce{NaOH} at 25--40°C}
+\label{tab:kinetics}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Reaction} & \textbf{Rate Constant} & \textbf{Regime} \\
+\midrule
+\ce{H2S + OH^- -> HS^- + H2O} & $k_{\ce{H2S}} \approx 10^{10}$ \si{L/(mol.s)} & Instantaneous (diffusion-controlled) \\
+\ce{CO2 + OH^- -> HCO3^-} & $k_{\ce{CO2}} \approx 10^{3}\text{--}10^{4}$ \si{L/(mol.s)} & Finite rate \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The rate constant ratio of approximately $10^6$ provides the thermodynamic basis for selective \ce{H2S} removal. The practical question is whether the contactor design can exploit this kinetic difference.
+
+\subsubsection{The Damk\"ohler Framework for Selectivity}
+
+The Damk\"ohler number (Da) relates reaction rate to residence time \cite{astarita1983}:
+\begin{equation}
+  \mathrm{Da} = k_2 \cdot C_{\ce{OH}} \cdot \tau
+  \label{eq:damkohler}
+\end{equation}
+where $\tau$ is the gas-liquid contact time.
+
+For selective absorption, the operating window must satisfy:
+\begin{equation}
+  \mathrm{Da}_{\ce{H2S}} \gg 1 \quad \text{(complete \ce{H2S} reaction)} \qquad
+  \mathrm{Da}_{\ce{CO2}} \ll 1 \quad \text{(negligible \ce{CO2} reaction)}
+  \label{eq:selectivity_window}
+\end{equation}
+
+At 5~wt\% \ce{NaOH} ($C_{\ce{OH}} \approx \SI{1.25}{mol/L}$), the critical contact times are:
+\begin{align}
+  \tau_{\ce{H2S}} &= \frac{1}{k_{\ce{H2S}} \cdot C_{\ce{OH}}} \approx \frac{1}{10^{10} \times 1.25} \approx \SI{0.08}{ns} \quad \text{(instantaneous)} \\
+  \tau_{\ce{CO2}} &= \frac{1}{k_{\ce{CO2}} \cdot C_{\ce{OH}}} \approx \frac{1}{10^{4} \times 1.25} \approx \SI{80}{\micro s}
+\end{align}
+
+This analysis reveals the selectivity window: contact times of 10--100~ms allow complete \ce{H2S} absorption while limiting \ce{CO2} uptake to single-digit percentages.
+
+\subsection{Packed Column Scrubber}
+\label{subsec:packed_column}
+
+\subsubsection{Operating Principle}
+
+The packed column absorber operates in counter-current flow, with sour gas entering the bottom and aqueous \ce{NaOH} distributed over structured or random packing from the top. Mass transfer occurs as gas contacts the liquid film on packing surfaces. The required packed height is determined by the number of transfer units \cite{wankat2017}:
+\begin{equation}
+  N_{TU} = \ln\left(\frac{y_{\text{in}}}{y_{\text{out}}}\right) = \ln\left(\frac{1800}{45}\right) = 3.69, \qquad
+  Z = HTU \times N_{TU}
+  \label{eq:ntu_packed}
+\end{equation}
+
+\subsubsection{Column Sizing for 660,000 SCFD}
+
+The column diameter is sized for flooding avoidance. Following the correlation approach of Strigle \cite{strigle1994} and validated against the Onda correlation \cite{Onda1968}, the design proceeds as:
+
+\textbf{Gas flow properties:}
+\begin{itemize}
+\item Volumetric flow: $660{,}000 \times 0.0283 / 86{,}400 = \SI{0.216}{m^3/s}$ (actual)
+\item Gas density: $\rho_G \approx \SI{0.95}{kg/m^3}$ (methane-rich at 30°C, 1~atm)
+\item Design velocity: 70\% of flooding, $u_G \approx \SI{0.8}{m/s}$
+\end{itemize}
+
+\textbf{Column diameter:}
+\begin{equation}
+  D = \sqrt{\frac{4 \cdot Q_G}{\pi \cdot u_G}} = \sqrt{\frac{4 \times 0.216}{\pi \times 0.8}} = \SI{0.59}{m}
+\end{equation}
+
+Applying a safety factor for maldistribution and allowing for structured packing installation, the recommended column diameter is \textbf{0.75~m (30~in)}.
+
+\textbf{Packed height:}
+
+Using the HETP correlation from Wankat \cite{wankat2017} for 50~mm structured packing (Sulzer Mellapak 250Y):
+\begin{equation}
+  \text{HETP} \approx 0.4\text{--}0.6~\text{m}, \quad Z = N_{TU} \times \text{HETP} \approx 3.69 \times 0.5 = \SI{1.85}{m}
+\end{equation}
+
+With 50\% design margin for mass transfer uncertainty \cite{Flagiello2021}, the recommended packed height is \textbf{2.8~m}.
+
+\subsubsection{Caustic Consumption Analysis}
+
+The critical economic parameter is caustic consumption. At the packed column's typical residence time (5--15~s), equilibrium is approached for both \ce{H2S} and \ce{CO2}:
+
+\textbf{\ce{H2S} consumption (stoichiometric):}
+\begin{equation}
+  \dot{m}_{\ce{NaOH},\ce{H2S}} = 0.056~\text{kmol/h} \times 40~\text{kg/kmol} = \SI{2.2}{kg/h}
+\end{equation}
+
+\textbf{\ce{CO2} consumption (70\% absorbed at pH 12--13):}
+\begin{align}
+  \ce{CO2 + 2 NaOH &-> Na2CO3 + H2O} \\
+  \dot{m}_{\ce{NaOH},\ce{CO2}} &= 0.90~\text{kmol/h} \times 0.70 \times 2 \times 40~\text{kg/kmol} = \SI{50}{kg/h}
+\end{align}
+
+\textbf{Total annual consumption:}
+\begin{equation}
+  \text{Total} = (2.2 + 50) \times 8{,}000~\text{h/yr} = \SI{418}{ton/yr}
+\end{equation}
+
+At a delivered \ce{NaOH} cost of \$500/ton \cite{IMARC_CausticSoda}, the annual caustic cost is approximately \textbf{\$209,000/yr}.
+
+\begin{table}[H]
+\centering
+\caption{Packed column design summary for 660,000 SCFD}
+\label{tab:packed_design}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+\midrule
+Column diameter & 0.75 & m (30~in) \\
+Packed height & 2.8 & m (9.2~ft) \\
+Total column height & 5.5 & m (including sump, distributor, demister) \\
+Packing type & Mellapak 250Y & Structured \\
+$N_{TU}$ (\ce{H2S}) & 3.69 & --- \\
+HETP & 0.50 & m \\
+Operating velocity & 0.8 & m/s (70\% flood) \\
+\ce{H2S} removal & 97.5 & \% \\
+\ce{CO2} removal & 50--80 & \% (pH dependent) \\
+\ce{NaOH} consumption & 418 & ton/yr \\
+\ce{NaOH} cost & 209,000 & \$/yr \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Economic Reality Check}
+
+With diesel displacement benefit of \$500,000/yr and caustic cost of \$209,000/yr (assuming 70\% \ce{CO2} absorption), the operating margin before other OpEx is:
+\begin{equation}
+  \text{Margin} = 500{,}000 - 209{,}000 = \$291{,}000/\text{yr}
+\end{equation}
+
+However, if \ce{CO2} absorption increases to 90\% (possible at higher pH operation), caustic cost rises to \$296,000/yr, leaving only \$204,000/yr margin. At 95\% \ce{CO2} absorption:
+\begin{equation}
+  \text{Caustic cost} = (2.2 + 68) \times 8{,}000 \times 0.5 = \$281{,}000/\text{yr}
+\end{equation}
+
+This sensitivity demonstrates that \textbf{packed column viability depends critically on maintaining low \ce{CO2} absorption}, which requires careful pH control---a non-trivial operating challenge.
+
+\subsection{Short Contact Time (SCT) Static Mixer Scrubber}
+\label{subsec:sct_scrubber}
+
+\subsubsection{Operating Principle}
+
+The SCT concept deliberately limits gas-liquid contact time to exploit the $10^6$ kinetic rate difference between \ce{H2S} and \ce{CO2} absorption \cite{AFPM2014}. By maintaining contact time in the 10--100~ms range, the instantaneous \ce{H2S} reaction completes while the slower \ce{CO2} reaction achieves negligible conversion.
+
+Field data from refinery applications \cite{AFPM2014} demonstrate selectivities (defined as \% \ce{H2S} removal / \% \ce{CO2} removal) of 20--50, with \ce{CO2} co-absorption limited to 2--10\% while achieving >98\% \ce{H2S} removal.
+
+\subsubsection{Static Mixer Configuration}
+
+The contactor uses structured packing static mixers (Sulzer SMV-type or Kenics-type) with element L/D ratio of 1.0--1.5. The compact geometry provides high interfacial area with controlled, short residence time.
+
+\textbf{Sizing for 660,000 SCFD:}
+
+For a design superficial velocity of \SI{3}{m/s} (typical for SMV mixers):
+\begin{equation}
+  A = \frac{Q_G}{u_G} = \frac{0.216}{3.0} = \SI{0.072}{m^2}, \quad D = \sqrt{\frac{4A}{\pi}} = \SI{0.30}{m}
+\end{equation}
+
+Multiple parallel trains or a single larger mixer (\SI{300}{mm} diameter) are viable configurations.
+
+\textbf{Contact time verification:}
+
+For 4 mixer elements at L/D = 1.5:
+\begin{equation}
+  L_{\text{total}} = 4 \times 1.5 \times 0.30 = \SI{1.8}{m}, \quad \tau = \frac{L}{u_G} = \frac{1.8}{3.0} = \SI{0.6}{s}
+\end{equation}
+
+This is longer than the ideal 10--100~ms window, suggesting shorter element trains or higher velocities. With optimised design (2 elements, $u_G = \SI{5}{m/s}$):
+\begin{equation}
+  \tau = \frac{0.9}{5.0} = \SI{180}{ms}
+\end{equation}
+
+At 180~ms contact time, Damk\"ohler analysis predicts:
+\begin{itemize}
+\item $\mathrm{Da}_{\ce{H2S}} \gg 1$: complete \ce{H2S} absorption
+\item $\mathrm{Da}_{\ce{CO2}} \approx 0.02$: approximately 2\% \ce{CO2} absorption
+\end{itemize}
+
+\subsubsection{Caustic Consumption Analysis}
+
+\textbf{At 5\% \ce{CO2} co-absorption:}
+\begin{align}
+  \dot{m}_{\ce{NaOH},\ce{H2S}} &= \SI{2.2}{kg/h} \\
+  \dot{m}_{\ce{NaOH},\ce{CO2}} &= 0.90 \times 0.05 \times 2 \times 40 = \SI{3.6}{kg/h} \\
+  \text{Total} &= (2.2 + 3.6) \times 8{,}000 = \SI{46}{ton/yr}
+\end{align}
+
+\textbf{Annual caustic cost:} $46 \times 500 = \$23{,}000/\text{yr}$
+
+\begin{table}[H]
+\centering
+\caption{SCT static mixer design summary for 660,000 SCFD}
+\label{tab:sct_design}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\
+\midrule
+Mixer diameter & 300 & mm (12~in) \\
+Number of elements & 2--4 & --- \\
+Total length & 0.6--1.8 & m \\
+Contact time & 50--200 & ms \\
+Superficial velocity & 3--5 & m/s \\
+\ce{H2S} removal & $>98$ & \% \\
+\ce{CO2} co-absorption & 2--10 & \% \\
+Selectivity (H$_2$S/CO$_2$) & 10--50 & --- \\
+\ce{NaOH} consumption & 46--90 & ton/yr \\
+\ce{NaOH} cost & 23,000--45,000 & \$/yr \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Comparative Evaluation: The Selectivity Imperative}
+\label{subsec:comparison}
+
+At the 660,000~SCFD scale with a fixed \$500,000/yr diesel displacement benefit, the economics are dominated by caustic consumption. Table~\ref{tab:technology_comparison} quantifies this critical difference.
+
+\begin{table}[H]
+\centering
+\caption{Technology comparison at 660,000 SCFD scale}
+\label{tab:technology_comparison}
+\small
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+\textbf{Parameter} & \textbf{Packed Column} & \textbf{SCT Static Mixer} \\
+\midrule
+\ce{H2S} removal & 97.5\% & $>$98\% \\
+\addlinespace
+\ce{CO2} co-absorption & 50--80\% (equilibrium-driven) & 2--10\% (kinetically limited) \\
+\addlinespace
+Selectivity mechanism & pH control (operationally challenging) & Contact time (inherent to design) \\
+\addlinespace
+\ce{NaOH} consumption & 300--500 ton/yr & 46--90 ton/yr \\
+\addlinespace
+\ce{NaOH} cost & \$150,000--250,000/yr & \$23,000--45,000/yr \\
+\addlinespace
+Operating margin & \$250,000--350,000/yr & \$455,000--477,000/yr \\
+\addlinespace
+Equipment footprint & 0.75~m $\times$ 5.5~m column & 0.3~m $\times$ 1.5~m inline \\
+\addlinespace
+Control complexity & Standard (pH, level, flow) & pH-critical ($\pm$0.3 units) \\
+\addlinespace
+Technology maturity & Well-established & Emerging (growing field experience) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Economic Comparison}
+
+The following analysis assumes 8,000 operating hours/year and \$500/ton delivered \ce{NaOH}:
+
+\begin{table}[H]
+\centering
+\caption{Annual operating cost comparison}
+\label{tab:opex_comparison}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Scenario} & \textbf{NaOH (ton/yr)} & \textbf{NaOH Cost (\$/yr)} & \textbf{Net Margin (\$/yr)} \\
+\midrule
+\multicolumn{4}{l}{\textit{Packed Column}} \\
+\quad 50\% \ce{CO2} absorption & 298 & 149,000 & 351,000 \\
+\quad 70\% \ce{CO2} absorption & 418 & 209,000 & 291,000 \\
+\quad 90\% \ce{CO2} absorption & 538 & 269,000 & 231,000 \\
+\midrule
+\multicolumn{4}{l}{\textit{SCT Static Mixer}} \\
+\quad 2\% \ce{CO2} absorption & 32 & 16,000 & 484,000 \\
+\quad 5\% \ce{CO2} absorption & 46 & 23,000 & 477,000 \\
+\quad 10\% \ce{CO2} absorption & 75 & 38,000 & 462,000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key finding:} The SCT technology provides \textbf{1.4--2.1$\times$ higher operating margin} than packed column across the range of plausible \ce{CO2} absorption scenarios. This margin difference of \$130,000--250,000/yr dominates the capital cost differential (see Section~\ref{sec:eco_eval}).
+
+\subsubsection{Selectivity Visualisation}
+
+The kinetic basis for selectivity is illustrated in Figure~\ref{fig:selectivity_kinetics}, which shows conversion versus contact time for both species.
+
+\input{Graphics/selectivity_kinetics.tex}
+
+\subsubsection{Selection Recommendation}
+
+Based on the quantitative analysis, \textbf{SCT static mixer technology is recommended} for the TA-58 application:
+
+\begin{romanlist}
+\item \textbf{Economic superiority:} The 5--10$\times$ reduction in caustic consumption provides \$130,000--250,000/yr operating cost advantage, which compounds over the 15-year project life.
+
+\item \textbf{Inherent selectivity:} SCT selectivity derives from the fundamental design (short contact time) rather than requiring precise pH control, reducing operational risk.
+
+\item \textbf{Compact footprint:} The inline mixer configuration ($<$2~m) requires minimal plot space compared to the 5.5~m packed column.
+
+\item \textbf{Growing field experience:} While less established than packed columns, SCT caustic scrubbers have demonstrated performance in refinery fuel gas applications \cite{AFPM2014}.
+\end{romanlist}
+
+The packed column remains a viable fallback if vendor engagement identifies concerns with SCT technology availability or if site personnel strongly prefer conventional equipment. However, the economic penalty of non-selective \ce{CO2} absorption should be explicitly considered in the final technology selection.
+

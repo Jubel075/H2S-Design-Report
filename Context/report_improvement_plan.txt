@@ -1,0 +1,82 @@
+# Plan for Enhancing the H2S Design Report
+
+## 1. Objective
+
+To restructure and enhance the existing LaTeX report into a comprehensive, cohesive, and rigorous engineering design report. The plan focuses on integrating the technical details from `@context.txt` (SCT Scrubber) and `@packed_context.txt` (Packed Column) to build a strong engineering narrative that justifies the selection of a final design.
+
+## 2. Methodology
+
+The process is broken down into four phases: Foundational Restructuring, Content Population & Justification, Detailed Design, and Final Analysis. Each step focuses on a specific section of the report to ensure a logical and methodical progression from problem statement to final recommendation.
+
+---
+
+## 3. Detailed Execution Plan
+
+### PHASE 1: Foundational Restructuring
+
+**Task 1.1: Restructure `main.tex` for a Standard Engineering Narrative**
+- **Action:** Modify the `\input` section of `main.tex` to follow a logical flow: Introduction -> Alternatives Analysis -> Selected Design Details -> Supporting Analysis -> Conclusion.
+- **New Structure Order:**
+  1. `exec_summ.tex`
+  2. `project_objectives.tex`
+  3. `background.tex`
+  4. `design_basis.tex` (New)
+  5. `alternatives_eval.tex` (New)
+  6. `desc_concept.tex` (Repurposed for selected tech)
+  7. `tech_eval.tex` (Repurposed for performance analysis)
+  8. `eco_eval.tex`
+  9. `control_safety.tex` (New)
+  10. `conclusions.tex` (New)
+
+**Task 1.2: Create Placeholder Section Files**
+- **Action:** Create the new `.tex` files (`design_basis.tex`, `alternatives_eval.tex`, `control_safety.tex`, `conclusions.tex`) with basic section headers. This ensures the document remains compilable during the enhancement process.
+
+### PHASE 2: Content Population & Justification
+
+**Task 2.1: Populate the 'Design Basis' Section**
+- **Action:** Fill `Sections/design_basis.tex` with the core parameters of the study.
+- **Source:** Synthesize data from `@context.txt` (Sections 1, 11, 12, 14, 15) and `@packed_context.txt` (Key Assumptions).
+- **Content:** Create tables for Feed/Product specifications, a list of key technical assumptions (isothermal, ideal gas, plug flow), and a table of economic assumptions (cost of caustic, electricity, etc.).
+
+**Task 2.2: Build the 'Evaluation of Alternatives' Section**
+- **Action:** Fill `Sections/alternatives_eval.tex` to create a robust trade-off study. This is the core justification for the entire report.
+- **Source:** Use `@context.txt` (Sections 5, 7, 16, 17) for SCT benefits and `@packed_context.txt` for Packed Column characteristics.
+- **Content:** Create a detailed comparison table evaluating:
+    - Operating Principle
+    - Selectivity (H2S vs. CO2)
+    - Equipment Footprint
+    - Capital Cost (CAPEX)
+    - Operating Cost (OPEX)
+    - Control Complexity
+- **Outcome:** Conclude the section with a clear, evidence-based recommendation to select the SCT technology.
+
+### PHASE 3: Detailed Design of Selected Technology (SCT)
+
+**Task 3.1: Overhaul 'Description of Concept' for SCT**
+- **Action:** Rewrite `Sections/desc_concept.tex` to be a detailed technical description of the *selected* SCT technology. The current content focuses on a packed column and should be replaced.
+- **Source:** Extract deep technical details from `@context.txt` (Sections 3, 4, 5, 7).
+- **Content:** Explain the fundamental chemistry, mass transfer theory (Two-Film Model, Enhancement Factors, Hatta Number), the kinetic basis for selectivity, and the static mixer sizing methodology. This section demonstrates academic and engineering rigor.
+
+**Task 3.2: Present Synthesized 'Technical Evaluation' Results**
+- **Action:** Repurpose `Sections/tech_eval.tex` to present the performance analysis of the SCT design.
+- **Source:** Synthesize hypothetical but realistic results based on the models described in `@context.txt` (Section 10).
+- **Content:** Present results in tables and figures, including:
+    - Final SCT design parameters (diameter, length, velocity).
+    - Predicted performance (H2S removal %, CO2 slip %, Selectivity).
+    - Key dimensionless numbers (Hatta, Damköhler) to validate the operating regime.
+
+### PHASE 4: Final Analysis & Conclusion
+
+**Task 4.1: Enhance the 'Economic Evaluation'**
+- **Action:** Update `Sections/eco_eval.tex` and `Sections/cost_est.tex`.
+- **Source:** Use the economic data from the Design Basis and the selectivity results from the technical evaluation.
+- **Content:** Calculate estimated CAPEX (using factorial method if applicable) and OPEX. The OPEX calculation should be directly tied to the predicted caustic consumption, highlighting the financial benefit of the high-selectivity SCT process.
+
+**Task 4.2: Create the 'Control & Safety' Section**
+- **Action:** Populate `Sections/control_safety.tex`.
+- **Source:** Extrapolate from information in `@context.txt` (Sections 9, 16, 18).
+- **Content:** Detail the primary control loops (e.g., pH control for caustic makeup, L/G ratio control). Discuss key safety and operability risks, such as Na2S precipitation, materials selection for caustic service, and H2S hazards.
+
+**Task 4.3: Write the 'Conclusions and Recommendations'**
+- **Action:** Populate `Sections/conclusions.tex`.
+- **Content:** Provide a concise summary of the report's findings. State the final recommendation clearly: that the SCT scrubber is the preferred technology and should be carried forward into the next phase of engineering. Suggest next steps, such as pilot testing, as mentioned in the context documents.

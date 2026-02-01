@@ -1,0 +1,109 @@
+% =========================================================
+% Section 3: Project Objectives and Design Basis
+% =========================================================
+
+\section{Project Objectives and Design Basis}
+\label{sec:objectives_basis}
+
+\nomenclature[A]{HAZID}{Hazard Identification}
+\nomenclature[A]{HAZOP}{Hazard and Operability Study}
+\nomenclature[A]{LOPA}{Layer of Protection Analysis}
+\nomenclature[A]{AFE}{Authorization for Expenditure}
+
+\subsection{Process Objectives}
+The objective of this study is to determine whether the TA-58 associated gas can be treated to a fuel-gas specification suitable for reliable operation of the existing Caterpillar G3408 (HPG) dual-gas engines, thereby enabling displacement of diesel consumption at the pump station. The work focuses on: (i) demonstrating technical feasibility at conceptual level; (ii) defining a defensible treating configuration; and (iii) quantifying, at screening fidelity, the expected reductions in diesel use, routine flaring, and sulfur-related emissions.
+
+The deliverable of this study is a recommendation supported by technical and economic justification regarding progression to the next phase, namely either detailed engineering and procurement, or pilot-scale implementation to de-risk key uncertainties prior to full project sanction.
+
+\subsection{Design Basis (Key Inputs)}
+Unless otherwise stated, the design basis is taken from the TA-58 dataset (VRU line basis). The key design inputs used throughout this report are:
+\begin{romanlist}
+  \item gas source and tie-in: VRU line associated gas to the engine fuel-gas system;
+  \item flow basis (standard): approximately \SI{35000}{SCFD};
+  \item inlet \ce{H2S}: approximately \SI{1800}{ppmv};
+  \item required outlet \ce{H2S}: $<\SI{45}{ppmv}$ for engine fuel service;
+  \item pressure regime: low-pressure service; compression is outside the present scope and treated as an integration constraint.
+\end{romanlist}
+The anticipated operating envelope is bounded by the dataset-defined variability in flow and composition; where bounds are not available or remain uncertain, they are treated explicitly as validation requirements in the next phase.
+
+\subsection{Fuel and Effluent Specifications}
+The installed TA-58 engines require low-sulfur fuel gas with a maximum \ce{H2S} concentration of \SI{45}{ppmv}. With untreated gas containing approximately \SI{1800}{ppmv} \ce{H2S}, the treating system is required to deliver an overall \ce{H2S} reduction on the order of 97.5\%. Table~\ref{tab:performance_specs} summarises the minimum performance requirements.
+
+\begin{table}[H]
+\centering
+\caption{Minimum performance requirements for the gas sweetening system}
+\label{tab:performance_specs}
+\begin{tabular}{@{}lp{0.6\textwidth}@{}}
+\toprule
+\textbf{Requirement} & \textbf{Specification} \\
+\midrule
+Treated-gas \ce{H2S} & $<\SI{45}{ppmv}$ across the anticipated operating envelope \\
+Removal stability & No sustained breakthrough under foreseeable flow and composition variations \\
+Sulfur management & Routed to a controlled by-product stream; preference for a benign solid suitable for storage and disposal \\
+Continuous operability & Designed for continuous operation with routine monitoring and periodic maintenance \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These requirements define the minimum design basis for consistent engine operation and meaningful displacement of diesel consumption.
+
+\subsection{Design Basis Assumptions and Exclusions}
+This feasibility and conceptual design is developed under the assumptions and exclusions summarised in Table~\ref{tab:assumptions_exclusions}. Where assumptions materially affect cost or operability (e.g., \ce{CO2} co-absorption and resulting caustic consumption), they are treated as uncertainties to be validated in subsequent phases.
+
+\begin{table}[H]
+\centering
+\caption{Design basis assumptions and exclusions}
+\label{tab:assumptions_exclusions}
+\small
+\begin{tabularx}{\textwidth}{@{}lY@{}}
+\toprule
+\textbf{Category} & \textbf{Description} \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Assumptions}} \\
+\midrule
+Feed composition &
+Design-basis sour-gas composition is representative of normal TA-58 operation; short-term fluctuations are bounded within characterisation ranges \\
+\addlinespace
+Operating mode &
+Continuous operation with routine monitoring and periodic maintenance consistent with field facilities \\
+\addlinespace
+Site utilities &
+Sufficient power, instrument air, and water are available; adequate plot space exists for a compact, modularised installation within TA-58 constraints \\
+\addlinespace
+Downstream systems &
+Fuel-gas distribution and engine systems are serviceable and capable of accepting treated gas meeting specification \\
+\addlinespace
+Design margins &
+Preliminary sizing includes conservative margins consistent with conceptual-stage uncertainty (e.g., $\pm 20\%$ for mass-transfer performance and biological kinetics) \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Exclusions}} \\
+\midrule
+Detailed engineering &
+Hydraulic design, detailed control philosophy, instrument index, cause-and-effect matrices, and mechanical specifications \\
+\addlinespace
+Process safety &
+Formal HAZID/HAZOP/LOPA and SIL verification (screening-level risk assessment only) \\
+\addlinespace
+Execution &
+Vendor selection, procurement, construction, commissioning, and start-up support \\
+\addlinespace
+Regulatory &
+Permitting and environmental compliance documentation beyond screening evaluation \\
+\addlinespace
+Guarantees &
+Performance guarantees; results are feasibility-level estimates subject to refinement with vendor input and, if pursued, pilot testing \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Decision Criteria for Progression}
+Progression to the next project phase is recommended when the following criteria are satisfied:
+\begin{romanlist}
+  \item technical compliance: treated gas meets the \SI{45}{ppmv} \ce{H2S} specification over the defined operating envelope;
+  \item sulfur management: a practical sulfur-handling route is defined and is compliant with site disposal constraints;
+  \item process safety: screening-level risk assessment indicates hazards can be managed with standard safeguards for sour service, with formal studies scheduled for the next phase;
+  \item economic viability: positive economics relative to the diesel-displacement baseline for two engines at TA-58, with uncertainty characterised at AACE Class~3 maturity (approximately $-20\% / +30\%$);
+  \item constructability and integration: tie-ins are feasible within site utility and plot-space constraints, and the battery limits are clearly defined for detailed engineering.
+\end{romanlist}
+
+These criteria provide the framework for evaluating technical and economic feasibility in subsequent sections and for establishing the basis for management decision-making regarding project advancement.

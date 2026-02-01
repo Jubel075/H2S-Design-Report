@@ -1,0 +1,86 @@
+\begin{figure}[H]
+\centering
+\fbox{\begin{tikzpicture}[
+    x=0.42cm, y=1cm,
+    font=\small,
+    every node/.style={inner sep=1pt},
+]
+  % helpers
+  \def\xLabel{-14.5}
+  \def\barH{0.40}
+
+  % Base line (22.8% IRR for SCT base case)
+  \draw[thick,dashed,gray] (0,0.2) -- (0,7.8);
+  \node[above,font=\small] at (0,7.8) {SCT Base: 22.8\%};
+
+  % Hurdle rate line at 15%
+  \draw[thick,dotted,AccentC] (-7.8,0.6) -- (-7.8,7.5);
+  \node[AccentC,font=\scriptsize,anchor=south] at (-7.8,7.5) {15\% hurdle};
+
+  % ---- SCT Technology (top section) ----
+  \node[font=\footnotesize\bfseries,anchor=west] at (\xLabel,7.2) {SCT Static Mixer};
+
+  % Row 1: Diesel benefit
+  \fill[AccentA!15] (-5.2,6.2) rectangle (4.9,6.2+\barH);
+  \draw[thick,AccentA] (-5.2,6.2) rectangle (4.9,6.2+\barH);
+  \node[anchor=east] at (\xLabel,6.2+0.5*\barH) {Diesel benefit (\$/yr)};
+  \node[anchor=south, font=\footnotesize] at (-5.2,6.2+\barH) {\$400k};
+  \node[anchor=south, font=\footnotesize] at (4.9, 6.2+\barH) {\$600k};
+
+  % Row 2: Capital cost
+  \fill[AccentB!15] (-5.4,5.3) rectangle (7.3,5.3+\barH);
+  \draw[thick,AccentB] (-5.4,5.3) rectangle (7.3,5.3+\barH);
+  \node[anchor=east] at (\xLabel,5.3+0.5*\barH) {Capital cost (TIC)};
+  \node[anchor=south, font=\footnotesize] at (-5.4,5.3+\barH) {\$1.2M};
+  \node[anchor=south, font=\footnotesize] at (7.3, 5.3+\barH) {\$2.3M};
+
+  % Row 3: CO2 absorption
+  \fill[MainBlue!15] (-1.8,4.4) rectangle (1.5,4.4+\barH);
+  \draw[thick,MainBlue] (-1.8,4.4) rectangle (1.5,4.4+\barH);
+  \node[anchor=east] at (\xLabel,4.4+0.5*\barH) {\ce{CO2} absorption};
+  \node[anchor=south, font=\footnotesize] at (-1.8,4.4+\barH) {10\%};
+  \node[anchor=south, font=\footnotesize] at (1.5, 4.4+\barH) {2\%};
+
+  % Row 4: NaOH price
+  \fill[AccentC!15] (-0.8,3.5) rectangle (0.7,3.5+\barH);
+  \draw[thick,AccentC] (-0.8,3.5) rectangle (0.7,3.5+\barH);
+  \node[anchor=east] at (\xLabel,3.5+0.5*\barH) {NaOH price (\$/ton)};
+  \node[anchor=south, font=\footnotesize] at (-0.8,3.5+\barH) {\$600};
+  \node[anchor=south, font=\footnotesize] at (0.7, 3.5+\barH) {\$400};
+
+  % ---- Packed Column (bottom section) ----
+  \node[font=\footnotesize\bfseries,anchor=west] at (\xLabel,2.6) {Packed Column (base: 5.3\%)};
+
+  % Row 5: Diesel benefit (packed)
+  \fill[AccentA!15] (-4.1,1.8) rectangle (4.0,1.8+\barH);
+  \draw[thick,AccentA] (-4.1,1.8) rectangle (4.0,1.8+\barH);
+  \node[anchor=east] at (\xLabel,1.8+0.5*\barH) {Diesel benefit};
+  \node[anchor=south, font=\footnotesize] at (-4.1,1.8+\barH) {\$400k};
+  \node[anchor=south, font=\footnotesize] at (4.0, 1.8+\barH) {\$600k};
+
+  % Row 6: CO2 absorption (packed) - most sensitive
+  \fill[MainBlue!15] (-3.5,0.9) rectangle (4.9,0.9+\barH);
+  \draw[thick,MainBlue] (-3.5,0.9) rectangle (4.9,0.9+\barH);
+  \node[anchor=east] at (\xLabel,0.9+0.5*\barH) {\ce{CO2} absorption};
+  \node[anchor=south, font=\footnotesize] at (-3.5,0.9+\barH) {90\%};
+  \node[anchor=south, font=\footnotesize] at (4.9, 0.9+\barH) {50\%};
+
+  % X-axis
+  \draw[<->,thick] (-13,0.2) -- (13,0.2);
+  \foreach \x/\lab in {-13/0, -7.8/15, 0/22.8, 7.8/30, 10.4/35}
+    \node[below,font=\footnotesize] at (\x,0.2) {\lab\%};
+
+  \node[below] at (0,-0.25) {Internal Rate of Return (\%)};
+
+  % Annotations
+  \node[anchor=west,font=\scriptsize,gray] at (-13,8.1) {Pessimistic};
+  \node[anchor=east,font=\scriptsize,gray] at (13,8.1) {Optimistic};
+
+  % Highlight: packed column never exceeds hurdle
+  \draw[AccentC, thick, ->] (-11,2.3) -- (-8.5,1.5);
+  \node[AccentC, font=\scriptsize, anchor=east, align=right] at (-11,2.5) {Packed column\\never exceeds\\15\% hurdle};
+
+\end{tikzpicture}}
+\caption{Tornado diagram comparing IRR sensitivity for SCT (top) and packed column (bottom) technologies. The SCT system maintains IRR above the 15\% hurdle across all scenarios, while the packed column fails to reach the hurdle even in optimistic cases.}
+\label{fig:economic_tornado}
+\end{figure}

@@ -1,0 +1,165 @@
+% =========================================================
+% Control Philosophy and Safety
+% =========================================================
+
+\section{Control Philosophy and Safety}
+\label{sec:control_safety}
+
+\subsection{Control Philosophy Overview}
+
+The control system for the caustic scrubber must achieve two objectives: (i) maintain treated gas quality at $<$\SI{45}{ppmv} \ce{H2S}, and (ii) manage caustic consumption by controlling \ce{CO2} co-absorption. For the SCT technology, the second objective is achieved through inherent design (short contact time), while pH control ensures the first objective is reliably met.
+
+Figure~\ref{fig:control_loops} illustrates the control architecture, comprising two primary control loops and two critical safety interlocks.
+
+\input{Graphics/control_loops.tex}
+
+\subsection{Primary Control Loops}
+
+Table~\ref{tab:control_loops} summarises the essential control loops for stable scrubber operation.
+
+\begin{table}[H]
+\centering
+\caption{Primary control loop specifications}
+\label{tab:control_loops}
+\small
+\begin{tabularx}{\textwidth}{@{}llYc@{}}
+\toprule
+\textbf{Loop} & \textbf{Controller} & \textbf{Purpose} & \textbf{Setpoint} \\
+\midrule
+pH control & PI (tuned for fast response) & Maintain solvent alkalinity for complete \ce{H2S} removal; for SCT, tighter control prevents over-absorption of \ce{CO2} & 10--11 (SCT) \\
+Level control & PI (slow integral) & Manage sulfide/carbonate inventory in recirculation tank; prevent accumulation & 50\% \\
+Recirculation flow & Manual or ratio & Maintain design L/G ratio and ensure adequate wetting of contactor & 2--5$\times$ stoichiometric \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{pH Control for SCT Operation}
+
+For the SCT option, pH control is the critical variable for maintaining selectivity. The operating philosophy differs from conventional packed column operation:
+
+\begin{itemize}
+\item \textbf{Setpoint:} pH 10--11 (lower than packed column's pH 12--13)
+\item \textbf{Tolerance:} $\pm$0.3 pH units (tighter than packed column's $\pm$1.0)
+\item \textbf{Response time:} Fast PI tuning required; pH must respond within 30~s to feed changes
+\item \textbf{Measurement:} Industrial pH electrode with automatic temperature compensation; redundant sensors recommended
+\end{itemize}
+
+The lower pH setpoint reduces hydroxide availability, which further limits \ce{CO2} reaction kinetics while maintaining sufficient driving force for the instantaneous \ce{H2S} reaction.
+
+\subsubsection{Level Control and Blowdown Strategy}
+
+The blowdown rate determines the steady-state sulfide and carbonate concentrations in the recirculating caustic:
+
+\begin{equation}
+  C_{\text{sulfide,ss}} = \frac{\dot{n}_{\ce{H2S}}}{F_{\text{blowdown}}}
+\end{equation}
+
+For the SCT system at 5\% \ce{CO2} absorption:
+\begin{itemize}
+\item Target blowdown rate: 50--100~L/h
+\item Sulfide concentration: 2--4~wt\% (as \ce{NaHS})
+\item Carbonate concentration: $<$1~wt\%
+\end{itemize}
+
+The low carbonate content simplifies downstream biological treatment compared to the packed column option.
+
+\subsection{Critical Safety Interlocks}
+
+Two safety interlocks are required for engine fuel protection and personnel safety:
+
+\subsubsection{Interlock 1: \ce{H2S} Breakthrough}
+
+\begin{table}[H]
+\centering
+\caption{H2S breakthrough interlock specification}
+\label{tab:interlock_h2s}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Specification} \\
+\midrule
+Measurement & Continuous \ce{H2S} analyser (electrochemical or IR) \\
+Location & Treated gas outlet, downstream of demister \\
+High alarm & \SI{30}{ppmv} (operator warning) \\
+High-high alarm \& action & \SI{45}{ppmv} (automatic diversion) \\
+Action & Close fuel gas valve; open flare diversion valve \\
+Reset & Manual (requires operator confirmation after investigation) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The interlock ensures that off-spec gas cannot reach the engine fuel header. Upon \ce{H2S} breakthrough:
+\begin{enumerate}
+\item Treated gas is diverted to the flare header
+\item Alarm annunciates in control room
+\item Operator investigates root cause (low caustic, pH deviation, flow upset)
+\item System remains diverted until manual reset after investigation
+\end{enumerate}
+
+\subsubsection{Interlock 2: Low Caustic Inventory}
+
+\begin{table}[H]
+\centering
+\caption{Low caustic inventory interlock specification}
+\label{tab:interlock_caustic}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Specification} \\
+\midrule
+Measurement & Level transmitter on caustic storage tank \\
+Low alarm & 30\% (operator warning) \\
+Low-low alarm \& action & 20\% (inhibit dosing pump) \\
+Action & Inhibit \ce{NaOH} dosing pump start; alarm \\
+Purpose & Prevent dry running; ensure caustic availability \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Instrumentation Requirements}
+
+Table~\ref{tab:instrumentation} lists the minimum instrumentation for safe operation.
+
+\begin{table}[H]
+\centering
+\caption{Minimum instrumentation list}
+\label{tab:instrumentation}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Tag} & \textbf{Description} & \textbf{Type} & \textbf{Purpose} \\
+\midrule
+AIT-001 & Outlet \ce{H2S} analyser & Electrochemical/IR & Product quality; interlock \\
+pHIT-001 & Recirculation pH & Industrial electrode & Control; selectivity \\
+LIT-001 & Recirculation tank level & Differential pressure & Level control \\
+LIT-002 & Caustic storage level & Radar/ultrasonic & Inventory; interlock \\
+FIT-001 & Sour gas inlet flow & Orifice plate & Mass balance \\
+FIT-002 & \ce{NaOH} dosing flow & Magnetic flowmeter & Consumption tracking \\
+PdIT-001 & Contactor differential pressure & DP cell & Fouling/flooding detection \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Safety Considerations}
+
+\ce{H2S} is immediately dangerous to life at concentrations above \SI{100}{ppmv} \cite{OSHAH2S,NIOSHH2S}. The scrubber system handles gas streams at \SI{1800}{ppmv} inlet concentration. Minimum safety provisions:
+
+\begin{itemize}
+\item Fixed \ce{H2S} detectors at scrubber inlet/outlet and pump areas (alarm at \SI{10}{ppmv}, evacuate at \SI{20}{ppmv})
+\item Integration with site emergency shutdown system
+\item Respiratory protection (SCBA) available within egress distance
+\item Wind sock/indicator at scrubber location
+\item Caustic handling per site chemical management procedures (PPE: face shield, chemical-resistant gloves, apron)
+\end{itemize}
+
+\subsection{HAZOP Scope}
+
+Formal HAZOP study during detailed engineering will address:
+\begin{romanlist}
+\item Deviation analysis for all process nodes (feed, scrubber, caustic system, treated gas)
+\item Safeguard verification for identified hazards
+\item Safety integrity level (SIL) determination for \ce{H2S} breakthrough interlock
+\item Operability issues including startup, shutdown, and upset conditions
+\item Human factors for operator interface design
+\end{romanlist}
+
+The conceptual design provides sufficient definition for meaningful HAZOP review. The control philosophy outlined in this section establishes the framework for safe operation pending detailed engineering validation.
+

@@ -1,0 +1,87 @@
+\begin{figure}[H]
+  \centering
+  \fbox{\resizebox{0.98\linewidth}{!}{%
+      \begin{tikzpicture}[node distance=11mm and 36mm]
+
+        %------------------------------------------------
+        % Column anchors
+        %------------------------------------------------
+        \coordinate (ColL) at (0,0);
+        \coordinate (ColR) at (7.0,0);
+        \coordinate (LaneX) at (10.0,0);
+
+        \def\RowGap{1.65}
+
+        %------------------------------------------------
+        % Vertical transition spine
+        %------------------------------------------------
+        \draw[sidearrow]
+        ($(LaneX)+(0,0.3)$) -- node[stepside,pos=0.5]{$5$}($(LaneX)+(0,-3.25*\RowGap)$);
+
+        %------------------------------------------------
+        % ROW 1
+        %------------------------------------------------
+        \node[stage] (feed) at (ColL) {Feed Gas};
+        \node[stage] (perf) at (ColR) {Performance};
+
+        \node[hint] [below=1.8mm of feed] {Flow, \ce{H2S}/\ce{CO2}, $T$, $P$ define duty};
+        \node[hint] [below=1.8mm of perf] {Target outlet \ce{H2S} and removal};
+
+        \draw[mainarrow]
+        ([xshift=1mm]feed.east) --
+        node[stepmain, pos=0.5]{1}
+        ([xshift=-1mm]perf.west);
+
+        %------------------------------------------------
+        % ROW 2
+        %------------------------------------------------
+        \node[stage] (chem) at ($(ColL)+(0,-\RowGap)$) {Reaction\\Chemistry};
+        \node[stage] (solv) at ($(ColR)+(0,-\RowGap)$) {Solvent\\Design};
+
+        \node[hint] [below=1.8mm of chem]
+        {\ce{H2S}+\ce{NaOH} $\rightarrow$ \ce{NaHS}/\ce{Na2S}; \ce{CO2} side reactions};
+        \node[hint] [below=1.8mm of solv]
+        {Select wt\% \ce{NaOH}, pH, circulation/makeup};
+
+        \draw[mainarrow]
+        ([xshift=1mm]chem.east) --
+        node[stepmain, pos=0.5]{2}
+        ([xshift=-1mm]solv.west);
+
+        %------------------------------------------------
+        % ROW 3
+        %------------------------------------------------
+        \node[stage] (hyd) at ($(ColL)+(0,-2*\RowGap)$) {Hydraulics};
+        \node[stage] (mt)  at ($(ColR)+(0,-2*\RowGap)$) {Mass\\Transfer};
+
+        \node[hint] [below=1.8mm of hyd]
+        {Size $D_T$, flooding margin, and control $\Delta P$};
+        \node[hint] [below=1.8mm of mt]
+        {Packing; $a$, $k_La/k_Ga$; HTU/NTU and height};
+
+        \draw[mainarrow]
+        ([xshift=1mm]hyd.east) --
+        node[stepmain, pos=0.5]{3}
+        ([xshift=-1mm]mt.west);
+
+        %------------------------------------------------
+        % ROW 4
+        %------------------------------------------------
+        \node[stage] (ops) at ($(ColL)+(0,-3*\RowGap)$) {Operations};
+        \node[stage] (lim) at ($(ColR)+(0,-3*\RowGap)$) {Technology\\Limits};
+
+        \node[hint] [below=1.8mm of ops]
+        {$L/V$, distribution, \ce{NaOH} use, \ce{CO2} co-absorption};
+        \node[hint] [below=1.8mm of lim]
+        {Non-regenerative caustic: economics, blowdown, effluent handling};
+
+        \draw[mainarrow]
+        ([xshift=1mm]ops.east) --
+        node[stepmain, pos=0.5]{4}
+        ([xshift=-1mm]lim.west);
+
+      \end{tikzpicture}
+  }} % end resizebox
+  \caption{Design logic map for caustic \ce{H2S} scrubbing. The diagram links feed conditions and performance targets to solvent selection, hydraulic sizing, mass-transfer design, and operability limits.}
+  \label{fig:h2s-logic-clean}
+\end{figure}

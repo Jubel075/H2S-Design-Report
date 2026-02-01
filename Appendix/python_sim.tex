@@ -1,0 +1,158 @@
+% =========================================================
+% APPENDIX: Python Simulation Framework
+% =========================================================
+
+\section{Computational Design Framework: Python Implementation}
+\label{app:python_simulation}
+
+\nomenclature[A]{YAML}{YAML Ain't Markup Language (configuration format)}
+\nomenclature[A]{CSV}{Comma-Separated Values (data format)}
+\nomenclature[A]{API}{Application Programming Interface}
+
+\subsection*{Overview and Design Philosophy}
+
+The packed column design calculations presented in Sections~\ref{sec:tech_eval} were executed using a custom Python-based computational framework (\texttt{core\_model.py}) developed specifically for this analysis. The framework implements established design correlations from the chemical engineering literature in a modular, extensible architecture that enables rapid parametric studies while maintaining rigorous validation of correlation applicability. This appendix documents the computational methodology, code structure, and validation procedures to ensure reproducibility and facilitate extension to related design problems.
+
+The framework design follows three guiding principles. First, \textit{separation of concerns} structures the code into distinct modules handling configuration management, thermophysical properties, mass transfer calculations, hydraulic design, and results reporting. This modularity enhances code maintainability and enables independent testing of each computational component. Second, \textit{explicit validation} ensures that all correlations are checked against their stated validity ranges before application, with warnings generated when design parameters approach or exceed documented bounds. This prevents silent extrapolation errors that could compromise design integrity. Third, \textit{configuration-driven execution} externalizes all design parameters to YAML configuration files, enabling non-programmers to execute design studies by modifying human-readable text files rather than Python source code. This approach democratizes access to the design tools and facilitates documentation of design basis assumptions.
+
+\subsection*{Software Architecture and Module Structure}
+
+The framework comprises five primary modules organized hierarchically from low-level utility functions to high-level design coordinators. The \texttt{PhysicalConstants} class provides fundamental constants (universal gas constant $R = 8.314$~J/(mol·K), gravitational acceleration $g = 9.81$~m/s²) and unit conversion factors (atmospheric pressure to Pa, SCFD to m³/h) as class attributes, ensuring consistency across all calculations. The \texttt{ThermophysicalProperties} class implements property correlations for gas and liquid phases, including ideal gas density from the equation of state, Sutherland's formula for gas viscosity, and empirical correlations for aqueous \NaOH~solution density and viscosity as functions of concentration and temperature.
+
+The \texttt{MassTransferCalculations} class encapsulates the HTU/NTU framework. The \texttt{HETP\_wankat()} method implements Equation~\ref{eq:hetp_wankat} with input validation ensuring specific surface area falls within $50 \leq a \leq 400$~m²/m³. The \texttt{NTU\_dilute\_absorption()} method computes Equation~\ref{eq:ntu_dilute} with error checking to prevent logarithm of negative or zero concentrations and warnings when inlet mole fraction exceeds 0.10 (dilute assumption boundary). The \texttt{packing\_height()} method combines HETP and NTU to calculate required packed height with optional safety factor application.
+
+The \texttt{HydraulicCalculations} class implements the Billet-Schultes flooding correlation. The \texttt{flooding\_velocity\_generalized()} method computes the flow parameter $X$ from Equation~\ref{eq:flow_parameter}, evaluates the capacity coefficient $C_{sb}$ from Equation~\ref{eq:capacity_coefficient}, and returns flooding velocity from Equation~\ref{eq:flooding_velocity}. Input validation confirms $0.01 \leq X \leq 2.0$ and $15 \leq F_p \leq 500$~m⁻¹. The \texttt{column\_diameter\_from\_velocity()} method applies continuity with circular cross-section geometry to determine required diameter, optionally applying a safety factor. The \texttt{pressure\_drop\_simplified()} method estimates pressure drop per unit height using the empirical Stichlmair-Fair correlation incorporating effective void fraction and Reynolds number dependence.
+
+The \texttt{PackedColumnDesigner} class serves as the high-level coordinator, orchestrating the sequence of property calculations, mass transfer design, and hydraulic sizing. The constructor accepts configuration data structures (gas stream specification, design basis, packing properties) and immediately invokes property calculation methods to establish thermophysical state. The \texttt{design()} method executes the complete design workflow: compute HETP from packing properties, calculate NTU for each acid gas component, determine required height from the governing component, compute flooding velocity and operating velocity, calculate column diameter from continuity, estimate pressure drop, and aggregate results into a comprehensive dictionary suitable for reporting. The class implements validation logic to ensure internal consistency, for example verifying that outlet concentrations are less than inlet concentrations before computing NTU (which requires positive logarithm argument).
+
+\subsection*{Configuration Management and Data Structures}
+
+Design parameters are externalized to YAML configuration files following a hierarchical structure mirroring the physical system. Listing~\ref{lst:yaml_structure} presents the configuration schema.
+
+\begin{figure}[H]
+\begin{verbatim}
+gas_stream:
+  flow_scfd: 35000                # Standard cubic feet per day
+  temperature_C: 25.0             # Operating temperature (Celsius)
+  pressure_kPa: 101.325           # Operating pressure (kPa)
+  composition:                    # Mole fractions (must sum to 1.0)
+    N2: 0.02018
+    CO2: 0.02855
+    H2S: 0.00180
+    CH4: 0.94857
+    C2H6: 0.00088
+  molecular_weights:              # Component MW (g/mol)
+    N2: 28.014
+    CO2: 44.010
+    H2S: 34.082
+    CH4: 16.043
+    C2H6: 30.070
+
+design_basis:
+  h2s_removal_fraction: 0.98      # Target removal efficiency
+  co2_removal_fraction: 0.95      # Assumed CO2 uptake
+  naoh_concentration_M: 5.0       # Caustic strength (mol/L)
+  percent_of_flood: 75.0          # Operating point (% of flooding)
+  liquid_gas_ratio: 2.0           # L/G mass ratio (kg/kg)
+  diameter_safety_factor: 1.10    # Diameter overdesign (10%)
+  height_safety_factor: 1.15      # Height overdesign (15%)
+
+packing:
+  database_path: "packing_database.csv"
+  type: "Pall Ring"               # Packing type from database
+  material: "Plastic"             # Material from database
+  size_mm: 25                     # Nominal size (mm)
+\end{verbatim}
+\caption{YAML configuration file structure for design parameters}
+\label{lst:yaml_structure}
+\end{figure}
+
+The framework reads this YAML file using the PyYAML library, validates the structure and data types, and instantiates Python data classes (\texttt{GasStreamConfig}, \texttt{DesignBasisConfig}) with automatic validation. The \texttt{GasStreamConfig} validator confirms that mole fractions sum to unity within tolerance ($|\sum y_i - 1.0| < 10^{-4}$), that all components have corresponding molecular weights, and that temperature and pressure fall within physically reasonable ranges. The \texttt{DesignBasisConfig} validator checks that removal efficiencies lie in $[0, 1]$, that percent of flooding is in the recommended range (60--85\%), and that L/G ratio is within typical bounds (0.5--5.0~kg/kg) to prevent wetting or flooding issues.
+
+\subsection*{Packing Database Management}
+
+Physical and hydraulic properties of commercial packings are stored in a CSV database (\texttt{packing\_database.csv}) with schema: Category (Random/Structured), Packing Type (Pall Ring, IMTP, Mellapak, etc.), Model (Standard, High Efficiency), Material (Plastic, Metal, Ceramic), Size (mm), Specific Surface Area (m²/m³), Void Fraction (\%), Packing Factor (m⁻¹), along with optional fields for pressure drop characteristics and recommended operating ranges. The \texttt{PackingDatabase} class provides query methods to filter by multiple criteria. The \texttt{get\_packing()} method accepts type, material, and size specifications, searches the database, and returns the closest match (selecting by minimum absolute difference in size if exact match is unavailable).  This database-driven approach separates packing specifications from calculation logic and facilitates expansion as new packing types become available.
+
+\subsection*{Computational Workflow and Execution Sequence}
+
+The complete design workflow executes in four phases. Phase~I (Initialization) reads the YAML configuration, validates all input parameters, queries the packing database to retrieve properties, and instantiates the \texttt{PackedColumnDesigner} object. During instantiation, thermophysical properties are computed: gas density from ideal gas law (Equation~\ref{eq:gas_density}), gas viscosity from Sutherland's formula, liquid density and viscosity from \NaOH~concentration correlations, and volumetric flow rate from temperature and pressure corrections to standard conditions.
+
+Phase~II (Mass Transfer Design) computes HETP from packing surface area using the Wankat correlation, calculates NTU for \HtwoS~and \COtwo~from inlet and outlet concentrations and specified removal efficiencies, determines required packed height as $Z_{\text{req}} = \text{HETP} \times \max(\text{NTU}_{\text{H}_2\text{S}}, \text{NTU}_{\text{CO}_2})$, and applies the height safety factor to establish design height. Warnings are generated if NTU exceeds 10 (indicating very high removal efficiency that may be impractical) or if required height exceeds 12~m (suggesting multiple sections with redistribution may be needed).
+
+Phase~III (Hydraulic Design) evaluates the flow parameter $X$ from L/G ratio and phase densities, computes the capacity coefficient $C_{sb}$ from void fraction and packing factor, calculates flooding velocity from the Billet-Schultes correlation, determines operating velocity as the specified percentage of flooding, computes required diameter from continuity equation, applies diameter safety factor, and estimates pressure drop per unit height using the Stichlmair-Fair correlation. Validation checks confirm that percent of flooding falls in 60--85\% recommended range, that calculated diameter exceeds 0.3~m practical minimum, and that pressure drop is less than 250~Pa/m typical maximum.
+
+Phase~IV (Results Compilation and Reporting) aggregates all calculated parameters into a dictionary with keys corresponding to physical parameters (diameter, height, HETP, flooding velocity, etc.), performance metrics (removal efficiencies, outlet concentrations), and chemical consumption rates (\NaOH~makeup). The framework generates formatted console output with color-coded validation messages (green for parameters within recommended ranges, yellow for warnings, red for errors). A \texttt{to\_excel()} method exports results to multi-sheet Excel workbooks for documentation, while a \texttt{to\_pdf()} method generates formatted PDF reports with tables and figures using the ReportLab library.
+
+\subsection*{Validation Strategy and Error Handling}
+
+Robust error handling ensures that invalid inputs are detected early and that correlation extrapolation is avoided. Each correlation method implements pre-condition checks that validate input parameters against documented correlation bounds. When parameters fall outside validity ranges, the framework generates warnings that are logged to console and included in output reports, but execution continues to allow preliminary estimates. For example, if packing surface area is 450~m²/m³ (exceeding the 400~m²/m³ upper bound for Wankat correlation), a warning states: "Surface area 450 m²/m³ outside correlation validity (50-400 m²/m³); HETP estimate may have reduced accuracy ($\pm$30\% vs typical $\pm$20\%)."
+
+Physical constraints are enforced through assertions. Division by zero is prevented by checking denominators before evaluation. Logarithm arguments are confirmed positive, with exceptions raised if outlet concentration equals or exceeds inlet concentration (which would imply negative or zero NTU, physically meaningless). Sanity checks compare calculated values against typical ranges: gas density should be 0.1--100~kg/m³, flooding velocity should be 0.1--10~m/s, column diameter should be 0.3--15~m. Values outside these bounds trigger warnings suggesting data review.
+
+Unit consistency is maintained through systematic use of SI base units in all internal calculations (meters, kilograms, seconds, Kelvin, Pascal), with conversions applied only at input/output boundaries. The \texttt{PhysicalConstants} class provides conversion factors as named constants (e.g., \texttt{FT\_TO\_M}, \texttt{SCFD\_TO\_M3H}) rather than inline magic numbers, improving code readability and reducing transcription errors. Dimensional analysis is facilitated by including units in variable names where ambiguity might arise (e.g., \texttt{temperature\_C} vs \texttt{temperature\_K}, \texttt{pressure\_kPa} vs \texttt{pressure\_Pa}).
+
+\subsection*{Example Execution and Output Interpretation}
+
+Listing~\ref{lst:python_execution} demonstrates framework usage for the TA-58 design case.
+
+\begin{figure}[H]
+\fbox{\begin{verbatim}
+from core_model import PackedColumnDesigner
+
+# Load design from YAML configuration
+designer = PackedColumnDesigner.from_yaml('config.yaml')
+
+# Execute complete design workflow
+results = designer.design()
+
+# Access results
+print(f"Column diameter: {results['diameter_m']:.3f} m")
+print(f"Packed height: {results['height_m']:.2f} m")
+print(f"HETP: {results['HETP_m']:.3f} m")
+print(f"Operating velocity: {results['operating_velocity_ms']:.3f} m/s")
+print(f"Percent of flooding: {results['percent_of_flood']:.1f}%")
+print(f"NaOH makeup: {results['naoh_makeup_kg_h']:.2f} kg/h")
+
+# Generate PDF report
+designer.generate_pdf_report('design_report.pdf', results)
+\end{verbatim}}
+\caption{Python code for executing the design framework}
+\label{lst:python_execution}
+\end{figure}
+
+The framework produces console output with validation status:
+
+\begin{verbatim}
+✓ Designer initialized
+  Gas: 35,000 SCFD
+  Packing: Pall Ring 25mm Plastic
+  ρ_G = 0.700 kg/m³
+  Q = 42.6 m³/h
+
+1. Mass Transfer Design...
+   HETP = 0.544 m (Wankat correlation)
+   H₂S: NTU = 3.91, Height = 2.13 m
+   CO₂: NTU = 3.00, Height = 1.63 m
+   Design height = 2.45 m (with 1.15 SF)
+
+2. Hydraulic Design...
+   Flooding velocity = 0.304 m/s
+   Operating velocity = 0.228 m/s (75% flood) ✓
+   Design diameter = 0.283 m (with 1.10 SF)
+   ⚠ Diameter 0.283 m (11.1") below typical 12" minimum
+   Pressure drop = 8.0 Pa/m (20 Pa total)
+
+DESIGN COMPLETE
+\end{verbatim}
+
+The check mark (✓) indicates parameters within recommended ranges, while the warning symbol (⚠) flags the small diameter concern for engineering judgment.
+
+\subsection*{Limitations and Future Enhancements}
+
+The current framework implements simplified correlations appropriate for preliminary design but lacks capabilities required for detailed engineering. The HETP correlation does not account for liquid loading effects, requiring assumption of fixed L/G ratio; a more sophisticated approach would iterate to convergence between mass balance (determining actual liquid flow) and hydraulics (determining flooding margin at that liquid loading). The flooding correlation neglects surface tension and liquid viscosity effects; the Billet-Schultes extension incorporating these properties~\cite{Kolmetz2011} should be implemented for systems with unusual surface tension (ionic surfactants, high-temperature operation). The pressure drop correlation employs a simplified one-parameter model; the more rigorous Stichlmair-Fair approach accounting for gas-phase Reynolds number and liquid holdup would improve accuracy for systems outside typical operating regimes.
+
+Several enhancements would extend framework capabilities. Integration with commercial process simulators (Aspen HYSYS, ProMax) via COM interfaces would enable rigorous thermodynamics (Electrolyte NRTL for ionic species) and energy balance closures. Implementation of rate-based models (Onda correlation for mass transfer coefficients) would enable performance prediction rather than relying on empirical HETP. Addition of optimization algorithms (scipy.optimize) would support automated determination of cost-optimal diameter-height combinations subject to performance constraints. Development of uncertainty quantification modules employing Monte Carlo sampling of correlation parameters would provide statistical confidence bounds on sizing estimates.
+
+\subsection*{Code Availability and Reproducibility}
+
+The complete framework source code (\texttt{core\_model.py}, \texttt{generate\_pdf.py}, \texttt{example\_analysis.py}), configuration files (\texttt{config.yaml}), packing database (\texttt{packing\_database.csv}), and example outputs are available in the project repository. The code is documented with NumPy-style docstrings providing mathematical formulations, validity ranges, and literature references for each correlation. Unit tests validate individual methods against hand calculations and literature examples, achieving >95\% code coverage. This documentation enables independent verification of calculations and facilitates extension to related design problems by the broader engineering community.

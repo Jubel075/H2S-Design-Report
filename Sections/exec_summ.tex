@@ -1,0 +1,106 @@
+% =========================================================
+% Executive Summary
+% =========================================================
+
+\section{Executive Summary}
+
+This report presents a comparative engineering study of caustic scrubbing technologies for sour gas sweetening at the TA-58 production facility. The objective is to enable displacement of diesel fuel consumption (estimated at \SI{500000}{\USD\per\yr}) by treating associated gas to meet the \SI{45}{ppmv} \ce{H2S} specification for the installed Caterpillar G3408 gas engines.
+
+\subsection{Design Basis}
+
+The study evaluates treatment of \textbf{660,000~SCFD} associated gas containing \SI{1800}{ppmv} \ce{H2S} and \SI{2.86}{\percent} \ce{CO2}. The required removal efficiency is 97.5\% to achieve the engine fuel specification. At this scale:
+\begin{itemize}
+\item \ce{H2S} load: 0.056~kmol/h (1.9~kg/h)
+\item \ce{CO2} load: 0.90~kmol/h (39~kg/h)
+\item Molar ratio \ce{CO2}/\ce{H2S}: approximately 16:1
+\end{itemize}
+
+The 16-fold excess of \ce{CO2} creates the central design challenge: non-selective absorption would consume caustic at rates that render the project economically non-viable.
+
+\subsection{Technology Comparison}
+
+Two caustic scrubbing configurations are evaluated:
+
+\begin{table}[H]
+\centering
+\caption{Technology comparison summary at 660,000 SCFD}
+\label{tab:exec_options}
+\small
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+\textbf{Parameter} & \textbf{Packed Column} & \textbf{SCT Static Mixer} \\
+\midrule
+Equipment size & 0.75~m dia. $\times$ 5.5~m height & 0.3~m $\times$ 1.5~m inline \\
+\ce{H2S} removal & 97.5\% & $>$98\% \\
+\ce{CO2} co-absorption & 50--80\% (equilibrium) & 2--10\% (kinetic control) \\
+\ce{NaOH} consumption & 300--500~ton/yr & 46--90~ton/yr \\
+\ce{NaOH} cost & \$150,000--250,000/yr & \$23,000--45,000/yr \\
+Technology maturity & Well-established & Emerging (growing field data) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The SCT technology exploits the $10^6$ difference in reaction rate constants between \ce{H2S} and \ce{CO2}, achieving selective removal through controlled short contact time (50--200~ms) rather than relying on pH control.
+
+\subsection{Economic Assessment}
+
+The economic analysis reveals a critical finding: \textbf{at the 660,000~SCFD scale, selectivity determines project viability.}
+
+\begin{table}[H]
+\centering
+\caption{Economic comparison (base case)}
+\label{tab:exec_economics}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Indicator} & \textbf{Packed Column} & \textbf{SCT System} & \textbf{Assessment} \\
+\midrule
+Capital cost (TIC) & \$2.53M & \$1.78M & SCT 30\% lower \\
+Net annual benefit & \$211,000/yr & \$417,000/yr & SCT 2$\times$ higher \\
+Simple payback & 12.0 years & 4.3 years & SCT 2.8$\times$ faster \\
+IRR (15-year) & 5.3\% & 22.8\% & SCT exceeds hurdle \\
+NPV at 12\% & --\$87,000 & +\$1,060,000 & SCT creates value \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key conclusions:}
+\begin{itemize}
+\item The \textbf{packed column fails to meet the 15\% IRR hurdle rate} at base case assumptions due to high caustic consumption from \ce{CO2} co-absorption.
+\item The \textbf{SCT system exceeds the hurdle rate} (22.8\% IRR) and delivers positive NPV of \$1.06M over the 15-year project life.
+\item The economic cost of non-selective \ce{CO2} absorption is approximately \$1.15M in lifetime value destruction.
+\end{itemize}
+
+\subsection{Technology Recommendation}
+
+Based on the quantitative analysis, \textbf{SCT static mixer technology is recommended} for the TA-58 application. The recommendation is supported by:
+\begin{romanlist}
+\item Superior economics: 5--10$\times$ lower caustic consumption provides \$200,000/yr operating cost advantage
+\item Inherent selectivity: Design-based selectivity reduces operational risk versus pH-controlled selectivity
+\item Compact footprint: Inline installation minimises plot space requirements
+\item Growing field experience: SCT caustic scrubbers have demonstrated performance in refinery applications
+\end{romanlist}
+
+The packed column remains a viable fallback if vendor engagement identifies concerns with SCT technology availability, but the economic penalty should be explicitly considered.
+
+\subsection{Critical Uncertainties}
+
+Resolution of the following is required before project sanction:
+\begin{enumerate}
+\item \textbf{Vendor quotations:} Budgetary quotes from 2--3 SCT suppliers to validate capital estimate
+\item \textbf{Diesel displacement:} Historical fuel records to confirm \$500,000/yr benefit
+\item \textbf{Selectivity guarantee:} Vendor performance guarantees for \ce{CO2} co-absorption limits
+\item \textbf{Spent caustic treatment:} MBBR vendor confirmation for 43~kg~S/day capacity
+\end{enumerate}
+
+\subsection{Recommended Next Steps}
+
+\begin{enumerate}
+\item Issue RFQ to SCT caustic scrubber vendors (e.g., Merichem, Trimeric, Koch-Glitsch)
+\item Validate diesel displacement through operational data analysis
+\item Conduct HAZID workshop for hazard identification
+\item If required, plan pilot testing to validate selectivity under field conditions
+\item Following vendor responses, proceed to detailed feasibility and FEED
+\end{enumerate}
+
+This study demonstrates that selective \ce{H2S} removal using SCT technology provides a technically feasible and economically attractive solution for the TA-58 sour gas treatment. The project creates an estimated \$1.06M NPV over 15 years while enabling diesel displacement and emissions reduction.
+

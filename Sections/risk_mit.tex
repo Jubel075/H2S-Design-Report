@@ -1,0 +1,54 @@
+% =========================================================
+% Risk Assessment
+% =========================================================
+
+\section{Risk Assessment}
+\label{sec:risk_mit}
+
+\subsection{Key Technical Risks}
+
+Three primary risks require management during project advancement:
+
+\begin{table}[H]
+\centering
+\caption{Primary risk register}
+\label{tab:key_risks}
+\small
+\begin{tabularx}{\textwidth}{@{}lccY@{}}
+\toprule
+\textbf{Risk} & \textbf{L} & \textbf{C} & \textbf{Mitigation} \\
+\midrule
+\ce{H2S} breakthrough & 2 & 3 & Conservative design margin; continuous outlet \ce{H2S} monitoring with fuel-divert interlock \\
+\addlinespace
+\ce{CO2} co-absorption variability & 3 & 2 & Evaluate selective operation via simulation; SCT option inherently provides kinetic selectivity \\
+\addlinespace
+Biological treatment scale & 2 & 2 & Vendor feasibility confirmation for 43~kg~S/day capacity; fallback to chemical oxidation if MBBR not viable \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Likelihood (L): 1=Rare, 2=Possible, 3=Likely. Consequence (C): 1=Minor, 2=Moderate, 3=Major.
+
+\subsection{HSE Considerations}
+
+\ce{H2S} toxicity and \ce{NaOH} chemical burns represent the primary HSE hazards. Minimum safeguards include:
+\begin{itemize}
+\item Fixed \ce{H2S} gas detection integrated with site DCS
+\item Secondary containment for caustic storage areas
+\item Safety showers within \SI{10}{m} of process areas
+\item Respiratory protection program and PPE training
+\end{itemize}
+
+Formal HAZID/HAZOP studies are required in the detailed engineering phase to identify additional site-specific hazards.
+
+\subsection{Risk Closure Requirements}
+
+Prior to detailed engineering, the following activities are required:
+\begin{romanlist}
+\item Process simulation with electrolyte thermodynamics to refine \ce{CO2} absorption kinetics
+\item Vendor engagement to validate mass transfer performance data
+\item Confirmation of biological treatment feasibility at design sulfide loading
+\item Diesel benefit validation through operational data analysis
+\end{romanlist}
+
+Residual risks (packing performance uncertainty $\pm$20\%, \ce{CO2} co-absorption variability $\pm$30\%) are acceptable provided project IRR remains above 15\% hurdle under sensitivity analysis.

@@ -1,0 +1,62 @@
+\begin{figure}[H]
+\centering
+\fbox{\begin{tikzpicture}[
+    x=2.8cm, y=4.5cm,
+    font=\small,
+    every node/.style={inner sep=1pt},
+]
+  % Grid and axes
+  \draw[->] (0,0) -- (3.8,0) node[right] {Contact time};
+  \draw[->] (0,0) -- (0,1.15) node[above] {Conversion (\%)};
+
+  % X-axis labels (logarithmic scale representation)
+  \foreach \x/\lab in {0.5/1, 1.0/10, 1.5/50, 2.0/100, 2.5/200, 3.0/500, 3.5/1000}
+    \draw (\x,0) -- (\x,-0.02) node[below,font=\footnotesize] {\lab~ms};
+
+  % Y-axis labels
+  \foreach \y/\lab in {0/0, 0.25/25, 0.5/50, 0.75/75, 1.0/100}
+    \draw (0,\y) -- (-0.05,\y) node[left,font=\footnotesize] {\lab};
+
+  % Light grid
+  \draw[gray!30, thin] (0,0.25) -- (3.5,0.25);
+  \draw[gray!30, thin] (0,0.5) -- (3.5,0.5);
+  \draw[gray!30, thin] (0,0.75) -- (3.5,0.75);
+  \draw[gray!30, thin] (0,1.0) -- (3.5,1.0);
+
+  % Selectivity window shading
+  \fill[MainBlue!10] (1.0,0) rectangle (2.0,1.05);
+  \draw[MainBlue, dashed, thick] (1.0,0) -- (1.0,1.05);
+  \draw[MainBlue, dashed, thick] (2.0,0) -- (2.0,1.05);
+  \node[MainBlue, font=\footnotesize, align=center] at (1.5,1.08) {SCT\\window};
+
+  % H2S curve - instantaneous, reaches ~100% almost immediately
+  \draw[AccentA, very thick]
+    (0,0)
+    .. controls (0.2,0.95) and (0.4,0.99) .. (0.5,0.995)
+    -- (3.5,1.0);
+  \node[AccentA, anchor=west, font=\footnotesize] at (2.6,0.92) {\ce{H2S}};
+
+  % CO2 curve - slow, finite rate
+  \draw[AccentC, very thick]
+    (0,0)
+    .. controls (0.5,0.01) and (1.0,0.02) .. (1.5,0.05)
+    .. controls (2.0,0.10) and (2.5,0.20) .. (3.0,0.35)
+    .. controls (3.3,0.45) and (3.5,0.55) .. (3.5,0.60);
+  \node[AccentC, anchor=west, font=\footnotesize] at (3.0,0.50) {\ce{CO2}};
+
+  % Marker at 50ms showing selectivity
+  \fill[MainBlue] (1.5,0.995) circle (2pt);
+  \fill[MainBlue] (1.5,0.05) circle (2pt);
+
+  % Annotation arrows
+  \draw[<->, MainBlue, thick] (1.6,0.05) -- (1.6,0.995);
+  \node[MainBlue, anchor=west, font=\scriptsize, align=left] at (1.7,0.5) {98\% \ce{H2S}\\5\% \ce{CO2}\\at 50~ms};
+
+  % Packed column regime marker
+  \draw[AccentB, thick, <->] (3.0,-0.12) -- (3.5,-0.12);
+  \node[AccentB, anchor=north, font=\scriptsize] at (3.25,-0.14) {Packed column};
+
+\end{tikzpicture}}
+\caption{Conversion versus contact time for \ce{H2S} and \ce{CO2} absorption in caustic. The shaded region indicates the SCT selectivity window (10--100~ms) where \ce{H2S} absorption is complete while \ce{CO2} absorption remains negligible. Packed columns operate at longer contact times (0.5--5~s), approaching equilibrium for both species.}
+\label{fig:selectivity_kinetics}
+\end{figure}

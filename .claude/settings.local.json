@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(latexmk:*)",
+      "Bash(makeindex:*)",
+      "Bash(bibtex:*)",
+      "Bash(lualatex:*)"
+    ]
+  }
+}

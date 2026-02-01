@@ -1,0 +1,80 @@
+\section{Design Basis}
+\label{sec:design_basis}
+
+This section establishes the fundamental parameters, specifications, and assumptions that form the basis for the engineering design and evaluation presented in this report. All subsequent analyses are benchmarked against these criteria.
+
+\subsection{Process Objectives}
+The primary objective of this study is to evaluate the technical and economic feasibility of a selective gas sweetening process to remove hydrogen sulfide (\HtwoS) from a natural gas stream. The key performance indicators for a successful design are:
+\begin{itemize}
+    \item Achieve the required \HtwoS removal to meet the treated gas specification.
+    \item Maximize selectivity by minimizing the co-absorption of carbon dioxide (\COtwo) to reduce operational costs associated with caustic consumption.
+    \item Ensure the final design is economically viable, considering both capital (CAPEX) and operational (OPEX) expenditures.
+\end{itemize}
+
+\subsection{Feed and Product Specifications}
+The design is based on the feed gas and required product (treated gas) specifications outlined in \Cref{tab:feed_spec} and \Cref{tab:prod_spec}.
+
+\begin{table}[H]
+    \centering
+    \caption{Inlet Feed Gas Specification}
+    \label{tab:feed_spec}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+        \midrule
+        Volumetric Flow Rate & 10,000 & \si{\cubic\meter\per\hour} \\
+        Temperature & 40 & \si{\degreeCelsius} \\
+        Pressure & 1500 & \si{\kilo\pascal} \\
+        \midrule
+        \multicolumn{3}{l}{\textbf{Composition}} \\
+        \midrule
+        Hydrogen Sulfide (\HtwoS) & 1800 & ppmv (0.18 mol\%) \\
+        Carbon Dioxide (\COtwo) & 2.6 & mol\% \\
+        Methane \& Other HC & Balance & mol\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Treated Gas (Product) Specification}
+    \label{tab:prod_spec}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+        \midrule
+        Max. \HtwoS{} Content & 15 & ppmv \\
+        Implied \HtwoS{} Removal & >99\% & \% \\
+        \COtwo{} Content & No removal required & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Key Design Assumptions}
+The analysis is based on established engineering principles and the following key assumptions, which are standard for a feasibility-level study. These should be validated during detailed engineering or pilot testing.
+\begin{romanlist}
+    \item \textbf{Mass Transfer Model:} The overall rate of mass transfer is controlled by the liquid-film resistance. The gas-liquid interface is assumed to be at equilibrium as described by Henry's Law.
+    \item \textbf{Reaction Kinetics:} The reaction between \HtwoS{} and caustic (\NaOH) is considered instantaneous and irreversible. The reaction of \COtwo{} is finite-rate and follows the Astarita correlation.
+    \item \textbf{Thermodynamics:} The gas phase exhibits ideal gas behavior, and solutions are considered dilute (activity coefficients = 1).
+    \item \textbf{Flow & Mixing:} The flow pattern within the contactor is modeled as ideal plug flow, with no axial dispersion.
+    \item \textbf{Thermal Conditions:} The process is assumed to be isothermal, with negligible heat of reaction affecting the bulk fluid temperature.
+\end{romanlist}
+
+\subsection{Economic Basis}
+For the economic evaluation, the key cost parameters are outlined in \Cref{tab:econ_basis}. These values are estimates for a feasibility study and are subject to market fluctuations.
+
+\begin{table}[H]
+    \centering
+    \caption{Economic Basis Parameters}
+    \label{tab:econ_basis}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Unit} \\
+        \midrule
+        Caustic (\NaOH, 100\% basis) & 500 & \si{\USD\per\ton} \\
+        Electricity & 0.10 & \si{\USD\per\kilo\watt\hour} \\
+        Plant Life & 15 & \si{\yr} \\
+        Discount Rate & 10 & \% \\
+        \bottomrule
+    \end{tabular}
+\end{table}

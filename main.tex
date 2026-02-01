@@ -1,0 +1,291 @@
+% =========================================================
+% H2S Sour Gas Conditioning Process Engineering Report
+% =========================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% !TEX program = lualatex
+
+% Encoding & Fonts
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+\usepackage{newunicodechar}
+\newunicodechar{­}{-}
+\newunicodechar{‐}{-}
+
+% Fontset
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math}
+\setsansfont{TeX Gyre Heros}[Scale=0.9]
+\setmonofont{TeX Gyre Cursor}[Scale=0.9]
+\usepackage{sectsty}
+\allsectionsfont{\sffamily}
+
+% Layout & Spacing
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{multicol}
+\usepackage{setspace}
+\setstretch{1.15}
+\usepackage{float}
+
+% --- Chemical formulae shortcuts ---
+\newcommand{\HtwoS}{\ce{H2S}}
+\newcommand{\COtwo}{\ce{CO2}}
+\newcommand{\NaOH}{\ce{NaOH}}
+\newcommand{\NaHS}{\ce{NaHS}}
+\newcommand{\NaTwoS}{\ce{Na2S}}
+
+% --- Common process variables (upright roman where appropriate) ---
+\newcommand{\KGa}{\ensuremath{K_{G}a}}
+\newcommand{\kGa}{\ensuremath{k_{G}a}}
+\newcommand{\kLa}{\ensuremath{k_{L}a}}
+\newcommand{\HTUog}{\ensuremath{\mathrm{HTU}_{\!OG}}}
+\newcommand{\NTUog}{\ensuremath{\mathrm{NTU}_{\!OG}}}
+\newcommand{\Ha}{\ensuremath{\mathrm{Ha}}}
+\newcommand{\Eenh}{\ensuremath{E}}
+
+% Drawing & Graphics
+\usepackage{tikz}
+\usetikzlibrary{
+  positioning,
+  arrows,
+  arrows.meta,
+  shapes,
+  shapes.geometric,
+  calc,
+  decorations.pathmorphing,
+  fit,
+  backgrounds,
+  mindmap,
+  shadows
+}
+
+% --- Color palette (professional & print-friendly) ---
+\definecolor{MainBlue}{RGB}{0,92,184}     % main-flow arrows & step bubbles
+\definecolor{Charcoal}{RGB}{60,60,60}     % transition arrows
+\definecolor{StageInk}{RGB}{15,15,15}     % stage text
+\definecolor{HintGray}{RGB}{95,95,95}     % short hints under stages
+
+% TikZ styles
+\tikzset{
+  stage/.style={font=\bfseries\footnotesize, text=StageInk, align=center},
+  hint/.style={font=\scriptsize, text=HintGray, align=center, inner sep=0pt},
+  mainarrow/.style={->, line width=0.9pt, draw=MainBlue, >={Stealth[length=2mm,width=1.2mm]}},
+  sidearrow/.style={->, line width=0.6pt, draw=Charcoal, >={Stealth[length=2mm,width=1.2mm]}},
+  stepnum/.style={circle, inner sep=0pt, minimum size=4mm, font=\scriptsize\bfseries},
+  stepmain/.style={stepnum, fill=MainBlue, text=white},
+  stepside/.style={stepnum, fill=Charcoal, text=white}
+}
+
+% Headers / Footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14pt} % to avoid warning
+\addtolength{\topmargin}{-1.599pt}
+\fancyhf{}
+\lhead{\leftmark}
+\rhead{\textit{\today}}
+\cfoot{\thepage}
+
+% TOC, Lists, Tables
+\usepackage{tocloft}
+\setlength{\cftbeforesecskip}{0.3em}
+\usepackage{enumitem}
+\newlist{romanlist}{enumerate}{1}
+\setlist[romanlist]{label=(\roman*), leftmargin=*, itemsep=0.2em, topsep=0.3em}
+\setlist[itemize]{leftmargin=*, itemsep=0.2em, topsep=0.3em}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{makecell}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+
+% Colors
+\usepackage[table]{xcolor}
+\usepackage{xcolor}
+\definecolor{AccentA}{RGB}{33,97,140}   % deep blue
+\definecolor{AccentB}{RGB}{20,111,124}  % teal
+\definecolor{AccentC}{RGB}{123,36,28}   % brown-red
+\definecolor{AccentD}{RGB}{100,98,108}  % gray-violet
+\definecolor{AccentE}{RGB}{87,96,111}   % bluish gray
+\definecolor{AccentF}{RGB}{112,128,144} % slate
+\definecolor{AccentG}{RGB}{97,106,107}  % graphite
+
+% Figures & Units
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\sisetup{detect-all,per-mode=symbol}
+
+% Custom units
+\DeclareSIUnit\USD{\$}
+\DeclareSIUnit\yr{yr}
+\DeclareSIUnit\ton{ton}
+\usepackage[version=4]{mhchem}
+
+% Hyperlinks
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% Title Page Variables (edit these)
+\newcommand{\ReportTitle}{Sour Gas Sweetening for Gas Engine at TA-58}
+\newcommand{\DocID}{PE-TA58-PR-001}
+\newcommand{\Revision}{Rev 0}
+\newcommand{\AuthorName}{Guillian Kasandikromo}
+\newcommand{\Department}{Process Engineering, P\&ES}
+\newcommand{\Approver}{Mark Wong Fong Sang}
+\newcommand{\CompanyName}{Staatsolie}
+\newcommand{\Confidentiality}{Internal and External Use}
+
+% Nomanclature Configuration
+\usepackage[intoc]{nomencl}
+\usepackage{etoolbox}
+\makenomenclature
+\setlength{\nomlabelwidth}{2cm}
+\renewcommand{\nomname}{List of Symbols}
+\newcommand{\nomunit}[1]{%
+\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+\renewcommand{\nomgroup}[1]{%
+  \ifstrequal{#1}{A}{
+\item[\textbf{Abbreviations}]}{%
+    \ifstrequal{#1}{P}{
+  \item[\textbf{Parameters}]}{%
+      \ifstrequal{#1}{G}{
+    \item[\textbf{Greek Symbols}]}{}%
+  }}%
+}
+
+\hypersetup{
+  pdftitle  = {Sour Gas Sweetening for Gas Engine at TA-58},
+  pdfauthor = {Guillian Kasandikromo},
+  pdfsubject= {Conceptual design and academic justification},
+  colorlinks=false
+}
+
+% Number equations by section (helps examiners review)
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% siunitx: enforce consistent units
+\sisetup{
+  detect-all,
+  per-mode=symbol,
+  group-minimum-digits=4
+}
+
+
+% ---------------------------------------
+% Document
+% ---------------------------------------
+\begin{document}
+% ---------- Cover Page ----------
+\begin{titlepage}
+  \vspace*{2cm}
+  \noindent
+  \begin{figure}[H]
+    \noindent
+    \includegraphics[width=0.40\linewidth]{Graphics/Zwart Staatsolie logo - RGB.png}
+  \end{figure}
+  \vspace{1cm}
+  \noindent
+  {\huge \bfseries \ReportTitle \par}
+  \vspace{0.5cm}
+  \noindent
+  {\large \DocID \quad | \quad \Revision \par}
+  \vspace{1.0cm}
+  \noindent
+  \begin{tabular}{@{}ll}
+    Author: & \AuthorName \\
+    Department: & \Department \\
+    Date: & \today \\
+    Approver: & \Approver \\
+    Classification: & \Confidentiality \\
+  \end{tabular}
+  \vfill
+  \noindent
+  \rule{\textwidth}{0.3pt}
+  \vspace{0.3cm}
+  \small This document is uncontrolled when printed. Verify revision before use.
+\end{titlepage}
+
+% ---------- Revision History ----------
+\section*{Revision History}
+\begin{longtable}{@{}p{2cm}p{3cm}p{6cm}p{3cm}@{}}
+  \toprule
+  \textbf{Rev} & \textbf{Date} & \textbf{Description of Change} & \textbf{By} \\
+  \midrule
+  0 & \today & Initial issue & \AuthorName \\
+  \bottomrule
+\end{longtable}
+
+% ---------- Approvals ----------
+\section*{Approvals}
+\begin{longtable}{@{}p{5cm}p{5cm}p{4cm}@{}}
+  \toprule
+  \textbf{Name/Role} & \textbf{Signature} & \textbf{Date} \\
+  \midrule
+  University Supervisor & & \\
+  Company Supervisor & & \\
+  Superintendent Engineering & & \\
+  \bottomrule
+\end{longtable}
+
+% ---------- Table of Contents ----------
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+% ---------- Sections ----------
+\input{Sections/exec_summ}
+\input{Sections/introduction}
+\input{Sections/technology_options}
+\input{Sections/spent_caustic}
+\input{Sections/eco_eval}
+\input{Sections/risk_mit}
+\input{Sections/control_safety}
+\input{Sections/conclusions}
+
+% ---------- Reference Table ----------
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+% ---------- Nomenclature ----------
+\begin{multicols}{2}
+  \printnomenclature
+\end{multicols}
+\newpage
+
+% ---------- Appendix ----------
+\appendix
+\clearpage
+% \input{Appendix/calculations}
+% \input{Appendix/python_sim}
+% \input{Appendix/p&ids}
+
+
+% ---------- Annex ----------
+% \clearpage
+% \section*{Annexes}
+% \addcontentsline{toc}{section}{Annexes}
+% \section*{Annex 1 — Vendor Datasheet}
+% \addcontentsline{toc}{subsection}{Annex 1 — Vendor Datasheet}
+% \input{Appendix/data_sheets}
+
+% \section*{Annex 2 — P&IDs and Maps}
+% \addcontentsline{toc}{subsection}{Annex 2 — P&IDs and Maps}
+% \input{Appendix/p&ids}
+
+
+\end{document}

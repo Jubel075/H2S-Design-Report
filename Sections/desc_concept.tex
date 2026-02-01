@@ -1,0 +1,184 @@
+% =========================================================
+% Section 4: Description of Selected Concept
+% =========================================================
+
+\section{Description of Selected Concept}
+\label{sec:selected_concept}
+
+\nomenclature[A]{MBBR}{Moving Bed Biofilm Reactor}
+\nomenclature[P]{$K_G a$}{Overall gas-side volumetric mass-transfer coefficient (\si{1/s})}
+\nomenclature[P]{$E$}{Enhancement factor for absorption with reaction (dimensionless)}
+\nomenclature[P]{$\mathrm{Ha}$}{Hatta number (dimensionless)}
+\nomenclature[P]{$HTU_{OG}$}{Overall gas-phase height of a transfer unit (\si{m})}
+\nomenclature[P]{$NTU_{OG}$}{Overall gas-phase number of transfer units (dimensionless)}
+\nomenclature[P]{$y^*$}{Equilibrium gas-phase mole fraction (dimensionless)}
+\nomenclature[G]{$\alpha$}{Effective NaOH stoichiometric factor for \ce{H2S} absorption, $\alpha \in [1,2]$}
+\nomenclature[G]{$\beta$}{Effective NaOH stoichiometric factor for \ce{CO2} absorption, $\beta \in [1,2]$}
+
+\subsection{Concept Overview and Design Logic}
+The selected configuration comprises two functional elements: (i) a counter-current packed caustic absorber to reduce \ce{H2S} in the associated gas to the engine fuel-gas specification; and (ii) a downstream treatment step for a controlled caustic blowdown stream, anticipated as a moving-bed biofilm reactor (MBBR) in later phases, to biologically oxidise dissolved sulfide to stable sulfur species (elemental sulfur and/or sulfate). The absorber reflects established industrial practice for caustic scrubbing \cite{AFPM2014}. The downstream treatment element addresses the principal limitation of non-regenerative caustic systems, namely continuous blowdown generation and associated operating cost, particularly in the presence of \ce{CO2} co-absorption.
+
+Figure~\ref{fig:h2s-logic-clean} summarises the design logic applied in this report: feed conditions define treating duty; reaction chemistry informs solvent capacity and alkalinity requirements; hydraulics and mass transfer determine column diameter and packed height; and operability constraints define feasible operating windows \cite{Danckwerts1965,Flagiello2021,Kolmetz2011}.
+
+\input{Graphics/design_mindmap}
+
+\subsection{Process Description}
+
+\subsubsection{Material Routing and Functional Boundary}
+Sour gas is routed through inlet separation (knockout drum) and a high-efficiency filter-coalescer to reduce liquid and aerosol carryover into the packed bed. The conditioned gas enters a counter-current packed absorber where it contacts recirculated aqueous \ce{NaOH}. Treated gas exits overhead and is routed to the fuel-gas header for engine service. Figure~\ref{fig:PFD_scrub_pdf} presents the simplified block flow.
+
+The absorber liquid is collected in a sump and recirculated to the top distributor; alkalinity is maintained by controlled \ce{NaOH} makeup dosing. A controlled blowdown is withdrawn from the recirculation loop to limit accumulation of dissolved sulfide and carbonate species and to sustain stable absorber performance. The blowdown therefore defines the inventory-control boundary for the caustic loop and bounds any downstream treatment capacity. Where implemented, the blowdown is conditioned as needed and routed to a biological oxidation unit where sulfur-oxidising microorganisms convert reduced sulfur species to elemental sulfur and/or sulfate under aerated conditions. Downstream clarification/filtration separates sulfur and biomass prior to final effluent conditioning \cite{AFPM2014,Borges2025,Vikromvarasiri2017}.
+
+\begin{figure}[H]
+  \centering
+  \fbox{\includegraphics[width=\linewidth]{Graphics/PFD - Caustic Scrubbing.pdf}}
+  \caption{Simplified process-flow diagram of caustic scrubbing with biological oxidation for spent-caustic handling.}
+  \label{fig:PFD_scrub_pdf}
+\end{figure}
+
+\subsubsection{Conceptual Sequence of Operation}
+Continuous operation is governed by three coupled controls:
+\begin{romanlist}
+  \item absorber mass-transfer performance, influenced by packing wetting, liquid circulation, and pressure drop;
+  \item solvent alkalinity, maintained via pH control and \ce{NaOH} dosing to sustain deep \ce{H2S} removal;
+  \item liquid inventory management, adjusting blowdown to control dissolved products and maintain solvent capacity.
+\end{romanlist}
+Where implemented, biological oxidation provides a route to stabilise sulfur species in the blowdown stream and reduce life-cycle liquid waste burden relative to once-through spent-caustic strategies \cite{AFPM2014,Borges2025}.
+
+\subsection{Mass Transfer with Reaction and Packed-Column Design Method}
+
+\subsubsection{Governing Flux Expression}
+Packed-absorber performance is governed by coupled gas--liquid mass transfer and fast liquid-phase reaction. On an overall gas-phase basis, the molar flux of \ce{H2S} is:
+\begin{equation}
+  N_{\ce{H2S}} = K_G a \left(y_{\ce{H2S}} - y_{\ce{H2S}}^{*}\right)
+  \label{eq:twofilm}
+\end{equation}
+where $K_G a$ is the overall volumetric mass-transfer coefficient (gas-side basis) and $y^{*}$ is the equilibrium gas-phase mole fraction corresponding to the bulk liquid composition \cite{Danckwerts1965}. For sufficiently alkaline solvent, $y^{*}\ll y$ and the absorber approaches a deep-absorption regime:
+\begin{equation}
+  y_{\ce{H2S}}^{*} \approx 0 \quad \Rightarrow \quad N_{\ce{H2S}} \approx K_G a \, y_{\ce{H2S}}
+  \label{eq:deep_absorption}
+\end{equation}
+valid while alkalinity and circulation maintain solvent capacity.
+
+\subsubsection{Reaction Enhancement}
+Fast liquid-phase conversion increases effective absorption relative to physical absorption by lowering the molecular \ce{H2S} concentration in the liquid film. The enhancement factor $E$ modifies the liquid-side resistance:
+\begin{equation}
+  \frac{1}{K_G a} = \frac{1}{k_G a} + \frac{m}{E\,k_L a}
+  \label{eq:overall_resistance}
+\end{equation}
+where $k_G a$ and $k_L a$ are gas- and liquid-side volumetric coefficients and $m$ is the equilibrium slope \cite{Danckwerts1965}. For pseudo-first-order reaction (excess \ce{OH^-}), the Hatta number and enhancement factor can be expressed as:
+\begin{equation}
+  \mathrm{Ha} = \frac{\sqrt{k_1 D_A}}{k_L}, \qquad
+  E \approx \mathrm{Ha}\,\coth(\mathrm{Ha})
+  \label{eq:hatta_enhancement}
+\end{equation}
+with limits $E\to 1$ for $\mathrm{Ha}\ll 1$ and $E\approx \mathrm{Ha}$ for $\mathrm{Ha}\gg 1$ \cite{Danckwerts1965}. In the very-fast limit, absorption becomes transport-controlled and Eq.~\eqref{eq:deep_absorption} applies.
+
+\subsubsection{Packed Height via HTU/NTU}
+The packed height follows the transfer-unit method:
+\begin{equation}
+  Z = HTU_{OG}\,NTU_{OG}, \qquad
+  NTU_{OG} = \int_{y_2}^{y_1} \frac{dy}{(y-y^{*})}
+  \label{eq:htu_ntu}
+\end{equation}
+Under deep absorption ($y^{*}\approx 0$):
+\begin{equation}
+  NTU_{OG} \approx \ln\!\left(\frac{y_1}{y_2}\right), \qquad
+  HTU_{OG} = \frac{G}{K_G a}
+  \label{eq:ntu_log}
+\end{equation}
+At feasibility level, $K_G a$ should be taken from packing-vendor data where available. In the absence of vendor data, established correlations (e.g., Onda-type) may be applied with explicit allowance for uncertainty due to maldistribution and packing-specific calibration \cite{Onda1968,Flagiello2021}.
+
+\subsubsection{Hydraulic Constraints}
+Column diameter is governed by hydraulic capacity, pressure-drop constraints, and distribution quality. Key constraints include:
+\begin{romanlist}
+  \item flooding margin selection and associated liquid loading;
+  \item overall and per-stage pressure drop consistent with upstream and downstream tie-ins;
+  \item distributor performance and sensitivity to foaming or fouling.
+\end{romanlist}
+Practical guidance on packing hydraulics and distribution should be applied during conceptual sizing to ensure stable operating windows \cite{Kolmetz2011,Flagiello2021}.
+
+\subsection{Caustic-Loop Material Balance}
+
+\subsubsection{Sulfur Load and Removal Duty}
+The molar \ce{H2S} removal duty is:
+\begin{equation}
+  \dot n_{\ce{H2S,removed}} = \dot n_G \left(y_{\ce{H2S,in}} - y_{\ce{H2S,out}}\right),
+  \label{eq:tot_h2s_removed}
+\end{equation}
+which bounds required alkalinity, blowdown handling, and any downstream oxidation capacity \cite{AFPM2014,Borges2025}.
+
+\subsubsection{Net Caustic Consumption}
+At feasibility level, net \ce{NaOH} demand is bounded by stoichiometric \ce{H2S} demand plus parasitic \ce{CO2} demand:
+\begin{equation}
+  \dot n_{\ce{NaOH,net}} \approx
+  \alpha\,\dot n_{\ce{H2S,removed}}
+  + \beta\,\dot n_{\ce{CO2,absorbed}},
+  \label{eq:naoh_net}
+\end{equation}
+with $\alpha\in[1,2]$ and $\beta\in[1,2]$, reflecting \ce{NaHS} to \ce{Na2S} and \ce{HCO3^-} to \ce{CO3^{2-}} endpoints, respectively. Blowdown is adjusted to control sulfide and carbonate inventories, manage precipitation risk, and maintain a stable pH operating range \cite{AFPM2014,Kolmetz2011}.
+
+\subsubsection{Heat Effects}
+Neutralisation and absorption are exothermic. A screening energy balance assesses whether recirculation provides sufficient thermal buffering:
+\begin{equation}
+  \dot Q \approx
+  \dot n_{\ce{H2S,removed}}\,|\Delta H_{\ce{H2S}}|
+  +
+  \dot n_{\ce{CO2,absorbed}}\,|\Delta H_{\ce{CO2}}|.
+  \label{eq:heat_release}
+\end{equation}
+
+\subsection{Reactive Absorption Chemistry}
+
+\subsubsection{Chemistry and Stoichiometric Demand}
+\ce{H2S} removal in caustic proceeds by dissolution followed by rapid acid--base conversion. Under alkaline conditions, dissolved \ce{H2S} is converted predominantly to \ce{HS^-}:
+\begin{equation}
+  \ce{H2S(g) <=> H2S(aq)} \qquad
+  \ce{H2S(aq) + OH^- -> HS^- + H2O}.
+  \label{eq:h2s_neutralization}
+\end{equation}
+The theoretical \ce{NaOH} requirement for \ce{H2S} removal is bounded by:
+\begin{equation}
+  \dot n_{\ce{NaOH,stoich}} \approx \alpha \, \dot n_{\ce{H2S,removed}},
+  \qquad \alpha \in [1,2],
+  \label{eq:naoh_stoich_bound}
+\end{equation}
+where $\alpha \approx 1$ corresponds to \ce{NaHS}-dominant operation and $\alpha \approx 2$ corresponds to a \ce{Na2S} endpoint \cite{AFPM2014}.
+
+\subsubsection{\ce{CO2} Co-absorption and Caustic Loss}
+\ce{CO2} reacts in alkaline solution, consuming caustic and producing bicarbonate/carbonate species, which can elevate operating cost and precipitation risk. Importantly, \ce{CO2} absorption into caustic is kinetically slower than \ce{H2S}, so partial \ce{CO2} slip can be achieved through contactor design and operating strategy (e.g., contact time and staging), rather than by pH manipulation alone \cite{AFPM2014}.
+
+\subsection{Biological Oxidation Unit Design}
+The spent caustic blowdown, containing dissolved sodium hydrosulfide (NaHS), is treated in a Moving Bed Biofilm Reactor (MBBR). This technology was selected over conventional activated sludge due to the compactness required for the relatively small sulfur load ($<3$ kg/day) and the stability of biofilm against hydraulic surges.
+
+\subsubsection{Process Microbiology}
+The core mechanism relies on autotrophic sulfur-oxidizing bacteria (SOB), primarily of the genus \textit{Thiobacillus}. These organisms utilize inorganic carbon (from the dissolved carbonate/bicarbonate in the spent caustic) as a carbon source and oxidize sulfide for energy. The reaction pathways are controlled by dissolved oxygen (DO) concentration:
+\begin{align}
+    \text{Partial Oxidation:} \quad & \ce{HS^- + 0.5 O2 -> S^0 (s) + OH^-} \\
+    \text{Full Oxidation:} \quad & \ce{HS^- + 2.0 O2 -> SO_4^{2-} + H^+}
+\end{align}
+The system is operated under oxygen-limiting conditions (DO $< 1.0$ mg/L) to favor partial oxidation, converting soluble sulfide into solid elemental sulfur that can be removed via settling, rather than generating high-salinity sulfate waste.
+
+\subsubsection{MBBR Configuration and Sizing}
+The reactor is an aerobic continuous-flow stirred tank reactor (CSTR) filled to 40\% volume with high-surface-area polyethylene carriers (e.g., K3 media, specific surface area $500 \text{ m}^2/\text{m}^3$).
+\begin{itemize}
+    \item \textbf{Design Load:} The material balance (Table 5.3) indicates a sulfur load of approximately 2.5 kg/day (corrected from previous estimates of 78 kg/day).
+    \item \textbf{Reactor Volume:} Based on a volumetric loading rate of 0.5 kg-S/$\text{m}^3 \cdot \text{day}$, the required reactor volume is:
+    \begin{equation}
+        V_{reactor} = \frac{2.5 \text{ kg/day}}{0.5 \text{ kg}/\text{m}^3\text{d}} = 5.0 \text{ m}^3
+    \end{equation}
+    \item \textbf{Aeration:} Oxygen is supplied via a coarse-bubble diffuser grid powered by a regenerative blower.
+    \item \textbf{Solids Separation:} The MBBR effluent flows to a lamella clarifier where biomass and elemental sulfur settle. A portion of the sludge is recirculated (RAS) to maintain bacterial population.
+\end{itemize}
+
+\subsection{Preliminary Control Philosophy}
+Stable absorber operation requires control of alkalinity, hydraulics, and breakthrough monitoring:
+\begin{romanlist}
+  \item pH control manipulates \ce{NaOH} dosing to maintain solvent capacity;
+  \item liquid recirculation control maintains wetting and the design $L/G$ ratio;
+  \item treated-gas \ce{H2S} monitoring verifies performance and defines protective actions for engine fuel supply during upsets;
+  \item differential-pressure monitoring across the packed bed provides early warning of flooding, foaming, or fouling \cite{Kolmetz2011,Flagiello2021};
+  \item blowdown flow control manages salt and sulfide inventory in the loop;
+  \item dissolved-oxygen control in the biological unit matches sulfide-oxidation demand and biases the oxidation endpoint (elemental sulfur versus sulfate) according to disposal strategy \cite{Borges2025,Vikromvarasiri2017}.
+\end{romanlist}
+These controls support stable continuous operation and provide safeguards for engine fuel quality assurance.

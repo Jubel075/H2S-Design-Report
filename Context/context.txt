@@ -1,0 +1,608 @@
+================================================================================
+SCT CAUSTIC SCRUBBER DESIGN TOOL - TECHNICAL CONTEXT
+================================================================================
+Version: 2.0.0
+Last Updated: January 2026
+
+================================================================================
+1. PROJECT PURPOSE AND BUSINESS CONTEXT
+================================================================================
+
+1.1 OBJECTIVE
+-------------
+This project is a FEASIBILITY STUDY TOOL to evaluate whether Short Contact Time
+(SCT) caustic scrubbing is a viable technology for selective H2S removal from
+a specific natural gas stream.
+
+The key question being answered:
+    "Given our gas composition and flow rate, is SCT caustic scrubbing
+     technically and economically feasible for H2S removal?"
+
+1.2 THE ENGINEERING CHALLENGE
+-----------------------------
+The natural gas stream contains BOTH hydrogen sulfide (H2S) AND carbon dioxide
+(CO2). This creates a selectivity challenge:
+
+- H2S must be removed to meet pipeline/sales gas specifications
+- CO2 should NOT be removed (or minimally removed) because:
+  * CO2 removal wastes expensive caustic (NaOH)
+  * CO2 may be acceptable in the product gas
+  * Selective removal reduces operating costs significantly
+
+Traditional amine-based systems remove both gases. SCT caustic scrubbing
+offers a potentially simpler, more selective alternative for certain gas
+compositions.
+
+1.3 FEASIBILITY INDICATORS
+--------------------------
+This tool evaluates feasibility by predicting:
+
+1. Can we achieve the required H2S removal (typically >98%)?
+2. What selectivity is achievable (H2S removal vs CO2 co-absorption)?
+3. What are the caustic consumption rates and annual costs?
+4. What equipment size is needed (static mixer dimensions)?
+5. Are there any operational risks (precipitation, pH control)?
+
+A FEASIBLE design typically shows:
+- H2S removal > 98%
+- Selectivity > 20 (ideally > 30)
+- Manageable caustic consumption
+- Reasonable equipment size
+- Acceptable product quality (pH, Na2S content)
+
+1.4 CURRENT ASSUMPTIONS
+-----------------------
+This is a preliminary feasibility assessment. The following assumptions are
+made and should be validated in detailed engineering:
+
+- Ideal gas behavior (acceptable for moderate pressures)
+- Isothermal operation (heat of reaction is small)
+- Plug flow in static mixer (conservative assumption)
+- Literature correlations for mass transfer (site-specific data preferred)
+- Constant liquid properties (dilute NaOH solutions)
+
+These assumptions are reasonable for feasibility-level accuracy (±20-30%).
+Detailed design would require pilot testing and refined correlations.
+
+================================================================================
+2. PROBLEM STATEMENT
+================================================================================
+
+This project implements a Short Contact Time (SCT) caustic scrubber design tool
+for SELECTIVE removal of hydrogen sulfide (H2S) from gas streams containing both
+H2S and carbon dioxide (CO2).
+
+The engineering challenge: Both H2S and CO2 are acid gases that react with sodium
+hydroxide (NaOH). In conventional caustic scrubbing, both gases are absorbed,
+leading to excessive caustic consumption. The SCT approach exploits the vast
+difference in reaction kinetics to achieve selective H2S removal.
+
+Target applications:
+- Natural gas sweetening (PRIMARY USE CASE FOR THIS PROJECT)
+- Refinery off-gas treatment
+- Biogas upgrading
+- Tail gas treating
+
+================================================================================
+3. FUNDAMENTAL CHEMISTRY
+================================================================================
+
+3.1 REACTION STOICHIOMETRY
+--------------------------
+H2S absorption (instantaneous):
+    H2S + OH⁻ → HS⁻ + H2O           (pKa1 = 7.0)
+    HS⁻ + OH⁻ ⇌ S²⁻ + H2O           (pKa2 = 14.9, calibrated)
+
+CO2 absorption (slow):
+    CO2 + OH⁻ → HCO3⁻               (rate-limiting step)
+    HCO3⁻ + OH⁻ ⇌ CO3²⁻ + H2O
+
+3.2 REACTION KINETICS - THE KEY TO SELECTIVITY
+-----------------------------------------------
+The selectivity principle exploits the 4-order-of-magnitude difference in
+reaction rate constants:
+
+H2S + OH⁻:  k_H2S ≈ 10^8 m³/(mol·s)  [diffusion-controlled, instantaneous]
+CO2 + OH⁻:  k_CO2 ≈ 10^1-10^2 m³/(mol·s)  [finite-rate, Arrhenius kinetics]
+
+Temperature dependence (Arrhenius):
+- k_H2S(T) = 1.0×10^8 × (T/298.15)^0.5  [weak T-dependence]
+- k_CO2(T) = A × exp(-Ea/RT)            [Astarita correlation]
+
+Astarita correlation for CO2-OH reaction:
+    log10(k_CO2) = 13.635 - 2895/T      (T in Kelvin)
+
+At 40°C: k_H2S/k_CO2 ≈ 5×10^6 (ratio decreases with temperature)
+
+3.3 THERMODYNAMIC EQUILIBRIUM
+-----------------------------
+Henry's Law constants (mol/(m³·Pa)):
+- H_H2S(T) = 0.1 × exp(2100 × (1/T - 1/298.15))
+- H_CO2(T) = 0.034 × exp(2400 × (1/T - 1/298.15))
+
+H2S is ~3× more soluble than CO2 in water at 25°C.
+
+================================================================================
+4. MASS TRANSFER THEORY
+================================================================================
+
+4.1 TWO-FILM MODEL
+------------------
+The model uses penetration theory with chemical reaction enhancement:
+
+Physical mass transfer flux:
+    N_phys = k_L × (C_i - C_bulk)
+
+where:
+    k_L = liquid-side mass transfer coefficient (m/s)
+    C_i = interfacial concentration (from Henry's law: C_i = H × p_gas)
+
+Enhanced mass transfer flux (with reaction):
+    N_actual = E × N_phys
+
+where E = enhancement factor accounting for reaction in the liquid film.
+
+4.2 ENHANCEMENT FACTORS
+-----------------------
+For instantaneous reactions (H2S):
+    E_H2S = 1 + (D_OH/D_H2S) × (C_OH_bulk/C_H2S_i)
+
+    This is the "infinite enhancement" case where reaction occurs at a
+    reaction plane within the liquid film.
+
+For finite-rate reactions (CO2):
+    E_CO2 = Ha_CO2 / tanh(Ha_CO2)    [for Ha > 0.3]
+    E_CO2 → 1 + Ha²/3                 [for Ha < 0.3]
+
+where Ha = Hatta number (see below).
+
+4.3 DIMENSIONLESS NUMBERS
+-------------------------
+Damköhler Number (Da) - reaction rate vs residence time:
+    Da = k × C_OH × t_contact
+
+    For selective SCT operation:
+    - Da_H2S >> 1  (H2S reaction completes)
+    - Da_CO2 << 1  (CO2 reaction negligible)
+
+Hatta Number (Ha) - reaction rate vs diffusion rate:
+    Ha = sqrt(k × C_OH × D) / k_L
+
+    Physical interpretation:
+    - Ha >> 1: Reaction completes in liquid film (fast regime)
+    - Ha << 1: Reaction in bulk liquid (slow regime)
+
+4.4 SELECTIVITY DEFINITION
+--------------------------
+Selectivity (S) = flux ratio:
+    S = N_H2S / N_CO2 = (E_H2S × H_H2S × p_H2S) / (E_CO2 × H_CO2 × p_CO2)
+
+Target selectivity: S > 20-40 (depends on application)
+
+================================================================================
+5. SCT OPERATING PRINCIPLE
+================================================================================
+
+The SCT concept (Mamrosh et al., 2008):
+
+1. Use SHORT contact times (10-100 ms) in a high-shear contactor
+2. H2S reacts instantaneously → complete removal
+3. CO2 reaction is too slow to proceed significantly → minimal absorption
+4. Result: Selective H2S removal with minimal caustic consumption
+
+Contact time window:
+    t_min ≈ 10 ms   (sufficient for H2S mass transfer)
+    t_max ≈ 100 ms  (before CO2 absorption becomes significant)
+
+The "sweet spot" depends on:
+- Gas composition (H2S/CO2 ratio)
+- Required H2S removal efficiency
+- Acceptable CO2 co-absorption
+- NaOH concentration
+
+================================================================================
+6. PHYSICAL PROPERTIES
+================================================================================
+
+6.1 DIFFUSIVITIES IN WATER (25°C)
+---------------------------------
+D_H2S = 1.9 × 10⁻⁹ m²/s
+D_CO2 = 1.9 × 10⁻⁹ m²/s
+D_OH  = 5.3 × 10⁻⁹ m²/s  (higher due to Grotthuss mechanism)
+
+Temperature correction (Stokes-Einstein):
+    D(T) = D(298) × (T/298) × (μ_298/μ_T)
+
+6.2 WATER PROPERTIES
+--------------------
+Density:    ρ(T) = 1000 × (1 - 0.0002 × (T-293))  kg/m³
+Viscosity:  μ(T) = 0.001 × exp(1800 × (1/T - 1/298))  Pa·s
+
+6.3 MOLECULAR WEIGHTS
+---------------------
+H2S:  34.08 g/mol
+CO2:  44.01 g/mol
+NaOH: 40.00 g/mol
+Na2S: 78.04 g/mol
+
+================================================================================
+7. STATIC MIXER CONTACTOR DESIGN
+================================================================================
+
+7.1 SULZER SMV-TYPE MIXER
+-------------------------
+The design uses structured packing static mixers (Sulzer SMV style):
+- Element L/D ratio: 1.5 (standard)
+- Practical element count: 3-15 elements
+- Hydraulic diameter: d_h = 0.7 × D
+
+7.2 SIZING METHODOLOGY
+----------------------
+Target velocity: u ≈ 2-5 m/s (turbulent regime)
+
+Diameter from flow rate:
+    D = sqrt(4Q / (π × u))
+
+Number of elements from contact time:
+    N = ceil(u × t_target / L_element)
+
+Pressure drop (turbulent):
+    ΔP = 0.5 × ρ × u² × K_element × N
+    K_element ≈ 2.5-4.0 (depends on Re)
+
+7.3 MASS TRANSFER CORRELATIONS
+------------------------------
+Sherwood correlation for static mixers:
+    Sh = k_L × d_h / D = 0.023 × Re^0.8 × Sc^0.33
+
+Interfacial area correlation:
+    a = (500 + 100×N) × (u/2)^0.5  m²/m³
+
+These correlations are from Thakur et al. (2003).
+
+================================================================================
+8. OH DEPLETION MODEL
+================================================================================
+
+For high acid gas loading, OH⁻ depletion in the liquid phase becomes significant.
+The model accounts for this via:
+
+8.1 LOADING CALCULATION
+-----------------------
+Molar loading:
+    n_acid = (Q_gas × P / RT) × (y_H2S × η_H2S + y_CO2 × η_CO2)
+
+where η = removal efficiency (0-1)
+
+8.2 RESIDUAL OH CONCENTRATION
+-----------------------------
+    C_OH_residual = C_OH_initial - n_acid / (Q_liquid × L/G)
+
+where L/G = liquid-to-gas volumetric ratio
+
+8.3 IMPACT ON SELECTIVITY
+-------------------------
+As C_OH depletes:
+- E_H2S decreases (less driving force)
+- Selectivity may decrease
+- pH drops, potentially affecting reaction kinetics
+
+================================================================================
+9. PRODUCT QUALITY AND CONSTRAINTS
+================================================================================
+
+9.1 pH CONTROL
+--------------
+Operating pH range: 10-13.5
+- pH < 10: Insufficient OH⁻ for complete H2S removal
+- pH > 13.5: Risk of Na2S precipitation, equipment scaling
+
+pH estimation:
+    pH ≈ 14 + log10(C_NaOH_M)  [for excess NaOH]
+
+9.2 Na2S PRECIPITATION
+----------------------
+Spent caustic contains Na2S from H2S absorption:
+    2 NaOH + H2S → Na2S + 2 H2O
+
+Risk assessment:
+- Na2S solubility decreases with pH and temperature
+- Maximum Na2S content: typically < 4-5 wt%
+- Precipitation causes fouling and flow restriction
+
+9.3 CAUSTIC CONSUMPTION
+-----------------------
+Stoichiometric requirement:
+    n_NaOH = n_H2S_removed + n_CO2_removed  (1:1 molar ratio)
+
+Practical safety factor: 1.5× stoichiometric
+- Accounts for solution losses (entrainment, blowdown)
+- Process upsets
+- Incomplete reaction
+
+================================================================================
+10. MODEL ARCHITECTURE
+================================================================================
+
+10.1 FILE STRUCTURE
+-------------------
+sct_core_model.py      - Physics engine (mass transfer, kinetics, thermodynamics)
+sct_scrubber_design.py - Design optimization workflow
+sct_analysis.py        - CLI interface, parametric studies, reporting
+sct_config.yaml        - User configuration file (EDIT THIS FOR YOUR GAS STREAM)
+
+10.2 KEY DATA STRUCTURES
+------------------------
+DesignSpec (dataclass):
+    - Feed gas: flow_m3h, y_H2S_in, y_CO2_in, T_gas_C, P_gas_kPa
+    - Targets: H2S_removal_min, selectivity_min, y_H2S_out_max
+    - Constraints: NaOH_wt_min/max, pH_min/max, contact_time_min/max
+    - Physics options: use_OH_depletion, L_G_ratio, use_sherwood_correlations
+
+MassTransferResult (dataclass):
+    - Removal efficiencies: removal_H2S, removal_CO2
+    - Selectivity
+    - Dimensionless numbers: Da_H2S, Da_CO2, Ha_H2S, Ha_CO2
+    - Enhancement factors: E_H2S, E_CO2
+    - Regime classification: GOOD/MODERATE/POOR
+
+StaticMixerDesign (dataclass):
+    - Geometry: diameter_mm, num_elements, length_total_mm
+    - Hydraulics: superficial_velocity, pressure_drop_Pa, Re
+    - Mass transfer: k_L, interfacial_area, k_L_a
+
+10.3 OPTIMIZATION WORKFLOW
+--------------------------
+1. optimize_contact_time(): Minimize CO2 removal subject to H2S removal constraint
+2. optimize_NaOH_concentration(): Multi-objective (meet H2S, minimize CO2, control pH)
+3. size_static_mixer(): Equipment sizing with correlations
+4. calculate_caustic_requirement(): Consumables calculation
+5. check_precipitation_risk(): Product quality assessment
+
+================================================================================
+11. HOW TO USE FOR FEASIBILITY ASSESSMENT
+================================================================================
+
+11.1 STEP 1: DEFINE YOUR GAS STREAM
+-----------------------------------
+Edit sct_config.yaml with your actual gas data:
+
+    feed_gas:
+      flow_m3h: <your flow rate>
+      composition:
+        H2S: <mole fraction, e.g., 0.0018 for 1800 ppm>
+        CO2: <mole fraction, e.g., 0.026 for 2.6%>
+      temperature_C: <gas temperature>
+      pressure_kPa: <gas pressure>
+
+11.2 STEP 2: SET YOUR TARGETS
+-----------------------------
+Define what "success" looks like:
+
+    performance:
+      H2S_out_max_ppm: 15        # Pipeline spec
+      H2S_removal_min: 0.98      # 98% removal
+      selectivity_min: 20.0      # Minimize CO2 co-absorption
+
+11.3 STEP 3: RUN THE ANALYSIS
+-----------------------------
+    python sct_analysis.py --config sct_config.yaml
+
+For quick feasibility check:
+    python sct_analysis.py --config sct_config.yaml --quick
+
+11.4 STEP 4: INTERPRET RESULTS
+------------------------------
+The output tells you:
+
+FEASIBLE if:
+    ✓ "DESIGN MEETS ALL SPECIFICATIONS"
+    ✓ Selectivity > 20
+    ✓ Caustic consumption is economically acceptable
+    ✓ Equipment size is reasonable
+
+NOT FEASIBLE or MARGINAL if:
+    ✗ Selectivity too low (high CO2 co-absorption)
+    ✗ Cannot achieve required H2S removal
+    ✗ Excessive caustic consumption
+    ✗ Precipitation/pH issues
+
+11.5 STEP 5: SENSITIVITY ANALYSIS
+---------------------------------
+Run parametric studies to understand operating window:
+
+    python sct_analysis.py --config sct_config.yaml --sensitivity
+
+This shows which parameters most affect performance.
+
+================================================================================
+12. CONFIGURATION PARAMETERS
+================================================================================
+
+12.1 FEED GAS
+-------------
+flow_m3h:       Gas volumetric flow rate at actual conditions (m³/h)
+composition:    Mole fractions (H2S, CO2 as decimals, e.g., 0.0018 = 1800 ppm)
+temperature_C:  Gas temperature (°C)
+pressure_kPa:   Gas pressure (kPa)
+
+12.2 PERFORMANCE TARGETS
+------------------------
+H2S_removal_min:   Minimum H2S removal efficiency (0-1)
+selectivity_min:   Minimum selectivity ratio (typically 20-40)
+H2S_out_max_ppm:   Maximum H2S in treated gas (ppm)
+Na2S_max_wt:       Maximum Na2S in spent caustic (wt%)
+
+12.3 OPERATING CONSTRAINTS
+--------------------------
+NaOH_wt_min/max:      NaOH concentration range (wt%)
+pH_min/max:           Solution pH range
+contact_time_min/max: Contact time range (seconds)
+LG_ratio_min/max:     Liquid/gas volumetric ratio range
+
+12.4 PHYSICS OPTIONS
+--------------------
+use_OH_depletion:                 Enable OH depletion model (bool)
+use_temperature_dependent_kinetics: Use Arrhenius kinetics (bool)
+L_G_ratio:                        Liquid/gas ratio for depletion model
+use_sherwood_correlations:        Use correlations for k_L and a (bool)
+
+================================================================================
+13. KEY LITERATURE REFERENCES
+================================================================================
+
+Primary references for the physics model:
+
+1. Mamrosh, D. L., Fisher, K. S., & Beitler, C. M. (2008).
+   "Consider improved scrubbing designs for acid gases."
+   Hydrocarbon Processing, 87(1), 69-74.
+   [Source of SCT concept and field validation data]
+
+2. Bontozoglou, V., & Karabelas, A. J. (1991, 1993).
+   "Simultaneous absorption of H2S and CO2 in aqueous NaOH solutions."
+   Industrial & Engineering Chemistry Research, 32(1), 165-172.
+   [Mass transfer theory with chemical reaction]
+
+3. Danckwerts, P. V. (1970).
+   "Gas-Liquid Reactions." McGraw-Hill.
+   [Fundamental theory: two-film model, enhancement factors]
+
+4. Thakur, R. K., Vial, C., Nigam, K. D. P., & Nauman, E. B. (2003).
+   "Static mixers in the process industries—a review."
+   Chemical Engineering Research and Design, 81(7), 787-826.
+   [Static mixer correlations for k_L, a, ΔP]
+
+5. Astarita, G., Savage, D. W., & Bisio, A. (1983).
+   "Gas Treating with Chemical Solvents." Wiley.
+   [CO2-OH reaction kinetics, Astarita correlation]
+
+================================================================================
+14. MODEL ASSUMPTIONS AND LIMITATIONS
+================================================================================
+
+IMPORTANT: This is a feasibility-level model. Results should be validated
+with pilot testing before detailed engineering.
+
+1. MASS TRANSFER MODEL
+   - Two-film theory with negligible gas-side resistance
+   - Gas-liquid interface at equilibrium (Henry's law)
+   - Liquid-phase mass transfer controls overall rate
+
+2. REACTION KINETICS
+   - Pseudo-first-order kinetics (OH⁻ in large excess)
+   - H2S reaction is instantaneous (diffusion-controlled)
+   - CO2 reaction follows finite-rate Astarita correlation
+
+3. FLOW AND MIXING
+   - Plug flow in contactor (no axial dispersion)
+   - Uniform liquid distribution and interfacial area
+   - Isothermal operation (negligible heat of reaction)
+
+4. THERMODYNAMICS
+   - Ideal gas behavior
+   - Henry's law valid for dilute solutions
+   - Activity coefficients = 1 (dilute solution assumption)
+
+5. SOLUTION CHEMISTRY
+   - Complete NaOH dissociation
+   - Equilibrium speciation of absorbed species
+   - No precipitation within contactor residence time
+
+Expected accuracy: ±20-30% for feasibility assessment.
+Detailed design requires site-specific data and pilot testing.
+
+================================================================================
+15. TYPICAL OPERATING RANGES
+================================================================================
+
+Parameter                   Typical Range        Units
+-----------------------------------------------------------------
+Gas flow rate               10 - 10,000          m³/h
+H2S inlet                   100 - 50,000         ppm
+CO2 inlet                   0.5 - 10             %
+Temperature                 20 - 80              °C
+Pressure                    100 - 5000           kPa
+NaOH concentration          1 - 5                M (2-15 wt%)
+Contact time                10 - 100             ms
+L/G ratio                   1 - 4                -
+Selectivity (achievable)    10 - 200             -
+H2S removal                 95 - 99.9            %
+CO2 co-absorption           0.5 - 10             %
+
+================================================================================
+16. CRITICAL SUCCESS FACTORS
+================================================================================
+
+For successful SCT scrubber design:
+
+1. CONTACT TIME is the primary control variable for selectivity
+   - Shorter = higher selectivity but lower H2S removal
+   - Longer = higher H2S removal but more CO2 co-absorption
+
+2. NaOH CONCENTRATION affects removal efficiency
+   - Higher concentration → higher removal rates for both gases
+   - Does not significantly affect selectivity (ratio stays similar)
+
+3. TEMPERATURE affects kinetics
+   - Higher T → faster CO2 reaction → lower selectivity
+   - Keep temperature moderate (40-60°C) for best selectivity
+
+4. MIXING INTENSITY must be high
+   - Creates fine dispersion for rapid mass transfer
+   - Static mixers or ejectors preferred over packed columns
+
+5. MONITOR SPENT CAUSTIC QUALITY
+   - Na2S accumulation limits recycle
+   - pH drop indicates caustic depletion
+
+================================================================================
+17. WHEN SCT CAUSTIC SCRUBBING IS FAVORABLE
+================================================================================
+
+SCT caustic scrubbing is MOST SUITABLE when:
+
+✓ H2S concentration is low to moderate (<1% in gas)
+✓ CO2 concentration is significant (would cause high amine circulation)
+✓ Selective H2S removal is required (CO2 can stay in product)
+✓ Simplicity is valued over maximum efficiency
+✓ Spent caustic disposal/treatment is available
+✓ Capital cost minimization is important
+
+SCT caustic scrubbing is LESS SUITABLE when:
+
+✗ Both H2S AND CO2 must be removed
+✗ Very high H2S concentrations (>1%) - caustic consumption too high
+✗ Caustic disposal is difficult/expensive
+✗ Solvent regeneration is preferred (amine systems)
+✗ Extremely tight H2S specs (<1 ppm) - may need polishing step
+
+================================================================================
+18. NEXT STEPS AFTER FEASIBILITY
+================================================================================
+
+If feasibility study shows POSITIVE results:
+
+1. PILOT TESTING
+   - Validate model predictions with actual gas
+   - Measure actual selectivity and removal
+   - Optimize operating conditions
+
+2. DETAILED ENGINEERING
+   - Refine equipment sizing
+   - Materials selection (caustic service)
+   - Instrumentation and control philosophy
+   - Spent caustic handling system
+
+3. ECONOMIC ANALYSIS
+   - Capital cost estimate
+   - Operating cost (caustic, disposal, utilities)
+   - Comparison with alternatives (amine, other)
+
+4. HAZOP/SAFETY REVIEW
+   - H2S hazards
+   - Caustic handling
+   - Spent caustic (contains sulfides)
+
+================================================================================
+END OF CONTEXT DOCUMENT
+================================================================================

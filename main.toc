@@ -1,0 +1,76 @@
+\contentsline {section}{\numberline {1}Executive Summary}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Design Basis}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Technology Comparison}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Economic Assessment}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Technology Recommendation}{6}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Critical Uncertainties}{6}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Recommended Next Steps}{7}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Introduction and Design Basis}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Problem Definition}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Study Scope}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Design Basis}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Technology Screening Summary}{8}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Decision Criteria}{9}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Technology Options Analysis}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Mass Transfer Fundamentals}{9}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Kinetic Rate Constants}{10}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}The Damk\"ohler Framework for Selectivity}{10}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Packed Column Scrubber}{11}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Operating Principle}{11}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Column Sizing for 660,000 SCFD}{11}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Caustic Consumption Analysis}{11}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Economic Reality Check}{12}{subsubsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.3}Short Contact Time (SCT) Static Mixer Scrubber}{12}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Operating Principle}{12}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Static Mixer Configuration}{13}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Caustic Consumption Analysis}{13}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Comparative Evaluation: The Selectivity Imperative}{14}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Economic Comparison}{14}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Selectivity Visualisation}{15}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Selection Recommendation}{15}{subsubsection.3.4.3}%
+\contentsline {section}{\numberline {4}Spent Caustic Treatment}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Process Requirement}{16}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Design Basis at 660,000 SCFD Scale}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}MBBR Configuration}{17}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Process Microbiology}{17}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Preliminary Sizing}{17}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Alkalinity Recovery}{17}{subsubsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.4}Alternative: Chemical Oxidation}{18}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Further Study Required}{18}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Economic Evaluation}{18}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Economic Framework}{18}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Fixed Benefit}{18}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Variable Costs}{18}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Operating Cost Comparison}{19}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Net Annual Benefit}{19}{subsubsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.3}Capital Cost Estimates}{19}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Economic Performance Indicators}{20}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Sensitivity Analysis}{20}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Parametric Sensitivity}{20}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Selectivity Threshold Analysis}{21}{subsubsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.6}Risk-Adjusted Recommendation}{21}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Validation Requirements}{22}{subsection.5.7}%
+\contentsline {section}{\numberline {6}Risk Assessment}{22}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Key Technical Risks}{22}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}HSE Considerations}{23}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Risk Closure Requirements}{23}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Control Philosophy and Safety}{23}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Control Philosophy Overview}{23}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Primary Control Loops}{24}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}pH Control for SCT Operation}{24}{subsubsection.7.2.1}%
+\contentsline {subsubsection}{\numberline {7.2.2}Level Control and Blowdown Strategy}{25}{subsubsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.3}Critical Safety Interlocks}{25}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Interlock 1: \ce {H2S} Breakthrough}{25}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Interlock 2: Low Caustic Inventory}{26}{subsubsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.4}Instrumentation Requirements}{26}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Safety Considerations}{26}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}HAZOP Scope}{26}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Conclusions and Recommendations}{27}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Summary of Findings}{27}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Technology Recommendation}{27}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Key Trade-offs}{28}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Data Gaps Requiring Resolution}{28}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Recommended Next Steps}{28}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Concluding Statement}{29}{subsection.8.6}%
+\contentsline {section}{References}{29}{Item.69}%
+\contentsline {section}{\nonumberline List of Symbols}{30}{section*.32}%

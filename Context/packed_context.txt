@@ -1,0 +1,27 @@
+### Key Concepts
+
+- **Mass Transfer (Height):** The required height of the packing is determined by the number of transfer units (NTU) and the height of a transfer unit (HETP). 
+  - **NTU** is calculated assuming a dilute system with an irreversible, instantaneous reaction, which simplifies to `ln(y_in / y_out)`.
+  - **HETP** is estimated using the Wankat correlation, a standard method for packed columns.
+- **Hydraulics (Diameter):** The column diameter is sized to operate at a specified percentage of the flooding velocity. This ensures stable operation without liquid being carried up and out by the gas (flooding).
+  - **Flooding Velocity** is calculated using the generalized pressure drop correlation from Billet and Schultes, a widely accepted method.
+- **Economics (Feasibility):** The financial viability of the proposed scrubber design is evaluated using standard economic metrics.
+  - **Net Present Value (NPV):** The primary indicator of profitability.
+  - **Capital Expenditure (CAPEX):** Estimated using a factorial method, where the total installed cost is a multiple of the purchased cost of the main equipment (the column vessel).
+  - **Operating Expenditure (OPEX):** The sum of ongoing costs, including chemicals (caustic), utilities (power for the pump), and fixed costs (maintenance, labor).
+
+### Key Assumptions
+
+- **Instantaneous and Irreversible Reaction:** The chemical reaction between the target gas component (e.g., H2S or CO2) and the caustic solution is assumed to be infinitely fast and non-reversible. This simplifies the mass transfer calculation and is a common assumption for strong acid-strong base reactions.
+- **Dilute System:** The concentration of the component being removed is low. This allows for the use of simplified mass transfer equations and assumes that the physical properties of the gas and liquid streams do not change significantly through the column.
+- **Isothermal Operation:** The process is assumed to occur at a constant temperature. This ignores any heat of reaction or absorption.
+- **Ideal Gas Behavior:** The gas phase is assumed to follow the ideal gas law.
+- **Constant Physical Properties:** The density, viscosity, and other physical properties of the gas and liquid are assumed to be constant throughout the column.
+
+### Key Findings (from Codebase Analysis)
+
+- **Configuration-Driven:** The entire analysis is controlled by a single, central `config.yaml` file, making it easy to define and modify scenarios.
+- **Modular Structure:** The code is well-organized into distinct modules for core engineering calculations (`core_model.py`), economic analysis (`economics_enhanced.py`), and advanced simulations (`simulation_optimization.py`).
+- **Comprehensive Analysis:** The tool goes beyond a single-point design, offering built-in capabilities for Monte Carlo uncertainty analysis, Sobol sensitivity analysis, and design optimization.
+- **Automated Reporting:** The primary output is an automated, easy-to-read Markdown report (`feasibility_report.md`) that summarizes the key physical and financial results of the design.
+- **Data-Backed:** The tool relies on a `packing_database.csv` file for the physical properties of different packing materials, ensuring calculations are based on real-world data.
