@@ -1,0 +1,127 @@
+% SCT Caustic Scrubber Process Flow Diagram
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    % Base styles
+    stage/.style={font=\bfseries\footnotesize, text=StageInk, align=center},
+    hint/.style={font=\scriptsize, text=HintGray, align=center, inner sep=0pt},
+    mainarrow/.style={->, line width=0.9pt, draw=MainBlue, >={Stealth[length=2mm,width=1.2mm]}},
+    sidearrow/.style={->, line width=0.6pt, draw=Charcoal, >={Stealth[length=2mm,width=1.2mm]}},
+    % Equipment styles
+    equip/.style={draw=Charcoal, line width=0.8pt, fill=white},
+    pipe/.style={draw=Charcoal, line width=0.9pt},
+    % Instrument styles
+    instr/.style={circle, draw=Charcoal, line width=0.6pt, minimum size=6mm, 
+                  font=\scriptsize, inner sep=0pt, fill=white},
+    % Stream label style
+    stream/.style={font=\footnotesize, align=center},
+    % Valve style
+    valve/.style={draw=Charcoal, line width=0.6pt, fill=white}
+]
+
+% === CONTACTOR (Static Mixer) ===
+\draw[equip] (3,0) rectangle (5,4);
+% Internal packing elements (crossed pattern)
+\foreach \y in {0.5, 1.5, 2.5, 3.5} {
+    \draw[Charcoal, line width=0.5pt] (3.2,\y-0.3) -- (4.8,\y+0.3);
+    \draw[Charcoal, line width=0.5pt] (3.2,\y+0.3) -- (4.8,\y-0.3);
+}
+% Top liquid inlet nozzle
+\draw[equip] (3.3,4) -- (3.3,4.4) -- (3.7,4.4) -- (3.7,4);
+% Top gas outlet nozzle
+\draw[equip] (4.3,4) -- (4.3,4.4) -- (4.7,4.4) -- (4.7,4);
+% Side inlet nozzle (gas)
+\draw[equip] (3,2.8) -- (2.7,2.8) -- (2.7,3.2) -- (3,3.2);
+% Bottom outlet
+\draw[equip] (3.8,0) -- (3.8,-0.3) -- (4.2,-0.3) -- (4.2,0);
+% Label
+\node[stage] at (5.7,2) {Contactor};
+
+% === SEPARATOR (Horizontal Drum) ===
+\draw[equip] (1.5,-3.2) -- (6,-3.2) -- (6,-4.2) -- (1.5,-4.2) -- cycle;
+\draw[equip] (1.5,-3.2) arc (90:270:0.15 and 0.5);
+\draw[equip] (6,-3.2) arc (90:-90:0.15 and 0.5);
+\draw[Charcoal, line width=0.4pt, dashed] (1.65,-3.7) -- (5.85,-3.7);
+\node[stage] at (3.75,-3.7) {Separator};
+
+% === CIRCULATION PUMP ===
+\draw[equip] (4,-5.4) circle (0.4);
+\draw[equip, fill=Charcoal] (4,-5.4) -- (4.35,-5.2) -- (4.35,-5.6) -- cycle;
+\node[stage, below] at (4,-5.9) {Circulation\\[-1pt]Pump};
+
+% === COOLER (Shell & Tube HX) ===
+\draw[equip] (7.8,-1.0) ellipse (0.5 and 0.8);
+\draw[equip] (7.8,-1.8) -- (7.8,-0.2);
+\draw[Charcoal, line width=0.4pt] (7.6,-1.6) -- (7.6,-0.4);
+\draw[Charcoal, line width=0.4pt] (8.0,-1.6) -- (8.0,-0.4);
+\node[stage] at (8.8,-1.0) {Cooler};
+
+% === VALVES ===
+% Caustic feed valve
+\draw[valve] (-0.2,4.8) -- (0,5.0) -- (0.2,4.8) -- (0,4.6) -- cycle;
+% NaHS product valve  
+\draw[valve] (7.3,-3.7) -- (7.5,-3.5) -- (7.7,-3.7) -- (7.5,-3.9) -- cycle;
+
+% === PIPING ===
+% Sour gas feed (enters side of contactor)
+\draw[pipe] (-1.5,3) -- (2.7,3);
+\draw[pipe, ->] (2.7,3) -- (3,3);
+
+% Treated gas outlet (from top, goes right)
+\draw[pipe] (4.5,4.4) -- (4.5,5.5) -- (9.5,5.5);
+\draw[pipe, ->] (9.5,5.5) -- (10.5,5.5);
+
+% Contactor to separator
+\draw[pipe] (4,-0.3) -- (4,-3.2);
+
+% Separator to pump
+\draw[pipe] (4,-4.2) -- (4,-5.0);
+
+% Pump discharge - right then up to cooler
+\draw[pipe] (4.4,-5.4) -- (7.8,-5.4) -- (7.8,-1.8);
+
+% Cooler outlet up to recirculation header
+\draw[pipe] (7.8,-0.2) -- (7.8,0.8) -- (6.2,0.8) -- (6.2,5.5);
+
+% Recirculation header across top
+\draw[pipe] (6.2,5.5) -- (3.5,5.5);
+\draw[pipe, ->] (3.5,5.5) -- (3.5,4.4);
+
+% Caustic feed joins recirculation
+\draw[pipe] (-1.5,4.9) -- (-0.2,4.9);
+\draw[pipe] (0.2,4.9) -- (1,4.9) -- (1,5.5) -- (3.5,5.5);
+
+% NaHS product blowdown
+\draw[pipe] (6,-3.7) -- (7.3,-3.7);
+\draw[pipe] (7.7,-3.7) -- (9,-3.7);
+\draw[pipe, ->] (9,-3.7) -- (10.5,-3.7);
+
+% === INSTRUMENTS ===
+% pH indicator (on recirculation line)
+\node[instr] (pH) at (4.5,6.3) {pH};
+\draw[Charcoal, line width=0.4pt, dashed] (pH) -- (4.5,5.5);
+
+% H2S analyzer (on treated gas)
+\node[instr] (H2S) at (7.5,6.3) {H2S};
+\draw[Charcoal, line width=0.4pt, dashed] (H2S) -- (7.5,5.5);
+
+% Level indicator (positioned below separator, offset right)
+\node[instr] (LVL) at (6.8,-4.6) {Level};
+\draw[Charcoal, line width=0.4pt, dashed] (LVL) -- (6,-3.95);
+
+% === STREAM LABELS ===
+\node[stream, left] at (-1.5,3) {Sour\\[-1pt]Gas};
+\node[stream, left] at (-1.5,4.9) {Caustic\\[-1pt]Feed};
+\node[stream, right] at (10.5,5.5) {Treated\\[-1pt]Gas};
+\node[stream, right] at (10.5,-3.7) {NaHS\\[-1pt]Product};
+
+% === STREAM ARROWS (decorative) ===
+\draw[mainarrow] (-2,3) -- (-1.6,3);
+\draw[sidearrow] (-2,4.9) -- (-1.6,4.9);
+\draw[mainarrow] (10.5,5.5) -- (10.9,5.5);
+\draw[sidearrow] (10.5,-3.7) -- (10.9,-3.7);
+
+\end{tikzpicture}
+\caption{Process flow schematic of the caustic-based sour gas sweetening system, showing sour gas contacting a circulating NaOH solution for H₂S removal. The diagram illustrates the main equipment—contactor, separator, cooler, and pump—and the flow of treated gas and NaHS product.}
+\label{fig:sct_pfd}
+\end{figure}

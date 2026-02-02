@@ -136,7 +136,7 @@
 \usepackage[nameinlink,noabbrev]{cleveref}
 
 % Title Page Variables (edit these)
-\newcommand{\ReportTitle}{Sour Gas Sweetening for Gas Engine at TA-58}
+\newcommand{\ReportTitle}{Selective Caustic Scrubbing Design Study for H₂S Removal at TA‑58}
 \newcommand{\DocID}{PE-TA58-PR-001}
 \newcommand{\Revision}{Rev 0}
 \newcommand{\AuthorName}{Guillian Kasandikromo}
@@ -256,16 +256,19 @@
 \input{Sections/control_safety}
 \input{Sections/conclusions}
 
-% ---------- Reference Table ----------
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{IEEEtran}
-\bibliography{references}
-
 % ---------- Nomenclature ----------
+\vspace{0.5em}
 \begin{multicols}{2}
   \printnomenclature
 \end{multicols}
+
+% ---------- Reference Table ----------
+\clearpage
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 \newpage
+
 
 % ---------- Appendix ----------
 \appendix

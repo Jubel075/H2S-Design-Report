@@ -4,6 +4,8 @@
 
 \documentclass[aspectratio=169, 11pt]{beamer}
 
+% !TEX program = lualatex
+
 % ============================================
 % Packages
 % ============================================
@@ -80,7 +82,7 @@
 \title{Sour Gas Sweetening for TA-58}
 \subtitle{Conceptual Design Study --- SCT Technology Recommendation}
 \author{Guillian Kasandikromo}
-\institute{Process Engineering, P\&ES \\ Staatsolie Maatschappij Suriname N.V.}
+\institute{Department of Engineering \\ Vanguard Community College}
 \date{\today}
 
 % ============================================
@@ -94,9 +96,10 @@
 \begin{frame}
     \maketitle
     \begin{tikzpicture}[remember picture, overlay]
-        \node[anchor=south east, opacity=0.9] at (current page.south east) {
-            \includegraphics[width=3cm]{Zwart Staatsolie logo - RGB.png}
-        };
+        \node[anchor=south east] 
+            at ([xshift=-1.5cm,yshift=1.5cm]current page.south east) {
+                \includegraphics[width=2cm]{Logo-Vanguard-Duc-Exercitum-150px.png}
+            };
     \end{tikzpicture}
 \end{frame}
 
@@ -104,8 +107,8 @@
 % SLIDE 2: Project Context
 % ============================================
 \begin{frame}{Project Context}
-    \begin{columns}[T]
-        \begin{column}{0.45\textwidth}
+    \begin{columns}[c]
+        \begin{column}{0.40\textwidth}
             \textbf{The Opportunity}
             \begin{itemize}
                 \item TA-58 flares sour associated gas
@@ -121,9 +124,10 @@
                 \item Need 97.5\% removal efficiency
             \end{itemize}
         \end{column}
-        \begin{column}{0.55\textwidth}
+        \begin{column}{0.60\textwidth}
+
             \centering
-            \resizebox{0.95\textwidth}{!}{%
+            \resizebox{\textwidth}{!}{%
                 % Design mindmap embedded directly
                 \begin{tikzpicture}[node distance=11mm and 36mm]
                     \coordinate (ColL) at (0,0);
@@ -194,7 +198,7 @@
             \vspace{1em}
             \centering
             \Large
-            \textcolor{AccentC}{\textbf{CO$_2$/H$_2$S = 16:1}}
+            \textcolor{AccentC}{\textbf{\ce{CO2}/\ce{H2S} = 16:1}}
         \end{column}
     \end{columns}
 \end{frame}
@@ -248,7 +252,7 @@
 % ============================================
 \begin{frame}{Kinetic Fundamentals}
     \begin{columns}[T]
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.40\textwidth}
             \textbf{Reaction Rate Constants}
 
             \vspace{0.5em}
@@ -274,7 +278,7 @@
                 \item Da $\ll$ 1: reaction negligible
             \end{itemize}
         \end{column}
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.60\textwidth}
             \textbf{The Selectivity Window}
 
             \vspace{0.5em}
@@ -301,7 +305,7 @@
 % ============================================
 \begin{frame}{Selectivity Window}
     \centering
-    \resizebox{0.85\textwidth}{!}{%
+    \resizebox{\textwidth}{!}{%
         % Selectivity kinetics embedded directly
         \begin{tikzpicture}[
             x=2.8cm, y=4.5cm,
@@ -337,7 +341,7 @@
             (0,0)
             .. controls (0.2,0.95) and (0.4,0.99) .. (0.5,0.995)
             -- (3.5,1.0);
-          \node[AccentA, anchor=west, font=\footnotesize] at (2.6,0.92) {H$_2$S};
+          \node[AccentA, anchor=west, font=\footnotesize] at (2.6,0.92) {\ce{H2S}};
 
           % CO2 curve
           \draw[AccentC, very thick]
@@ -345,7 +349,7 @@
             .. controls (0.5,0.01) and (1.0,0.02) .. (1.5,0.05)
             .. controls (2.0,0.10) and (2.5,0.20) .. (3.0,0.35)
             .. controls (3.3,0.45) and (3.5,0.55) .. (3.5,0.60);
-          \node[AccentC, anchor=west, font=\footnotesize] at (3.0,0.50) {CO$_2$};
+          \node[AccentC, anchor=west, font=\footnotesize] at (3.0,0.50) {\ce{CO2}};
 
           % Marker at 50ms
           \fill[MainBlue] (1.5,0.995) circle (2pt);
@@ -353,7 +357,7 @@
 
           % Annotation arrows
           \draw[<->, MainBlue, thick] (1.6,0.05) -- (1.6,0.995);
-          \node[MainBlue, anchor=west, font=\scriptsize, align=left] at (1.7,0.5) {98\% H$_2$S\\5\% CO$_2$\\at 50~ms};
+          \node[MainBlue, anchor=west, font=\scriptsize, align=left] at (1.15,0.5) {98\% \ce{H2S}\\5\% \ce{CO2}\\at 50~ms};
 
           % Packed column regime
           \draw[AccentB, thick, <->] (3.0,-0.12) -- (3.5,-0.12);
@@ -402,7 +406,7 @@
 % ============================================
 \begin{frame}{Economic Performance}
     \begin{columns}[c]
-        \begin{column}{0.45\textwidth}
+        \begin{column}{0.40\textwidth}
             \textbf{Key Indicators}
 
             \vspace{0.5em}
@@ -422,7 +426,7 @@
             \vspace{1em}
             \textbf{15\% hurdle rate}
         \end{column}
-        \begin{column}{0.55\textwidth}
+        \begin{column}{0.60\textwidth}
             \centering
             \resizebox{\textwidth}{!}{%
                 % Tornado diagram embedded directly
@@ -474,7 +478,7 @@
                   \node[anchor=south, font=\footnotesize] at (0.7, 3.5+\barH) {\$400};
 
                   % ---- Packed Column (bottom section) ----
-                  \node[font=\footnotesize\bfseries,anchor=west] at (\xLabel,2.6) {Packed Column (base: 5.3\%)};
+                  \node[font=\footnotesize\bfseries,anchor=west] at (\xLabel,3.3) {Packed Column (base: 5.3\%)};
 
                   % Row 5: Diesel benefit (packed)
                   \fill[AccentA!15] (-4.1,1.8) rectangle (4.0,1.8+\barH);
@@ -515,7 +519,7 @@
 % ============================================
 \begin{frame}{Process Configuration}
     \centering
-    \includegraphics[width=0.85\textwidth]{BFD - Caustic Scrubbing.png}
+    \includegraphics[width=\textwidth]{BFD - Caustic Scrubbing.png}
 \end{frame}
 
 % ============================================
@@ -588,7 +592,7 @@
         \draw[->, dashed, gray] (logic2) -- ++(0,-0.8) node[below, font=\tiny] {NO};
 
         % Legend
-        \node[font=\scriptsize, anchor=west] at (-3.5,-0.2) {\textbf{Legend:}};
+        \node[font=\scriptsize, anchor=west] at (-3.5,0.1) {\textbf{Legend:}};
         \fill[MainBlue!10] (-3.5,-0.6) rectangle (-3.0,-0.3);
         \draw (-3.5,-0.6) rectangle (-3.0,-0.3);
         \node[font=\tiny, anchor=west] at (-2.9,-0.45) {Setpoint};
@@ -617,103 +621,49 @@
 % ============================================
 \appendix
 
-\begin{frame}{Backup: Packed Column Schematic}
-    \centering
-    \resizebox{0.5\textwidth}{!}{%
-        % Packed column embedded directly
-        \begin{tikzpicture}[
-            scale=0.9,
-            font=\small,
-            >=Stealth,
-            line width=0.8pt,
-        ]
+\begin{frame}{Backup: Packed Column Design}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \textbf{Column Specifications}
 
-        % Column vessel outline
-        \def\colW{2.5}
-        \def\colH{8.0}
-        \def\sumpH{1.2}
-        \def\packH{4.0}
-        \def\distH{0.4}
-        \def\mistH{0.6}
+            \vspace{0.5em}
+            \begin{tabular}{@{}ll@{}}
+                \toprule
+                \textbf{Parameter} & \textbf{Value} \\
+                \midrule
+                Diameter & 0.75 m (30 in) \\
+                Total height & 5.5 m \\
+                Packed height & 2.8 m \\
+                Packing type & Structured \\
+                Material & 316L SS \\
+                \bottomrule
+            \end{tabular}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Operating Conditions}
 
-        % Main vessel
-        \draw[thick] (0,0) -- (0,\colH) -- (\colW,\colH) -- (\colW,0) -- cycle;
+            \vspace{0.5em}
+            \begin{tabular}{@{}ll@{}}
+                \toprule
+                \textbf{Parameter} & \textbf{Value} \\
+                \midrule
+                Gas flow & 660k SCFD \\
+                Inlet \ce{H2S} & 1800 ppmv \\
+                Outlet \ce{H2S} & $<$45 ppmv \\
+                NaOH conc. & 5 wt\% \\
+                L/G ratio & 2.5 gpm/1000 SCFM \\
+                \bottomrule
+            \end{tabular}
+        \end{column}
+    \end{columns}
 
-        % Sump section
-        \draw[thick] (0,\sumpH) -- (\colW,\sumpH);
-        \node[font=\scriptsize, align=center] at (\colW/2, \sumpH/2) {Sump\\(liquid holdup)};
-
-        % Packing support
-        \draw[thick] (0.1,\sumpH+0.1) -- (\colW-0.1,\sumpH+0.1);
-        \node[font=\tiny, anchor=west] at (\colW+0.1, \sumpH+0.1) {Support grid};
-
-        % Packing section (hatched)
-        \foreach \y in {0,0.3,...,3.9} {
-            \draw[gray, thin] (0.15,\sumpH+0.2+\y) -- (\colW-0.15,\sumpH+0.5+\y);
-            \draw[gray, thin] (0.15,\sumpH+0.5+\y) -- (\colW-0.15,\sumpH+0.2+\y);
-        }
-        \draw[thick] (0,\sumpH+\packH) -- (\colW,\sumpH+\packH);
-
-        % Packing label
-        \draw[<->, thick] (\colW+0.3, \sumpH+0.2) -- (\colW+0.3, \sumpH+\packH-0.1);
-        \node[font=\scriptsize, anchor=west, align=left] at (\colW+0.4, \sumpH+\packH/2) {Structured\\packing\\2.8~m};
-
-        % Liquid distributor
-        \draw[thick, fill=white] (0.3,\sumpH+\packH+0.3) rectangle (\colW-0.3,\sumpH+\packH+0.3+\distH);
-        \foreach \x in {0.5,0.9,1.3,1.7,2.1} {
-            \draw[MainBlue, thick] (\x,\sumpH+\packH+0.3) -- (\x,\sumpH+\packH+0.1);
-        }
-        \node[font=\scriptsize, anchor=west] at (\colW+0.1, \sumpH+\packH+0.5) {Distributor};
-
-        % Mist eliminator
-        \draw[thick] (0.1,\colH-\mistH-0.5) -- (\colW-0.1,\colH-\mistH-0.5);
-        \draw[thick] (0.1,\colH-0.5) -- (\colW-0.1,\colH-0.5);
-        \foreach \y in {0,0.15,...,0.55} {
-            \draw[gray] (0.2,\colH-\mistH-0.4+\y) sin (0.6,\colH-\mistH-0.3+\y) cos (1.0,\colH-\mistH-0.4+\y) sin (1.4,\colH-\mistH-0.3+\y) cos (1.8,\colH-\mistH-0.4+\y) sin (2.2,\colH-\mistH-0.3+\y);
-        }
-        \node[font=\scriptsize, anchor=west] at (\colW+0.1, \colH-\mistH/2-0.5) {Mist eliminator};
-
-        % Gas inlet (bottom)
-        \draw[AccentC, very thick, ->] (-1.5,\sumpH+0.5) -- (0,\sumpH+0.5);
-        \node[AccentC, font=\scriptsize, anchor=east, align=right] at (-1.6,\sumpH+0.5) {Sour gas\\660k SCFD\\1800 ppmv H$_2$S};
-
-        % Gas outlet (top)
-        \draw[AccentA, very thick, ->] (\colW/2,\colH) -- (\colW/2,\colH+0.8);
-        \node[AccentA, font=\scriptsize, anchor=south, align=center] at (\colW/2,\colH+0.9) {Sweet gas\\$<$45 ppmv H$_2$S};
-
-        % Liquid inlet (top)
-        \draw[MainBlue, very thick, ->] (-1.0,\sumpH+\packH+0.5) -- (0.3,\sumpH+\packH+0.5);
-        \node[MainBlue, font=\scriptsize, anchor=east, align=right] at (-1.1,\sumpH+\packH+0.5) {Fresh NaOH\\(5 wt\%)};
-
-        % Liquid outlet / recirculation
-        \draw[MainBlue, thick, ->] (\colW,\sumpH/2) -- (\colW+1.0,\sumpH/2) -- (\colW+1.0,-0.5) node[midway, anchor=west, font=\scriptsize] {Recirculation};
-        \draw[MainBlue, thick, ->] (\colW+1.0,-0.5) -- (\colW+1.0,-1.2);
-
-        % Pump symbol
-        \draw[thick] (\colW+0.7,-1.5) circle (0.3);
-        \draw[thick] (\colW+0.7,-1.2) -- (\colW+0.7,-1.5);
-        \draw[thick, ->] (\colW+1.0,-1.5) -- (\colW+1.3,-1.5) -- (\colW+1.3,\sumpH+\packH+0.5) -- (\colW,\sumpH+\packH+0.5);
-        \node[font=\tiny, anchor=north] at (\colW+0.7,-1.8) {Recirc. pump};
-
-        % Blowdown
-        \draw[AccentC, thick, ->] (\colW+1.0,-0.8) -- (\colW+2.0,-0.8);
-        \node[AccentC, font=\scriptsize, anchor=west] at (\colW+2.1,-0.8) {Blowdown to\\spent caustic\\treatment};
-
-        % Dimension: column diameter
-        \draw[<->, thick] (0,-0.4) -- (\colW,-0.4);
-        \node[font=\scriptsize, anchor=north] at (\colW/2,-0.5) {0.75~m (30~in)};
-
-        % Dimension: total height
-        \draw[<->, thick] (-0.5,0) -- (-0.5,\colH);
-        \node[font=\scriptsize, anchor=east, align=right] at (-0.6,\colH/2) {Total\\5.5~m};
-
-        % Flow direction arrows inside column
-        \draw[AccentC, ->, thick] (\colW/2-0.3,\sumpH+1.0) -- (\colW/2-0.3,\sumpH+3.5);
-        \draw[MainBlue, ->, thick] (\colW/2+0.3,\sumpH+3.5) -- (\colW/2+0.3,\sumpH+1.0);
-        \node[font=\tiny, AccentC] at (\colW/2-0.5,\sumpH+2.2) {Gas};
-        \node[font=\tiny, MainBlue] at (\colW/2+0.6,\sumpH+2.2) {Liquid};
-        \end{tikzpicture}
-    }
+    \vspace{1em}
+    \textbf{Design Features:}
+    \begin{itemize}
+        \item Counter-current gas/liquid contact
+        \item Recirculation pump with blowdown control
+        \item Mist eliminator at top
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Backup: Capital Cost Breakdown}
@@ -779,6 +729,9 @@
         \end{column}
         \begin{column}{0.5\textwidth}
             \textbf{Biological Oxidation}
+            \begin{equation*}
+                \ce{HS^- + 2 O2 -> SO_4^-2 + H^+},\ \text{Full oxidation}
+            \end{equation*}
 
             \vspace{0.5em}
             Partial oxidation (preferred):
@@ -786,7 +739,6 @@
                 \ce{HS^- + 0.5 O2 -> S^0 + OH^-}
             \end{equation*}
 
-            \vspace{0.5em}
             Benefits:
             \begin{itemize}
                 \item Recoverable elemental sulfur
@@ -795,6 +747,140 @@
             \end{itemize}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}{Backup: 2D Heatmap Studies (SCT)}
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \includegraphics{../Graphics/parametric_2D_heatmap.pdf}
+    }
+\end{frame}
+
+\begin{frame}{Backup: General layout - Single-stage SCT scrubber}
+    \centering
+    \resizebox{0.6\textwidth}{!}{%
+        % SCT Caustic Scrubber Process Flow Diagram
+        \begin{tikzpicture}[
+            % Base styles
+            stage/.style={font=\bfseries\footnotesize, text=StageInk, align=center},
+            hint/.style={font=\scriptsize, text=HintGray, align=center, inner sep=0pt},
+            mainarrow/.style={->, line width=0.9pt, draw=MainBlue, >={Stealth[length=2mm,width=1.2mm]}},
+            sidearrow/.style={->, line width=0.6pt, draw=Charcoal, >={Stealth[length=2mm,width=1.2mm]}},
+            % Equipment styles
+            equip/.style={draw=Charcoal, line width=0.8pt, fill=white},
+            pipe/.style={draw=Charcoal, line width=0.9pt},
+            % Instrument styles
+            instr/.style={circle, draw=Charcoal, line width=0.6pt, minimum size=6mm, 
+                        font=\scriptsize, inner sep=0pt, fill=white},
+            % Stream label style
+            stream/.style={font=\footnotesize, align=center},
+            % Valve style
+            valve/.style={draw=Charcoal, line width=0.6pt, fill=white}
+        ]
+
+        % === CONTACTOR (Static Mixer) ===
+        \draw[equip] (3,0) rectangle (5,4);
+        % Internal packing elements (crossed pattern)
+        \foreach \y in {0.5, 1.5, 2.5, 3.5} {
+            \draw[Charcoal, line width=0.5pt] (3.2,\y-0.3) -- (4.8,\y+0.3);
+            \draw[Charcoal, line width=0.5pt] (3.2,\y+0.3) -- (4.8,\y-0.3);
+        }
+        % Top liquid inlet nozzle
+        \draw[equip] (3.3,4) -- (3.3,4.4) -- (3.7,4.4) -- (3.7,4);
+        % Top gas outlet nozzle
+        \draw[equip] (4.3,4) -- (4.3,4.4) -- (4.7,4.4) -- (4.7,4);
+        % Side inlet nozzle (gas)
+        \draw[equip] (3,2.8) -- (2.7,2.8) -- (2.7,3.2) -- (3,3.2);
+        % Bottom outlet
+        \draw[equip] (3.8,0) -- (3.8,-0.3) -- (4.2,-0.3) -- (4.2,0);
+        % Label
+        \node[stage] at (5.7,2) {Contactor};
+
+        % === SEPARATOR (Horizontal Drum) ===
+        \draw[equip] (1.5,-3.2) -- (6,-3.2) -- (6,-4.2) -- (1.5,-4.2) -- cycle;
+        \draw[equip] (1.5,-3.2) arc (90:270:0.15 and 0.5);
+        \draw[equip] (6,-3.2) arc (90:-90:0.15 and 0.5);
+        \draw[Charcoal, line width=0.4pt, dashed] (1.65,-3.7) -- (5.85,-3.7);
+        \node[stage] at (3.75,-3.7) {Separator};
+
+        % === CIRCULATION PUMP ===
+        \draw[equip] (4,-5.4) circle (0.4);
+        \draw[equip, fill=Charcoal] (4,-5.4) -- (4.35,-5.2) -- (4.35,-5.6) -- cycle;
+        \node[stage, below] at (4,-5.9) {Circulation\\[-1pt]Pump};
+
+        % === COOLER (Shell & Tube HX) ===
+        \draw[equip] (7.8,-1.0) ellipse (0.5 and 0.8);
+        \draw[equip] (7.8,-1.8) -- (7.8,-0.2);
+        \draw[Charcoal, line width=0.4pt] (7.6,-1.6) -- (7.6,-0.4);
+        \draw[Charcoal, line width=0.4pt] (8.0,-1.6) -- (8.0,-0.4);
+        \node[stage] at (8.8,-1.0) {Cooler};
+
+        % === VALVES ===
+        % Caustic feed valve
+        \draw[valve] (-0.2,4.8) -- (0,5.0) -- (0.2,4.8) -- (0,4.6) -- cycle;
+        % NaHS product valve  
+        \draw[valve] (7.3,-3.7) -- (7.5,-3.5) -- (7.7,-3.7) -- (7.5,-3.9) -- cycle;
+
+        % === PIPING ===
+        % Sour gas feed (enters side of contactor)
+        \draw[pipe] (-1.5,3) -- (2.7,3);
+        \draw[pipe, ->] (2.7,3) -- (3,3);
+
+        % Treated gas outlet (from top, goes right)
+        \draw[pipe] (4.5,4.4) -- (4.5,5.5) -- (9.5,5.5);
+        \draw[pipe, ->] (9.5,5.5) -- (10.5,5.5);
+
+        % Contactor to separator
+        \draw[pipe] (4,-0.3) -- (4,-3.2);
+
+        % Separator to pump
+        \draw[pipe] (4,-4.2) -- (4,-5.0);
+
+        % Pump discharge - right then up to cooler
+        \draw[pipe] (4.4,-5.4) -- (7.8,-5.4) -- (7.8,-1.8);
+
+        % Cooler outlet up to recirculation header
+        \draw[pipe] (7.8,-0.2) -- (7.8,0.8) -- (6.2,0.8) -- (6.2,5.5);
+
+        % Recirculation header across top
+        \draw[pipe] (6.2,5.5) -- (3.5,5.5);
+        \draw[pipe, ->] (3.5,5.5) -- (3.5,4.4);
+
+        % Caustic feed joins recirculation
+        \draw[pipe] (-1.5,4.9) -- (-0.2,4.9);
+        \draw[pipe] (0.2,4.9) -- (1,4.9) -- (1,5.5) -- (3.5,5.5);
+
+        % NaHS product blowdown
+        \draw[pipe] (6,-3.7) -- (7.3,-3.7);
+        \draw[pipe] (7.7,-3.7) -- (9,-3.7);
+        \draw[pipe, ->] (9,-3.7) -- (10.5,-3.7);
+
+        % === INSTRUMENTS ===
+        % pH indicator (on recirculation line)
+        \node[instr] (pH) at (4.5,6.3) {pH};
+        \draw[Charcoal, line width=0.4pt, dashed] (pH) -- (4.5,5.5);
+
+        % H2S analyzer (on treated gas)
+        \node[instr] (H2S) at (7.5,6.3) {H2S};
+        \draw[Charcoal, line width=0.4pt, dashed] (H2S) -- (7.5,5.5);
+
+        % Level indicator (positioned below separator, offset right)
+        \node[instr] (LVL) at (6.8,-4.6) {Level};
+        \draw[Charcoal, line width=0.4pt, dashed] (LVL) -- (6,-3.95);
+
+        % === STREAM LABELS ===
+        \node[stream, left] at (-1.5,3) {Sour\\[-1pt]Gas};
+        \node[stream, left] at (-1.5,4.9) {Caustic\\[-1pt]Feed};
+        \node[stream, right] at (10.5,5.5) {Treated\\[-1pt]Gas};
+        \node[stream, right] at (10.5,-3.7) {NaHS\\[-1pt]Product};
+
+        % === STREAM ARROWS (decorative) ===
+        \draw[mainarrow] (-2,3) -- (-1.6,3);
+        \draw[sidearrow] (-2,4.9) -- (-1.6,4.9);
+        \draw[mainarrow] (10.5,5.5) -- (10.9,5.5);
+        \draw[sidearrow] (10.5,-3.7) -- (10.9,-3.7);
+        \end{tikzpicture}
+    }
 \end{frame}
 
 \end{document}

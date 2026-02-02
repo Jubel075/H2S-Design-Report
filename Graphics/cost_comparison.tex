@@ -1,7 +1,7 @@
 % Cost Comparison Bar Chart - NaOH Annual Cost
 % For use in Beamer presentation
 \begin{tikzpicture}[
-    font=\small,
+    font=\large,
     bar/.style={minimum height=0.8cm, anchor=west},
 ]
     % Title
@@ -18,7 +18,7 @@
 
     % SCT bar (MainBlue)
     \fill[MainBlue] (0,0.7) rectangle (0.92,1.3);
-    \node[anchor=west, font=\small\bfseries, white] at (0.15,1.0) {\$23k};
+    \node[anchor=west, font=\small\bfseries, white] at (0.06,1.0) {\$23k};
     \node[anchor=west, font=\scriptsize, MainBlue] at (1.1,1.0) {46 ton/yr};
 
     % X-axis
@@ -28,7 +28,7 @@
 
     % Annotation: cost difference
     \draw[<->, thick, Charcoal] (8.36,1.6) -- (0.92,1.6);
-    \node[fill=white, font=\bfseries, Charcoal] at (4.64,1.6) {9$\times$ cost reduction};
+    \node[fill=white, font=\small] at (4.57,1.6) {9$\times$ cost reduction};
 
     % Grid lines (subtle)
     \foreach \x in {2.5,5,7.5} {
@@ -36,6 +36,6 @@
     }
 
     % Legend note
-    \node[anchor=west, font=\scriptsize, gray] at (0,-0.1) {Based on 70\% CO$_2$ absorption (packed) vs 5\% (SCT), \$500/ton NaOH};
+    \node[anchor=west, font=\scriptsize, gray] at (0,-0.5) {Based on 70\% CO$_2$ absorption (packed) vs 5\% (SCT), \$500/ton NaOH};
 
 \end{tikzpicture}

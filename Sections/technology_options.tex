@@ -48,7 +48,7 @@ The critical selectivity opportunity arises from the dramatically different reac
 \toprule
 \textbf{Reaction} & \textbf{Rate Constant} & \textbf{Regime} \\
 \midrule
-\ce{H2S + OH^- -> HS^- + H2O} & $k_{\ce{H2S}} \approx 10^{10}$ \si{L/(mol.s)} & Instantaneous (diffusion-controlled) \\
+\ce{H2S + OH^- -> HS^- + H2O} & $k_{\ce{H2S}} \approx 10^{10}$ \si{L/(mol.s)} & Instantaneous \\
 \ce{CO2 + OH^- -> HCO3^-} & $k_{\ce{CO2}} \approx 10^{3}\text{--}10^{4}$ \si{L/(mol.s)} & Finite rate \\
 \bottomrule
 \end{tabular}
@@ -183,9 +183,11 @@ This sensitivity demonstrates that \textbf{packed column viability depends criti
 
 \subsubsection{Operating Principle}
 
-The SCT concept deliberately limits gas-liquid contact time to exploit the $10^6$ kinetic rate difference between \ce{H2S} and \ce{CO2} absorption \cite{AFPM2014}. By maintaining contact time in the 10--100~ms range, the instantaneous \ce{H2S} reaction completes while the slower \ce{CO2} reaction achieves negligible conversion.
+The SCT concept deliberately limits gas-liquid contact time to exploit the $10^6$ kinetic rate difference between \ce{H2S} and \ce{CO2} absorption \cite{AFPM2014}. By maintaining contact time in the 10--100~ms range, the instantaneous \ce{H2S} reaction completes while the slower \ce{CO2} reaction achieves negligible conversion. Fig~\ref{fig:sct_pfd}, showcases the general layout for an single-stage SCT caustic scrubber. 
 
 Field data from refinery applications \cite{AFPM2014} demonstrate selectivities (defined as \% \ce{H2S} removal / \% \ce{CO2} removal) of 20--50, with \ce{CO2} co-absorption limited to 2--10\% while achieving >98\% \ce{H2S} removal.
+
+\input{Graphics/sct_pfd.tex}
 
 \subsubsection{Static Mixer Configuration}
 
