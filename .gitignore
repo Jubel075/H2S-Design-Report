@@ -1,54 +1,20 @@
-# Core LaTeX auxiliary files
-*.aux
-*.fdb_latexmk
-*.fls
-*.glo
-*.idx
-*.ilg
-*.ind
-*.ist
-*.log
-*.nav
-*.out
-*.snm
-*.toc
-*.vrb
-*.synctex.gz
-*.synctex.gz(busy)
-
-# Bibliography auxiliary files
-*.bbl
-*.bcf
-*.blg
-*-blx.aux
-*-blx.bib
-*.run.xml
-
-# Nomenclature auxiliary files
-*.nlo
-*.nls
-
-# List of figures/tables
-*.lof
-*.lot
-
-# Build directories and tool-specific files
-indent.log
-*.latexmkrc
-
-# Presentation auxiliary files
-Presentation/*.aux
-Presentation/*.log
-Presentation/*.nav
-Presentation/*.out
-Presentation/*.snm
-Presentation/*.toc
-Presentation/*.vrb
-
-# PDFs - usually ignored as they are derived artifacts
-# main.pdf
-# presentation.pdf
-
-# OS generated files
-.DS_Store
-Thumbs.db
+*
+!*/
+!.gitignore
+!*.tex
+!*.ltx
+!*.xtx
+!*.sty
+!*.cls
+!*.bib
+!*.bst
+!*.bbx
+!*.cbx
+!*.cfg
+!*.lua
+!*.tikz
+!*.md
+!*.txt
+!*.yaml
+!*.yml
+!*.json
