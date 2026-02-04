@@ -42,7 +42,7 @@ The critical selectivity opportunity arises from the dramatically different reac
 
 \begin{table}[H]
 \centering
-\caption{Reaction kinetics for \ce{H2S} and \ce{CO2} with \ce{NaOH} at 25--40°C}
+\caption{Reaction kinetics for \ce{H2S} and \ce{CO2} with \ce{NaOH} at 25--40°C. Rate constants compiled from \cite{Danckwerts1965,astarita1983}; detailed derivations in \Cref{app:mass_transfer_calcs}.}
 \label{tab:kinetics}
 \begin{tabular}{@{}lcc@{}}
 \toprule
@@ -78,7 +78,7 @@ At 5~wt\% \ce{NaOH} ($C_{\ce{OH}} \approx \SI{1.25}{mol/L}$), the critical conta
   \tau_{\ce{CO2}} &= \frac{1}{k_{\ce{CO2}} \cdot C_{\ce{OH}}} \approx \frac{1}{10^{4} \times 1.25} \approx \SI{80}{\micro s}
 \end{align}
 
-This analysis reveals the selectivity window: contact times of 10--100~ms allow complete \ce{H2S} absorption while limiting \ce{CO2} uptake to single-digit percentages.
+This analysis reveals the selectivity window: contact times of 10--100~ms allow complete \ce{H2S} absorption while limiting \ce{CO2} uptake to single-digit percentages. See \Cref{app:mass_transfer_calcs} for the complete Damk\"ohler analysis.
 
 \subsection{Packed Column Scrubber}
 \label{subsec:packed_column}
@@ -100,7 +100,7 @@ The column diameter is sized for flooding avoidance. Following the correlation a
 \begin{itemize}
 \item Volumetric flow: $660{,}000 \times 0.0283 / 86{,}400 = \SI{0.216}{m^3/s}$ (actual)
 \item Gas density: $\rho_G \approx \SI{0.95}{kg/m^3}$ (methane-rich at 30°C, 1~atm)
-\item Design velocity: 70\% of flooding, $u_G \approx \SI{0.8}{m/s}$
+\item Design velocity: 70\% of flooding \cite{wankat2017}, $u_G \approx \SI{0.8}{m/s}$
 \end{itemize}
 
 \textbf{Column diameter:}
@@ -128,7 +128,7 @@ The critical economic parameter is caustic consumption. At the packed column's t
   \dot{m}_{\ce{NaOH},\ce{H2S}} = 0.056~\text{kmol/h} \times 40~\text{kg/kmol} = \SI{2.2}{kg/h}
 \end{equation}
 
-\textbf{\ce{CO2} consumption (70\% absorbed at pH 12--13):}
+\textbf{\ce{CO2} consumption (70\% absorbed at pH 12--13 \cite{AFPM2014}):}
 \begin{align}
   \ce{CO2 + 2 NaOH &-> Na2CO3 + H2O} \\
   \dot{m}_{\ce{NaOH},\ce{CO2}} &= 0.90~\text{kmol/h} \times 0.70 \times 2 \times 40~\text{kg/kmol} = \SI{50}{kg/h}
@@ -183,7 +183,7 @@ This sensitivity demonstrates that \textbf{packed column viability depends criti
 
 \subsubsection{Operating Principle}
 
-The SCT concept deliberately limits gas-liquid contact time to exploit the $10^6$ kinetic rate difference between \ce{H2S} and \ce{CO2} absorption \cite{AFPM2014}. By maintaining contact time in the 10--100~ms range, the instantaneous \ce{H2S} reaction completes while the slower \ce{CO2} reaction achieves negligible conversion. Fig~\ref{fig:sct_pfd}, showcases the general layout for an single-stage SCT caustic scrubber. 
+The SCT concept deliberately limits gas-liquid contact time to exploit the $10^6$ kinetic rate difference between \ce{H2S} and \ce{CO2} absorption \cite{AFPM2014}. By maintaining contact time in the 10--100~ms range \cite{AFPM2014,Flagiello2021}, the instantaneous \ce{H2S} reaction completes while the slower \ce{CO2} reaction achieves negligible conversion. Fig~\ref{fig:sct_pfd}, showcases the general layout for an single-stage SCT caustic scrubber. 
 
 Field data from refinery applications \cite{AFPM2014} demonstrate selectivities (defined as \% \ce{H2S} removal / \% \ce{CO2} removal) of 20--50, with \ce{CO2} co-absorption limited to 2--10\% while achieving >98\% \ce{H2S} removal.
 

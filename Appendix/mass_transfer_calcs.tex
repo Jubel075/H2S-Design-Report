@@ -1,0 +1,231 @@
+% =========================================================
+% APPENDIX: Mass Transfer Calculations
+% Detailed derivations for H2S/CO2 selectivity analysis
+% =========================================================
+
+\section{Mass Transfer Theory and Calculations}
+\label{app:mass_transfer_calcs}
+
+This appendix provides the detailed derivations underlying the mass transfer analysis in \Cref{sec:technology_options}. The methodology follows the classical two-film theory extended for fast chemical reactions \cite{Danckwerts1965,astarita1983}.
+
+\subsection*{Hatta Number Derivation}
+\label{subsec:hatta_derivation}
+
+The Hatta number quantifies the relative importance of chemical reaction versus diffusion in the liquid film. For a second-order irreversible reaction between dissolved gas $A$ and liquid reagent $B$:
+\begin{equation}
+  A_{(aq)} + B \xrightarrow{k_2} \text{Products}
+\end{equation}
+
+The Hatta number is defined as \cite{Danckwerts1965}:
+\begin{equation}
+  \mathrm{Ha} = \frac{\sqrt{k_2 \cdot D_A \cdot C_B}}{k_L}
+  \label{eq:hatta_definition}
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $k_2$ = second-order rate constant [\si{L/(mol.s)}]
+  \item $D_A$ = diffusivity of species $A$ in liquid [\si{m^2/s}]
+  \item $C_B$ = bulk concentration of reagent $B$ [\si{mol/L}]
+  \item $k_L$ = liquid-side mass transfer coefficient [\si{m/s}]
+\end{itemize}
+
+\subsubsection*{Physical Interpretation}
+
+The Hatta number represents:
+\begin{equation}
+  \mathrm{Ha}^2 = \frac{\text{Maximum reaction rate in liquid film}}{\text{Maximum physical mass transfer rate}}
+\end{equation}
+
+Three regimes are distinguished based on Ha value:
+\begin{itemize}
+  \item $\mathrm{Ha} < 0.3$: Slow reaction regime; reaction occurs in bulk liquid
+  \item $0.3 < \mathrm{Ha} < 3$: Intermediate regime; reaction occurs in film and bulk
+  \item $\mathrm{Ha} > 3$: Fast reaction regime; reaction completes within liquid film
+\end{itemize}
+
+\subsubsection*{Worked Example: \ce{H2S} Absorption}
+
+For \ce{H2S} absorption in \ce{NaOH} solution at 30°C with 5~wt\% \ce{NaOH}:
+
+\textbf{Input parameters:}
+\begin{align}
+  k_2^{\ce{H2S}} &\approx 10^{10} \quad \si{L/(mol.s)} \quad \text{(proton transfer, essentially instantaneous)} \\
+  D_{\ce{H2S}} &\approx 1.5 \times 10^{-9} \quad \si{m^2/s} \quad \text{\cite{IUPACSDS32}} \\
+  C_{\ce{OH}^-} &= \frac{0.05 \times 1000}{40} = 1.25 \quad \si{mol/L} \\
+  k_L &\approx 10^{-4} \quad \si{m/s} \quad \text{(typical for packed columns \cite{Onda1968})}
+\end{align}
+
+\textbf{Calculation:}
+\begin{equation}
+  \mathrm{Ha}_{\ce{H2S}} = \frac{\sqrt{10^{10} \times 1.5 \times 10^{-9} \times 1.25}}{10^{-4}} = \frac{\sqrt{1.875 \times 10^{1}}}{10^{-4}} = \frac{4.33}{10^{-4}} \approx 43{,}300
+  \label{eq:ha_h2s_calc}
+\end{equation}
+
+\textbf{Interpretation:} $\mathrm{Ha}_{\ce{H2S}} \gg 3$ indicates the reaction is effectively instantaneous, completing within a molecular distance of the gas-liquid interface.
+
+\subsubsection*{Worked Example: \ce{CO2} Absorption}
+
+For \ce{CO2} absorption in the same solution:
+\begin{align}
+  k_2^{\ce{CO2}} &\approx 8.5 \times 10^{3} \quad \si{L/(mol.s)} \quad \text{(hydroxide attack on \ce{CO2} \cite{astarita1983})} \\
+  D_{\ce{CO2}} &\approx 1.8 \times 10^{-9} \quad \si{m^2/s}
+\end{align}
+
+\textbf{Calculation:}
+\begin{equation}
+  \mathrm{Ha}_{\ce{CO2}} = \frac{\sqrt{8.5 \times 10^{3} \times 1.8 \times 10^{-9} \times 1.25}}{10^{-4}} = \frac{\sqrt{1.91 \times 10^{-5}}}{10^{-4}} = \frac{4.37 \times 10^{-3}}{10^{-4}} \approx 44
+  \label{eq:ha_co2_calc}
+\end{equation}
+
+\textbf{Interpretation:} $\mathrm{Ha}_{\ce{CO2}} \approx 44$ is in the fast reaction regime but finite, meaning \ce{CO2} absorption rate depends on contact time.
+
+\subsection*{Enhancement Factor Correlation}
+\label{subsec:enhancement_factor}
+
+The enhancement factor $E$ relates the actual absorption rate to the physical (non-reactive) rate:
+\begin{equation}
+  N_A = E \cdot k_L \cdot (C_i - C_b)
+\end{equation}
+
+For fast reactions ($\mathrm{Ha} > 3$), the van Krevelen--Hoftijzer correlation applies \cite{astarita1983}:
+\begin{equation}
+  E = \frac{\mathrm{Ha}}{\tanh(\mathrm{Ha})} \approx \mathrm{Ha} \quad \text{for } \mathrm{Ha} > 3
+  \label{eq:enhancement_vkh}
+\end{equation}
+
+For instantaneous reactions ($\mathrm{Ha} > 10$), the maximum enhancement factor is limited by reagent diffusion:
+\begin{equation}
+  E_{\infty} = 1 + \frac{D_B \cdot C_B}{z \cdot D_A \cdot C_{A,i}}
+  \label{eq:enhancement_max}
+\end{equation}
+
+where $z$ is the stoichiometric coefficient (moles of $B$ per mole of $A$).
+
+\subsection*{NTU/HTU Design Framework}
+\label{subsec:ntu_htu}
+
+The number of transfer units (NTU) and height of a transfer unit (HTU) provide a systematic approach to packed column design \cite{wankat2017}.
+
+\subsubsection*{Definition}
+
+For gas-phase controlled absorption with negligible equilibrium back-pressure:
+\begin{equation}
+  \NTUog = \int_{y_{\text{out}}}^{y_{\text{in}}} \frac{dy}{y - y^*} \approx \ln\left(\frac{y_{\text{in}}}{y_{\text{out}}}\right) \quad \text{when } y^* \approx 0
+  \label{eq:ntu_integral}
+\end{equation}
+
+The approximation $y^* \approx 0$ is valid for \ce{H2S} absorption in strong caustic because the dissociation equilibrium heavily favours the ionic form (\ce{HS^-}).
+
+\subsubsection*{NTU Calculation for TA-58 (660,000 SCFD)}
+
+\textbf{Inlet conditions} (from \cite{TA58Dataset}):
+\begin{align}
+  y_{\ce{H2S},\text{in}} &= 0.0018 \quad (1800 \text{ ppmv}) \\
+  y_{\ce{H2S},\text{out}} &= 0.000045 \quad (45 \text{ ppmv, target})
+\end{align}
+
+\textbf{NTU calculation:}
+\begin{equation}
+  \NTUog = \ln\left(\frac{1800}{45}\right) = \ln(40) = 3.69
+\end{equation}
+
+\subsubsection*{HTU Estimation}
+
+The height of a transfer unit is estimated from the Onda correlation \cite{Onda1968} or HETP correlation \cite{wankat2017}. For structured packing (Mellapak 250Y) in caustic service:
+\begin{equation}
+  \HTUog \approx 0.4\text{--}0.6 \quad \si{m}
+\end{equation}
+
+\textbf{Required packed height:}
+\begin{equation}
+  Z = \HTUog \times \NTUog = 0.5 \times 3.69 = \SI{1.85}{m}
+\end{equation}
+
+With 50\% design margin for mass transfer uncertainty \cite{Flagiello2021}:
+\begin{equation}
+  Z_{\text{design}} = 1.85 \times 1.5 = \SI{2.8}{m}
+\end{equation}
+
+\subsection*{Damköhler Framework for Selectivity}
+\label{subsec:damkohler}
+
+The Damköhler number relates reaction timescale to residence timescale:
+\begin{equation}
+  \mathrm{Da} = k_2 \cdot C_B \cdot \tau
+  \label{eq:damkohler_def}
+\end{equation}
+
+where $\tau$ is the gas-liquid contact time.
+
+\subsubsection*{Critical Contact Times}
+
+Setting $\mathrm{Da} = 1$ defines the characteristic reaction time:
+\begin{align}
+  \tau_{\ce{H2S}} &= \frac{1}{k_2^{\ce{H2S}} \cdot C_{\ce{OH}}} = \frac{1}{10^{10} \times 1.25} = 8 \times 10^{-11} \si{s} \approx \SI{0.08}{ns} \\
+  \tau_{\ce{CO2}} &= \frac{1}{k_2^{\ce{CO2}} \cdot C_{\ce{OH}}} = \frac{1}{8.5 \times 10^3 \times 1.25} = 9.4 \times 10^{-5} \si{s} \approx \SI{94}{\micro s}
+\end{align}
+
+\subsubsection*{Selectivity Window}
+
+The selectivity window for preferential \ce{H2S} absorption is:
+\begin{equation}
+  \tau_{\ce{H2S}} \ll \tau_{\text{contact}} \ll \tau_{\ce{CO2}}
+\end{equation}
+
+\textbf{Practical selectivity window:} Contact times of 10--100~ms satisfy:
+\begin{align}
+  \mathrm{Da}_{\ce{H2S}} &= 10^{10} \times 1.25 \times 0.05 = 6.25 \times 10^{8} \gg 1 \quad \text{(complete conversion)} \\
+  \mathrm{Da}_{\ce{CO2}} &= 8.5 \times 10^{3} \times 1.25 \times 0.05 = 531 \gg 1
+\end{align}
+
+This calculation reveals that even at 50~ms, \ce{CO2} absorption may be significant. The SCT approach relies on:
+\begin{enumerate}
+  \item Very short contact times (10--50~ms)
+  \item Incomplete liquid renewal at the interface
+  \item Competitive consumption of \ce{OH^-} by faster \ce{H2S} reaction
+\end{enumerate}
+
+Field data \cite{AFPM2014} indicate that SCT contactors achieve 2--10\% \ce{CO2} co-absorption at contact times of 10--100~ms, consistent with kinetic selectivity enhanced by mass transfer limitations.
+
+\subsection*{Contact Time Estimation for SCT Mixer}
+\label{subsec:sct_contact_time}
+
+For a static mixer contactor, the contact time is estimated from:
+\begin{equation}
+  \tau = \frac{L}{u_G} \times \phi
+  \label{eq:sct_contact_time}
+\end{equation}
+
+where $L$ is the mixer length, $u_G$ is the superficial gas velocity, and $\phi$ is a correction factor for actual gas-liquid contact (typically 0.3--0.5 for static mixers).
+
+\textbf{Design verification for 300~mm mixer:}
+\begin{align}
+  L &= 4 \times 1.5 \times 0.30 = \SI{1.8}{m} \quad \text{(4 elements at L/D = 1.5)} \\
+  u_G &= \SI{5}{m/s} \\
+  \tau_{\text{apparent}} &= \frac{1.8}{5} = \SI{360}{ms} \\
+  \tau_{\text{effective}} &\approx 360 \times 0.4 = \SI{144}{ms}
+\end{align}
+
+This effective contact time is consistent with SCT design practice \cite{AFPM2014}, providing >98\% \ce{H2S} removal with <10\% \ce{CO2} co-absorption.
+
+\subsection*{Summary: Rate Constants and References}
+\label{subsec:rate_constant_summary}
+
+\begin{table}[H]
+  \centering
+  \caption{Summary of kinetic parameters used in selectivity analysis}
+  \label{tab:kinetic_summary}
+  \begin{tabular}{@{}llcc@{}}
+    \toprule
+    \textbf{Reaction} & \textbf{Parameter} & \textbf{Value} & \textbf{Source} \\
+    \midrule
+    \ce{H2S + OH^- -> HS^- + H2O} & $k_2$ & $\sim 10^{10}$ \si{L/(mol.s)} & \cite{Danckwerts1965} \\
+    \ce{CO2 + OH^- -> HCO3^-} & $k_2$ & $8.5 \times 10^3$ \si{L/(mol.s)} at 25°C & \cite{astarita1983} \\
+    \ce{H2S} in water & $D_A$ & $1.5 \times 10^{-9}$ \si{m^2/s} & \cite{IUPACSDS32} \\
+    \ce{CO2} in water & $D_A$ & $1.8 \times 10^{-9}$ \si{m^2/s} & \cite{astarita1983} \\
+    Packed column (structured) & $k_L$ & $\sim 10^{-4}$ \si{m/s} & \cite{Onda1968} \\
+    Packed column (structured) & HTU & 0.4--0.6 \si{m} & \cite{wankat2017,Flagiello2021} \\
+    \bottomrule
+  \end{tabular}
+\end{table}

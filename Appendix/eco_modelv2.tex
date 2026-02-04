@@ -1,0 +1,67 @@
+\section{Detailed Cost Calculation and Assumptions}
+\label{app:cost_calculation}
+
+\subsection{Reference Equipment Costs}
+
+Reference costs for major equipment were selected from authoritative chemical engineering design sources.
+Column shell costs were based on published vessel cost data \cite{TowlerSinnott2022b}, pump costs on empirical correlations \cite{PetersTimmerhaus2003b}, and reactor volumetric costs on environmental engineering literature \cite{odegaard2006}.
+All reference values were adjusted using scaling laws and material factors as described in Section~\ref{sec:economic_evaluation}.
+
+\subsection{Scaling Exponents and Size Parameters}
+
+Table~\ref{tab:scaling_exponents} summarises the scaling exponents and characteristic size parameters used in the analysis.
+
+\begin{table}[h]
+\centering
+\caption{Scaling exponents and characteristic size parameters used in equipment cost estimation.}
+\label{tab:scaling_exponents}
+\begin{tabular}{lcc}
+\hline
+Equipment type & Size parameter & Exponent $n$ \\
+\hline
+Packed column shell & volume & 0.6 \\
+Packing material & volume & 1.0 \\
+Pumps & power & 0.67 \\
+Blowers & power & 0.6 \\
+Biological reactor & volume & 0.55--0.65 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Material and Location Factors}
+
+Material factors were selected based on corrosion and process requirements.
+Typical values adopted were 2.0--2.8 for stainless steel and 1.3--1.6 for FRP, consistent with published cost engineering guidance \cite{TowlerSinnott2022b,PetersTimmerhaus2003b}.
+A location factor of approximately 1.15 was applied to reflect regional cost differences.
+
+\subsection{Factored Cost Breakdown}
+
+Table~\ref{tab:cost_factors} summarises the installation factors applied to PEC.
+
+\begin{table}[h]
+\centering
+\caption{Typical installation cost factors for Class~4 process equipment estimates.}
+\label{tab:cost_factors}
+\begin{tabular}{lc}
+\hline
+Cost category & Factor (fraction of PEC) \\
+\hline
+Piping & 0.30--0.50 \\
+Electrical & 0.10--0.20 \\
+Civil/structural & 0.15--0.30 \\
+Instrumentation and control & 0.08--0.15 \\
+Installation & 0.40--0.70 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Operating Cost Derivations}
+
+Caustic soda consumption was derived from stoichiometric and kinetic considerations of \ce{H2S} absorption \cite{Chen2001,Danckwerts1965}.
+Energy consumption was calculated from pump and blower power requirements.
+Maintenance and replacement costs were annualised using standard chemical engineering economic assumptions \cite{Seider2016}.
+
+\subsection{Uncertainty and Interpretation}
+
+Following AACE guidelines, the resulting capital and operating cost estimates are associated with an expected accuracy range of approximately $-30\%$ to $+50\%$ \cite{AACE18R97}.
+The results are therefore suitable for comparative technology assessment and conceptual design decision-making, but not for detailed engineering or procurement.

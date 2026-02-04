@@ -1,0 +1,72 @@
+ECONOMIC VALIDATION & COST ESTIMATE REVIEW
+Date: February 3, 2026
+Project: TA-58 Sour Gas Sweetening
+Subject: Re-evaluation of Capital Costs (AACE Class 4)
+
+1. EXECUTIVE SUMMARY
+----------------------------------------------------------------
+The original capital cost estimate for the Packed Column option appeared significantly inflated ($2.53M). A bottoms-up re-evaluation based on standard 2024/2025 pricing for 316L stainless steel fabrication and equipment suggests the actual Total Installed Cost (TIC) for both options is remarkably similar (~$1.6M - $1.7M).
+
+Consequently, the technology selection decision should be driven almost exclusively by Operating Expenditure (OpEx), specifically the H2S/CO2 selectivity performance, rather than Capital Expenditure (CapEx).
+
+2. ANALYSIS FINDINGS
+----------------------------------------------------------------
+* Packed Column Overestimation: The original report listed the scrubber/contactor at $450,000. For a 660,000 SCFD unit (approx. 30" ID x 20' T/T), the vessel weight is likely <2,000 kg. At current rates (~$15-$35/kg), the vessel cost should be closer to $65,000.
+* SCT Equipment Definition: The SCT "Contactor" cost in the original report likely combined the static mixer and the downstream separator. While the mixer is cheap, the separator vessel is required and costs similar to a small scrubber.
+* MBBR Costs: The original $300k-$350k estimate is reasonable for a turnkey package plant but likely conservative. A refined estimate of $250k is used for both options.
+
+3. DETAILED EQUIPMENT COST ESTIMATE (2025 BASIS)
+----------------------------------------------------------------
+Basis:
+* Material: 316L Stainless Steel (wetted parts)
+* Design Pressure: 50 psig (Atmospheric operation, designed for containment)
+* Sizing: 30" ID (0.76m)
+
+OPTION A: PACKED COLUMN SYSTEM
+---------------------------------------
+Item                            | Est. Cost (USD) | Notes
+------------------------------- | --------------- | ---------------------------------
+Packed Column Vessel            | $65,000         | 30" ID x 20' T/T, 316L SS
+Column Internals                | $18,000         | High-perf packing + distributors
+Recirculation Pumps (2x)        | $30,000         | ANSI Mag-drive/Mech seal, 316SS
+Caustic Storage Tank            | $22,000         | HDPE/FRP, 5,000 Gallon
+Blower                          | $35,000         | Regenerative/Roots, low dP
+Spent Caustic MBBR              | $250,000        | Packaged skid (turnkey)
+------------------------------- | --------------- | ---------------------------------
+TOTAL MAJOR EQUIPMENT           | $420,000        | (Original Report: ~$1.35M)
+
+
+OPTION B: SCT STATIC MIXER SYSTEM
+---------------------------------------
+Item                            | Est. Cost (USD) | Notes
+------------------------------- | --------------- | ---------------------------------
+Static Mixer Spool              | $18,000         | 4-6" 316L SS Spool w/ elements
+Separator Vessel (KO Drum)      | $45,000         | 30" ID x 10' T/T, 316L SS
+Recirculation Pumps (2x)        | $35,000         | Higher head for mixer dP
+Caustic Storage Tank            | $22,000         | HDPE/FRP, 5,000 Gallon
+Blower                          | $40,000         | Higher dP required
+Spent Caustic MBBR              | $250,000        | Packaged skid (turnkey)
+------------------------------- | --------------- | ---------------------------------
+TOTAL MAJOR EQUIPMENT           | $410,000        | (Original Report: ~$0.95M)
+
+
+4. TOTAL INSTALLED COST (TIC) CALCULATION
+----------------------------------------------------------------
+Methodology: Lang Factor of 4.0 (Typical for fluid processing plant additions).
+Includes: Piping, Electrical, Civil, Engineering, Installation, Contingency.
+
+Cost Element                    | Packed Column   | SCT System
+------------------------------- | --------------- | ---------------
+Total Equipment Cost            | $420,000        | $410,000
+Installation (Mat'l & Labor)    | $630,000        | $615,000
+Engineering & Supervision       | $315,000        | $307,500
+Contingency                     | $315,000        | $307,500
+------------------------------- | --------------- | ---------------
+TOTAL INSTALLED COST (TIC)      | ~$1,680,000     | ~$1,640,000
+(Original Report TIC)           | ($2,530,000)    | ($1,780,000)
+
+5. CONCLUSION
+----------------------------------------------------------------
+1. Capital Parity: The cost difference between the two technologies is negligible (~$40k difference in TIC).
+2. OpEx Dominance: With capital costs effectively equal, the project justification relies entirely on the OpEx savings.
+3. SCT Advantage: The SCT system remains the recommended option solely because it saves ~$200,000/year in caustic consumption via better selectivity, not because it is cheaper to build.

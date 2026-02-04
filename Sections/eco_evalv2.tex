@@ -1,0 +1,112 @@
+\section{Economic Evaluation of Packed Column and SCT Systems}
+\label{sec:economic_evaluation}
+
+\subsection{Objective and Estimation Class}
+
+The economic evaluation aims to compare a conventional packed absorption column and a suspended carrier technology (SCT) reactor for \ce{H2S} removal in the presence of \ce{CO2}.
+The analysis is conducted at an AACE Class~4 level, corresponding to an early-stage conceptual design with limited engineering definition and an expected accuracy range of approximately $-30\%$ to $+50\%$ \cite{AACE18R97}.
+
+In accordance with recommended practice, equipment costs were estimated using a combination of reference cost data, capacity scaling laws, material factors, and factored installation methods widely applied in chemical engineering design \cite{TowlerSinnott2022b,PetersTimmerhaus2003b,Seider2016}.
+The methodology prioritises transparency and traceability: each cost element is linked to a physical design parameter and an identifiable literature source or engineering correlation.
+
+\subsection{Equipment Geometry and Design Basis}
+
+The key geometric parameters of the two systems are:
+
+\begin{itemize}
+    \item Packed column: diameter $D = 0.75~\mathrm{m}$, height $H = 5.5~\mathrm{m}$.
+    \item SCT reactor: diameter $D = 0.30~\mathrm{m}$, length $L = 1.5~\mathrm{m}$ (inline configuration).
+\end{itemize}
+
+The corresponding reactor volumes are:
+
+\begin{equation}
+V = \frac{\pi D^2}{4}H,
+\end{equation}
+
+yielding:
+
+\begin{align}
+V_{\text{packed}} &= 2.43~\mathrm{m^3}, \\
+V_{\text{SCT}} &= 0.106~\mathrm{m^3}.
+\end{align}
+
+These volumes constitute the primary scaling parameters for capital cost estimation.
+
+\subsection{Capital Cost Estimation Methodology}
+
+The purchased equipment cost (PEC) of each major component was estimated using the generalized scaling relationship:
+
+\begin{equation}
+C_i = C_{ref,i}\left(\frac{S_i}{S_{ref,i}}\right)^{n_i} F_{mat} F_{loc},
+\label{eq:cost_scaling}
+\end{equation}
+
+where $C_i$ is the estimated cost, $C_{ref,i}$ is the reference cost, $S_i$ is the characteristic size parameter, $n_i$ is the scaling exponent, and $F_{mat}$ and $F_{loc}$ are material and location factors, respectively.
+Scaling exponents were selected from standard process design references \cite{PetersTimmerhaus2003b,Seider2016}.
+
+A location factor of $F_{loc} = 1.1$--$1.2$ was adopted to account for regional deviations from US Gulf Coast benchmark costs \cite{TowlerSinnott2022b}.
+Material factors reflect corrosion resistance requirements imposed by \ce{H2S} and alkaline environments \cite{AFPM2014}.
+
+Total installed cost (TIC) was obtained from PEC using a factored approach:
+
+\begin{equation}
+TIC = PEC \cdot (1 + f_{pipe} + f_{elec} + f_{civil} + f_{inst} + f_{I\&C}),
+\end{equation}
+
+with factor ranges consistent with AACE and classical plant cost breakdowns \cite{AACE18R97,PetersTimmerhaus2003b}.
+
+\subsection{Packed Column System: Capital Costs}
+
+The packed column shell cost was estimated using reference vertical vessel data reported by Towler and Sinnott \cite{TowlerSinnott2022b}.
+A carbon steel reference column of diameter $1.5~\mathrm{m}$ and height $10~\mathrm{m}$ with a typical cost of approximately \$120,000 was adopted as baseline.
+Scaling to the actual column volume using Eq.~\eqref{eq:cost_scaling} with exponent $n=0.6$ yielded the carbon steel shell cost, which was subsequently adjusted by a stainless steel material factor of approximately 2.4 to reflect corrosion-resistant construction.
+
+Packing material costs were estimated from industrial price ranges for stainless steel Pall rings reported in packed tower design literature and engineering guidelines \cite{strigle1994,Kolmetz2011}.
+The packing volume was derived directly from the column geometry and packing height obtained from mass-transfer design calculations \cite{Onda1968,Flagiello2021}.
+
+Pump and blower costs were estimated using empirical correlations for rotating equipment \cite{PetersTimmerhaus2003b} and typical unit power cost ranges reported in process design literature \cite{Seider2016}.
+Additional costs for distributors, supports, and internals were estimated as a fraction of the column shell cost.
+
+\subsection{SCT System: Capital Costs}
+
+The SCT reactor was treated as a low-pressure biological reactor rather than a conventional pressure vessel.
+Reactor shell costs were estimated using scaled vessel correlations with an imposed minimum fabrication cost to reflect practical manufacturing constraints.
+Carrier media costs were derived from reported price ranges for polymeric biofilm carriers used in MBBR and biotrickling systems \cite{odegaard2006}.
+
+Ancillary equipment, including recirculation pumps, blowers, nutrient dosing systems, and monitoring instrumentation, was costed using typical package system ranges and empirical correlations \cite{Seider2016}.
+Due to the small physical scale of the SCT reactor, auxiliary systems constitute a significant fraction of total capital cost.
+
+\subsection{Installed Capital Cost Comparison}
+
+Applying factored installation costs typical of Class~4 estimates, the resulting total installed capital costs were found to differ significantly between the two systems.
+The packed column exhibits higher capital intensity due to its larger size and corrosion-resistant construction, whereas the SCT system benefits from compact geometry but requires additional process control infrastructure.
+
+\subsection{Operating Cost Estimation}
+
+Operating costs were divided into chemical consumption, energy usage, and maintenance.
+
+For the packed column, caustic soda consumption was calculated from stoichiometric requirements for \ce{H2S} neutralisation, with allowance for excess alkalinity to ensure stable operation \cite{Chen2001,AFPM2014}.
+Unit prices for caustic soda were obtained from contemporary industrial market reports \cite{IMARC_CausticSoda}.
+
+Energy consumption was derived from pump and blower power requirements and multiplied by industrial electricity prices reported in official statistics \cite{EIAEPM_C3}.
+Annual maintenance costs were estimated as 2--5\% of installed capital cost, consistent with standard chemical engineering economic practice \cite{PetersTimmerhaus2003b,Seider2016}.
+
+For the SCT system, nutrient consumption rates were estimated from biological sulphide oxidation studies \cite{Borges2025,Trisakti2025}.
+Energy requirements were lower than for the packed column due to reduced liquid circulation rates.
+Maintenance costs were assumed to be slightly higher in relative terms due to biological process variability.
+
+\subsection{Economic Performance Indicators}
+
+The economic performance of both systems was evaluated using annualised cost and net present value (NPV).
+The NPV was calculated according to:
+
+\begin{equation}
+NPV = -CapEx + \sum_{t=1}^{N}\frac{(R_t - OpEx_t)}{(1+r)^t},
+\end{equation}
+
+where $N$ is the project lifetime and $r$ is the discount rate.
+A project lifetime of 15~years and discount rates typical of process engineering investments were adopted \cite{Seider2016}.
+
+The results indicate that the packed column is characterised by higher capital and operating costs driven primarily by chemical consumption and corrosion-resistant materials, whereas the SCT system exhibits substantially lower life-cycle costs but greater uncertainty associated with biological performance.
+These findings are consistent with trends reported in recent literature on \ce{H2S} treatment technologies \cite{Pudi2022,Borges2025}.

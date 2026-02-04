@@ -1,0 +1,292 @@
+% =========================================================
+% APPENDIX: MBBR Design Calculations
+% Biological treatment system sizing
+% =========================================================
+
+\section{MBBR Design Calculations}
+\label{app:mbbr_design}
+
+This appendix documents the Moving Bed Biofilm Reactor (MBBR) design methodology for spent caustic treatment, supporting the preliminary sizing in \Cref{sec:spent_caustic}.
+
+\subsection*{Design Basis}
+\label{subsec:mbbr_design_basis}
+
+The MBBR system treats the spent caustic blowdown from the \ce{H2S} scrubber, oxidising dissolved sulfide to elemental sulfur and/or sulfate.
+
+\subsubsection*{Feed Characterisation}
+
+\begin{table}[H]
+  \centering
+  \caption{MBBR feed stream characterisation}
+  \label{tab:mbbr_feed}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Basis} \\
+    \midrule
+    \ce{H2S} absorbed & 0.058 kmol/h & Material balance (\Cref{app:material_balance}) \\
+    Sulfide as S & 1.85 kg/h & $0.058 \times 32$ \\
+    Daily sulfide load & 44 kg~S/day & $1.85 \times 24$ \\
+    Annual sulfide load & 16.1 ton~S/yr & $44 \times 365$ \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Spent Caustic Composition (SCT, 5\% \ce{CO2})}} \\
+    \ce{NaHS} concentration & 15--25 & g/L \\
+    \ce{Na2CO3} concentration & 2--5 & g/L \\
+    pH & 11--13 & --- \\
+    Flow rate (est.) & 50--100 & L/h \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Biological Oxidation Chemistry}
+\label{subsec:mbbr_chemistry}
+
+\subsubsection*{Reaction Pathways}
+
+Autotrophic sulfur-oxidising bacteria (SOB) oxidise sulfide through two primary pathways \cite{buisman1989,Borges2025}:
+
+\textbf{Partial oxidation (oxygen-limited):}
+\begin{equation}
+  \ce{HS^- + 0.5 O2 -> S^0 + OH^-}
+  \label{eq:partial_oxidation}
+\end{equation}
+
+\textbf{Full oxidation (excess oxygen):}
+\begin{equation}
+  \ce{HS^- + 2 O2 -> SO4^{2-} + H^+}
+  \label{eq:full_oxidation}
+\end{equation}
+
+\subsubsection*{Process Selection: Partial Oxidation}
+
+Partial oxidation (Eq.~\ref{eq:partial_oxidation}) is selected for this application because:
+\begin{enumerate}
+  \item Regenerates alkalinity (1 mol \ce{OH^-} per mol sulfide)
+  \item Produces separable elemental sulfur (can be settled/filtered)
+  \item Lower oxygen demand (25\% of full oxidation)
+  \item Avoids sulfate generation (high-salinity waste stream)
+\end{enumerate}
+
+Operation is maintained at dissolved oxygen (DO) $< \SI{1.0}{mg/L}$ to favour partial oxidation \cite{Borges2025}.
+
+\subsection*{Loading Rate Selection}
+\label{subsec:loading_rate}
+
+\subsubsection*{Literature Basis}
+
+Table~\ref{tab:loading_rates} summarises sulfide loading rates from literature.
+
+\begin{table}[H]
+  \centering
+  \caption{Sulfide loading rates from literature}
+  \label{tab:loading_rates}
+  \small
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Reference} & \textbf{System Type} & \textbf{Loading Rate} & \textbf{Removal} \\
+    & & \textbf{(kg~S/m\textsuperscript{3}$\cdot$day)} & \textbf{(\%)} \\
+    \midrule
+    Buisman et al.\ \cite{buisman1989} & Fluidised bed & 1.0--3.0 & 95--99 \\
+    \O degaard \cite{odegaard2006} & MBBR (general) & 0.5--1.5 & 90--95 \\
+    Vikromvarasiri et al.\ \cite{Vikromvarasiri2017} & Biotrickling & 0.8--1.2 & 92--98 \\
+    Borges et al.\ \cite{Borges2025} & Biotrickling & 1.0--4.2 & 90--95 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Design Loading Rate}
+
+A conservative design loading rate of \textbf{0.5--1.0 kg~S/(m\textsuperscript{3}$\cdot$day)} is selected based on:
+\begin{itemize}
+  \item MBBR systems typically operate at lower volumetric rates than fixed-film systems
+  \item Alkaline pH (11--13) may reduce bacterial activity
+  \item No site-specific treatability data available
+  \item Conservative approach appropriate for Class~3 estimate
+\end{itemize}
+
+\subsection*{Reactor Sizing}
+\label{subsec:reactor_sizing}
+
+\subsubsection*{Volume Calculation}
+
+\textbf{Required reactor volume:}
+\begin{equation}
+  V = \frac{\text{Sulfide load}}{\text{Loading rate}} = \frac{44 \text{ kg~S/day}}{0.5\text{--}1.0 \text{ kg~S/(m}^3\text{$\cdot$day)}} = 44\text{--}88 \text{ m}^3
+\end{equation}
+
+\textbf{Design volume:} $V_{\text{design}} = \SI{50}{m^3}$ (selecting mid-range, conservative)
+
+\subsubsection*{Reactor Configuration}
+
+\begin{table}[H]
+  \centering
+  \caption{MBBR reactor configuration}
+  \label{tab:mbbr_config}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Notes} \\
+    \midrule
+    Reactor volume & 50 & m\textsuperscript{3} \\
+    Configuration & Single tank & Rectangular or circular \\
+    Dimensions (example) & 5 m $\times$ 5 m $\times$ 2.5 m (L) & Rectangular tank \\
+    Media type & K3 carriers & Polyethylene, 500~m\textsuperscript{2}/m\textsuperscript{3} \\
+    Media fill fraction & 40\% & 20 m\textsuperscript{3} media volume \\
+    Protected surface area & 10,000 & m\textsuperscript{2} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Hydraulic Retention Time}
+
+\textbf{Blowdown flow (SCT, base case):} 50--100 L/h
+
+\textbf{HRT calculation:}
+\begin{equation}
+  \text{HRT} = \frac{V}{Q} = \frac{50{,}000 \text{ L}}{75 \text{ L/h}} = 667 \text{ h} \approx 28 \text{ days}
+\end{equation}
+
+This exceptionally long HRT reflects the concentrated, low-volume spent caustic stream. In practice, the reactor will be diluted with recycle water to:
+\begin{itemize}
+  \item Reduce sulfide concentration to tolerable levels (<500~mg/L)
+  \item Maintain pH in optimal range (8--9) for SOB activity
+  \item Provide mixing and mass transfer
+\end{itemize}
+
+\textbf{With 10:1 dilution:}
+\begin{equation}
+  Q_{\text{total}} = 75 \times 10 = 750 \text{ L/h}, \quad \text{HRT} = \frac{50{,}000}{750} = 67 \text{ h} \approx 2.8 \text{ days}
+\end{equation}
+
+\subsection*{Aeration Requirements}
+\label{subsec:aeration}
+
+\subsubsection*{Oxygen Demand}
+
+For partial oxidation (Eq.~\ref{eq:partial_oxidation}):
+\begin{equation}
+  \text{O}_2 \text{ demand} = \frac{0.5 \text{ mol O}_2}{\text{mol S}} \times \frac{32 \text{ g O}_2}{\text{mol}} \times \frac{\text{mol S}}{32 \text{ g S}} = 0.5 \text{ g O}_2/\text{g S}
+\end{equation}
+
+\textbf{Daily oxygen requirement:}
+\begin{equation}
+  \dot{m}_{\text{O}_2} = 44 \text{ kg~S/day} \times 0.5 = 22 \text{ kg~O}_2/\text{day} = 0.92 \text{ kg/h}
+\end{equation}
+
+\subsubsection*{Aeration System Design}
+
+\textbf{Oxygen transfer efficiency (OTE):} 15--20\% for fine bubble diffusers
+
+\textbf{Air requirement:}
+\begin{equation}
+  \dot{V}_{\text{air}} = \frac{\dot{m}_{\text{O}_2}}{\rho_{\text{O}_2} \times \text{OTE}} = \frac{0.92 \text{ kg/h}}{0.27 \text{ kg O}_2/\text{m}^3 \times 0.15} = 23 \text{ m}^3/\text{h}
+\end{equation}
+
+\textbf{Blower sizing:}
+\begin{itemize}
+  \item Flow: 25 m\textsuperscript{3}/h (design, with 10\% margin)
+  \item Pressure: 0.5 bar (submergence + losses)
+  \item Power: $\approx$ 2 kW
+\end{itemize}
+
+\subsection*{Alkalinity Recovery}
+\label{subsec:alkalinity_recovery}
+
+\subsubsection*{Theoretical Recovery}
+
+From Eq.~\ref{eq:partial_oxidation}, each mole of sulfide oxidised regenerates one mole of hydroxide:
+\begin{equation}
+  \text{Theoretical } \ce{NaOH} \text{ recovery} = \frac{40 \text{ g NaOH}}{32 \text{ g S}} \times 44 \text{ kg S/day} = 55 \text{ kg NaOH/day}
+\end{equation}
+
+\subsubsection*{Practical Recovery}
+
+Borges et al.\ \cite{Borges2025} report 40--60\% alkalinity recovery in practice due to:
+\begin{itemize}
+  \item \ce{CO2} absorption from air stripping
+  \item Biological uptake for cell synthesis
+  \item pH equilibration losses
+\end{itemize}
+
+\textbf{Expected recovery:}
+\begin{equation}
+  \text{Practical recovery} = 55 \times 0.50 = 27.5 \text{ kg NaOH/day} = 10 \text{ ton/yr}
+\end{equation}
+
+For SCT base case (49 ton/yr fresh \ce{NaOH}), this represents \textbf{20\% reduction in makeup requirements}.
+
+\subsection*{Solids Generation and Clarifier Sizing}
+\label{subsec:solids_handling}
+
+\subsubsection*{Elemental Sulfur Production}
+
+Assuming 90\% sulfide conversion to elemental sulfur:
+\begin{equation}
+  \dot{m}_{\text{S}^0} = 0.90 \times 44 = 40 \text{ kg~S/day} = 14.6 \text{ ton/yr}
+\end{equation}
+
+\subsubsection*{Biological Solids}
+
+Yield coefficient for autotrophic SOB: $Y \approx 0.1$ g VSS/g S oxidised
+\begin{equation}
+  \dot{m}_{\text{biomass}} = 0.1 \times 44 = 4.4 \text{ kg VSS/day}
+\end{equation}
+
+\textbf{Total solids:} $\approx$ 45 kg/day (sulfur + biomass)
+
+\subsubsection*{Clarifier Sizing}
+
+A lamella clarifier is specified for sulfur/biomass separation:
+
+\begin{table}[H]
+  \centering
+  \caption{Lamella clarifier preliminary sizing}
+  \label{tab:clarifier_sizing}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Basis} \\
+    \midrule
+    Flow rate & 750 L/h & Diluted MBBR effluent \\
+    Surface loading rate & 0.5 m/h & Conservative for sulfur \\
+    Required area & 1.5 m\textsuperscript{2} & $750 / (0.5 \times 1000)$ \\
+    Lamella multiplier & 6$\times$ & Typical for 60° plates \\
+    Effective area & 9 m\textsuperscript{2} & --- \\
+    Tank footprint & 1.5 m\textsuperscript{2} & 1 m $\times$ 1.5 m \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Design Summary}
+\label{subsec:mbbr_summary}
+
+\begin{table}[H]
+  \centering
+  \caption{MBBR system design summary}
+  \label{tab:mbbr_summary}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Component} & \textbf{Size/Capacity} & \textbf{Notes} \\
+    \midrule
+    MBBR reactor & 50 m\textsuperscript{3} & Single tank, 40\% media fill \\
+    K3 media & 20 m\textsuperscript{3} & 500 m\textsuperscript{2}/m\textsuperscript{3} specific area \\
+    Aeration blower & 25 m\textsuperscript{3}/h, 2 kW & Fine bubble diffusers \\
+    Lamella clarifier & 1.5 m\textsuperscript{2} footprint & 6$\times$ effective area \\
+    Recycle pump & 750 L/h & 10:1 dilution ratio \\
+    \midrule
+    Sulfide removal & 90--95\% & Target \\
+    Alkalinity recovery & 40--60\% & Reduces \ce{NaOH} makeup \\
+    Sulfur production & 14.6 ton/yr & Potential byproduct \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Recommendations}
+\label{subsec:mbbr_recommendations}
+
+\begin{enumerate}
+  \item \textbf{Treatability study:} Conduct laboratory/pilot treatability tests to validate loading rates and alkalinity recovery at actual spent caustic composition.
+
+  \item \textbf{pH management:} Develop pH control strategy for MBBR feed; may require acid addition to reduce pH from 12--13 to 8--9 for optimal SOB activity.
+
+  \item \textbf{Vendor engagement:} Engage packaged MBBR suppliers (e.g., Veolia, Evoqua) for turnkey system quotations.
+
+  \item \textbf{Sulfur disposal:} Evaluate sulfur disposal options: landfill, agricultural use, or sale to sulfuric acid producers.
+\end{enumerate}

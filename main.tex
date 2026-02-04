@@ -51,6 +51,7 @@
 
 % Drawing & Graphics
 \usepackage{tikz}
+\usepackage{pfdicons,chemplants}
 \usetikzlibrary{
   positioning,
   arrows,
@@ -130,6 +131,7 @@
 \DeclareSIUnit\yr{yr}
 \DeclareSIUnit\ton{ton}
 \usepackage[version=4]{mhchem}
+
 
 % Hyperlinks
 \usepackage[hidelinks]{hyperref}
@@ -273,22 +275,11 @@
 % ---------- Appendix ----------
 \appendix
 \clearpage
-% \input{Appendix/calculations}
-% \input{Appendix/python_sim}
-% \input{Appendix/p&ids}
-
-
-% ---------- Annex ----------
-% \clearpage
-% \section*{Annexes}
-% \addcontentsline{toc}{section}{Annexes}
-% \section*{Annex 1 — Vendor Datasheet}
-% \addcontentsline{toc}{subsection}{Annex 1 — Vendor Datasheet}
-% \input{Appendix/data_sheets}
-
-% \section*{Annex 2 — P&IDs and Maps}
-% \addcontentsline{toc}{subsection}{Annex 2 — P&IDs and Maps}
-% \input{Appendix/p&ids}
+\input{Appendix/calculations}
+\input{Appendix/mass_transfer_calcs}
+\input{Appendix/material_balance}
+\input{Appendix/economic_model}
+\input{Appendix/mbbr_design}
 
 
 \end{document}

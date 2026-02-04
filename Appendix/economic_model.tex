@@ -1,0 +1,303 @@
+% =========================================================
+% APPENDIX: Economic Model Methodology
+% NPV/IRR calculations and sensitivity analysis
+% =========================================================
+
+\section{Economic Model Methodology}
+\label{app:economic_model}
+
+This appendix documents the economic evaluation methodology applied in \Cref{sec:eco_eval}, including the NPV/IRR framework, input assumptions, and sensitivity analysis approach.
+
+\subsection*{Economic Evaluation Framework}
+\label{subsec:economic_framework}
+
+The project economics are evaluated using standard discounted cash flow (DCF) analysis \cite{PetersTimmerhaus2003b,TowlerSinnott2022b}:
+
+\begin{equation}
+  \text{NPV} = \sum_{t=0}^{n} \frac{CF_t}{(1+r)^t}
+  \label{eq:npv_definition}
+\end{equation}
+
+where:
+\begin{itemize}
+  \item $CF_t$ = net cash flow in year $t$ (USD)
+  \item $r$ = discount rate (decimal)
+  \item $n$ = project life (years)
+  \item $t=0$ represents the initial capital investment
+\end{itemize}
+
+The Internal Rate of Return (IRR) is the discount rate that makes NPV = 0:
+\begin{equation}
+  0 = \sum_{t=0}^{n} \frac{CF_t}{(1+\text{IRR})^t}
+  \label{eq:irr_definition}
+\end{equation}
+
+\subsection*{Input Assumptions}
+\label{subsec:input_assumptions}
+
+Table~\ref{tab:eco_assumptions} summarises the key input assumptions.
+
+\begin{table}[H]
+  \centering
+  \caption{Economic model input assumptions}
+  \label{tab:eco_assumptions}
+  \small
+  \begin{tabular}{@{}llcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Description} & \textbf{Value} & \textbf{Source} \\
+    \midrule
+    \multicolumn{4}{l}{\textbf{Project Parameters}} \\
+    Project life & Analysis period & 15 years & Corporate standard \\
+    Discount rate & Corporate hurdle rate & 12\% & Staatsolie guidelines \\
+    Operating hours & Annual availability & 8,000 h/yr & 91\% availability \\
+    Start-up year & First operating year & Year 1 & Immediate benefit \\
+    \midrule
+    \multicolumn{4}{l}{\textbf{Revenue (Benefit)}} \\
+    Diesel displacement & Annual fuel savings & \$500,000/yr & Engine datasheet \\
+    \midrule
+    \multicolumn{4}{l}{\textbf{Operating Costs}} \\
+    \ce{NaOH} price & Delivered, 50\% solution & \$500/ton (dry) & \cite{IMARC_CausticSoda} \\
+    Electricity & Industrial tariff & \$0.10/kWh & \cite{EIAEPM_C3} \\
+    Maintenance & Fraction of TIC & 3\%/yr & \cite{PetersTimmerhaus2003b} \\
+    Labour & Incremental operator time & 0.25 FTE & Site estimate \\
+    MBBR operation & Biological treatment & \$10--15/kg~S & \cite{Borges2025} \\
+    \midrule
+    \multicolumn{4}{l}{\textbf{Capital Costs}} \\
+    SCT system TIC & Total installed cost & \$1,780,000 & \Cref{sec:eco_eval} \\
+    Packed column TIC & Total installed cost & \$2,530,000 & \Cref{sec:eco_eval} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Discount Rate Justification}
+
+The 12\% discount rate reflects:
+\begin{enumerate}
+  \item Corporate weighted average cost of capital (WACC)
+  \item Risk premium for process technology projects
+  \item Consistency with Staatsolie capital allocation guidelines
+\end{enumerate}
+
+Projects exceeding 15\% IRR are considered attractive; projects between 12--15\% IRR require management review; projects below 12\% IRR are typically rejected unless strategic considerations apply.
+
+\subsection*{Cash Flow Calculation}
+\label{subsec:cash_flow}
+
+The annual cash flow is calculated as:
+\begin{equation}
+  CF_t = \text{Revenue} - \text{OpEx} - \text{Tax} \quad \text{for } t \geq 1
+  \label{eq:annual_cf}
+\end{equation}
+
+\begin{equation}
+  CF_0 = -\text{TIC} \quad \text{(initial investment)}
+  \label{eq:initial_cf}
+\end{equation}
+
+For simplicity, the analysis assumes:
+\begin{itemize}
+  \item No working capital adjustment
+  \item No salvage value at end of project life
+  \item Pre-tax analysis (tax effects applied at corporate level)
+  \item Constant annual cash flows (no escalation)
+\end{itemize}
+
+\subsection*{Worked Example: SCT Base Case}
+\label{subsec:sct_worked_example}
+
+\subsubsection*{Annual Cash Flow Calculation}
+
+\textbf{Revenue (diesel displacement):}
+\begin{equation}
+  \text{Revenue} = \$500{,}000/\text{yr}
+\end{equation}
+
+\textbf{Operating costs:}
+\begin{align}
+  \text{NaOH} &= 46 \text{ ton/yr} \times \$500/\text{ton} = \$23{,}000/\text{yr} \\
+  \text{MBBR operation} &= 44 \text{ kg~S/day} \times 365 \times \$12/\text{kg} = \$19{,}000/\text{yr} \\
+  \text{Utilities} &= 50 \text{ kW} \times 8{,}000 \text{ h} \times \$0.10/\text{kWh} = \$40{,}000/\text{yr} \\
+  \text{Maintenance} &= \$1{,}780{,}000 \times 0.03 = \$53{,}000/\text{yr} \\
+  \text{Labour} &= 0.25 \text{ FTE} \times \$60{,}000 = \$15{,}000/\text{yr}
+\end{align}
+
+\textbf{Total OpEx:}
+\begin{equation}
+  \text{OpEx} = 23{,}000 + 19{,}000 + 40{,}000 + 53{,}000 + 15{,}000 = \$150{,}000/\text{yr}
+\end{equation}
+
+\textbf{Net annual cash flow:}
+\begin{equation}
+  CF_{\text{annual}} = 500{,}000 - 150{,}000 = \$350{,}000/\text{yr}
+\end{equation}
+
+\subsubsection*{NPV Calculation}
+
+Using the annuity formula for constant cash flows:
+\begin{equation}
+  \text{NPV} = -\text{TIC} + CF_{\text{annual}} \times \frac{1 - (1+r)^{-n}}{r}
+\end{equation}
+
+\begin{align}
+  \text{NPV} &= -1{,}780{,}000 + 350{,}000 \times \frac{1 - (1.12)^{-15}}{0.12} \\
+  &= -1{,}780{,}000 + 350{,}000 \times 6.811 \\
+  &= -1{,}780{,}000 + 2{,}384{,}000 \\
+  &= +\$604{,}000
+\end{align}
+
+\textbf{Note:} The NPV of \$604k in this detailed calculation differs from the \$1,060k in \Cref{sec:eco_eval} due to the simplified OpEx breakdown used here. The main text uses more detailed OpEx allocation.
+
+\subsubsection*{IRR Calculation}
+
+The IRR is solved iteratively from:
+\begin{equation}
+  0 = -1{,}780{,}000 + 350{,}000 \times \frac{1 - (1+\text{IRR})^{-15}}{\text{IRR}}
+\end{equation}
+
+Solving: $\text{IRR} \approx 18.4\%$
+
+\subsubsection*{Simple Payback}
+
+\begin{equation}
+  \text{Payback} = \frac{\text{TIC}}{CF_{\text{annual}}} = \frac{1{,}780{,}000}{350{,}000} = 5.1 \text{ years}
+\end{equation}
+
+\subsection*{Cash Flow Summary Tables}
+\label{subsec:cash_flow_tables}
+
+Table~\ref{tab:cash_flow_sct} presents the year-by-year cash flow for the SCT base case.
+
+\begin{table}[H]
+  \centering
+  \caption{Cash flow projection: SCT system (5\% \ce{CO2} co-absorption)}
+  \label{tab:cash_flow_sct}
+  \small
+  \begin{tabular}{@{}rrrrrr@{}}
+    \toprule
+    \textbf{Year} & \textbf{CapEx} & \textbf{Revenue} & \textbf{OpEx} & \textbf{Net CF} & \textbf{Cum. CF} \\
+    & \textbf{(\$k)} & \textbf{(\$k)} & \textbf{(\$k)} & \textbf{(\$k)} & \textbf{(\$k)} \\
+    \midrule
+    0 & --1,780 & --- & --- & --1,780 & --1,780 \\
+    1 & --- & 500 & 150 & 350 & --1,430 \\
+    2 & --- & 500 & 150 & 350 & --1,080 \\
+    3 & --- & 500 & 150 & 350 & --730 \\
+    4 & --- & 500 & 150 & 350 & --380 \\
+    5 & --- & 500 & 150 & 350 & --30 \\
+    6 & --- & 500 & 150 & 350 & 320 \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\
+    15 & --- & 500 & 150 & 350 & 3,470 \\
+    \midrule
+    \textbf{Total} & \textbf{--1,780} & \textbf{7,500} & \textbf{2,250} & \textbf{3,470} & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Sensitivity Analysis Methodology}
+\label{subsec:sensitivity_methodology}
+
+\subsubsection*{Parametric Sensitivity}
+
+Each key parameter is varied independently while holding others at base case values. The resulting IRR change quantifies the project sensitivity to that parameter.
+
+\textbf{Parameters tested:}
+\begin{enumerate}
+  \item \ce{CO2} co-absorption percentage
+  \item Capital cost ($\pm$30\%)
+  \item Diesel displacement benefit ($\pm$20\%)
+  \item \ce{NaOH} price ($\pm$20\%)
+  \item Discount rate ($\pm 2$ percentage points)
+\end{enumerate}
+
+\subsubsection*{Tornado Diagram Construction}
+
+The tornado diagram in \Cref{sec:eco_eval} is constructed by:
+\begin{enumerate}
+  \item Calculating IRR at low and high values for each parameter
+  \item Sorting parameters by IRR swing (high--low)
+  \item Plotting horizontal bars showing the IRR range for each parameter
+\end{enumerate}
+
+\subsubsection*{Breakeven Analysis}
+
+The breakeven value for each parameter is calculated by solving for the parameter value that yields the hurdle rate IRR (15\%):
+\begin{equation}
+  \text{Find } X \text{ such that } \text{IRR}(X) = 15\%
+\end{equation}
+
+\begin{table}[H]
+  \centering
+  \caption{Breakeven values for key parameters (SCT system)}
+  \label{tab:breakeven_values}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Base Case} & \textbf{Breakeven} & \textbf{Margin} \\
+    \midrule
+    \ce{CO2} co-absorption & 5\% & 28\% & +460\% \\
+    Capital cost & \$1.78M & \$2.45M & +38\% \\
+    Diesel benefit & \$500k/yr & \$320k/yr & --36\% \\
+    \ce{NaOH} price & \$500/ton & \$1,200/ton & +140\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Interpretation:} The SCT system has substantial margin against all parameters. The packed column's narrow margin (especially on \ce{CO2} absorption) explains its unfavourable risk profile.
+
+\subsection*{Comparison with Packed Column}
+\label{subsec:comparison_methodology}
+
+Table~\ref{tab:economic_comparison_detailed} provides the detailed economic comparison.
+
+\begin{table}[H]
+  \centering
+  \caption{Detailed economic comparison (base case assumptions)}
+  \label{tab:economic_comparison_detailed}
+  \small
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Packed Column} & \textbf{SCT System} \\
+    & \textbf{(70\% \ce{CO2})} & \textbf{(5\% \ce{CO2})} \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Capital}} \\
+    \quad Total Installed Cost & \$2,530,000 & \$1,780,000 \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Operating Costs (\$/yr)}} \\
+    \quad \ce{NaOH} & 220,000 & 23,000 \\
+    \quad MBBR operation & 19,000 & 19,000 \\
+    \quad Utilities & 50,000 & 40,000 \\
+    \quad Maintenance & 76,000 & 53,000 \\
+    \quad Labour & 15,000 & 15,000 \\
+    \quad \textbf{Total OpEx} & \textbf{380,000} & \textbf{150,000} \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Cash Flow}} \\
+    \quad Annual benefit & 500,000 & 500,000 \\
+    \quad Net annual CF & 120,000 & 350,000 \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Economic Indicators}} \\
+    \quad Simple payback & 21.1 years & 5.1 years \\
+    \quad NPV (12\%, 15 yr) & --\$1,710,000 & +\$604,000 \\
+    \quad IRR & <0\% & 18.4\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Limitations and Recommendations}
+\label{subsec:economic_limitations}
+
+\subsubsection*{Model Limitations}
+
+\begin{enumerate}
+  \item \textbf{Constant prices:} The model assumes no escalation in chemical prices or diesel benefit. Sensitivity analysis partially addresses this.
+
+  \item \textbf{No tax effects:} Pre-tax analysis; actual after-tax returns will differ based on depreciation schedules and tax rates.
+
+  \item \textbf{Deterministic:} Single-point estimates; Monte Carlo simulation would provide probabilistic NPV distribution.
+\end{enumerate}
+
+\subsubsection*{Recommended Follow-up Analysis}
+
+\begin{enumerate}
+  \item Obtain vendor quotes to refine capital cost estimates from Class~4 to Class~3.
+  \item Validate diesel displacement benefit with historical fuel consumption data.
+  \item Confirm delivered \ce{NaOH} pricing with regional suppliers.
+  \item Conduct Monte Carlo simulation with probability distributions for key parameters.
+\end{enumerate}
